@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "slidev --open",
     "build": "slidev build --out dist/web",
-    "export": "slidev export --output dist/orchestrateurs-ia.pdf",
-    "export:handout": "slidev export --with-toc --output dist/orchestrateurs-ia-handout.pdf",
-    "export:build": "slidev export --with-clicks --output dist/orchestrateurs-ia-etapes.pdf",
+    "export": "slidev export --wait-until networkidle --wait 1500 --output dist/orchestrateurs-ia.pdf",
+    "export:handout": "slidev export --wait-until networkidle --wait 1500 --with-toc --output dist/orchestrateurs-ia-handout.pdf",
+    "export:build": "slidev export --wait-until networkidle --wait 1500 --with-clicks --output dist/orchestrateurs-ia-etapes.pdf",
     "check": "python3 scripts/check-clipping.py"
   },
   "dependencies": {
