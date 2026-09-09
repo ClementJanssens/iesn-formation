@@ -29,6 +29,10 @@ export default {
         rule: '#4d34f7',    //  filets de 2px
         core: '#220fa0',    // 12.77:1 — marques les plus fortes
         wash: '#f3f1fe',
+        // Ces deux-là ne touchent jamais du texte : ils ne servent qu'aux
+        // dégradés et aux faisceaux, où le contraste ne se mesure pas.
+        light: '#b7a8ff',
+        deep: '#220fa0',
       },
 
       ok: { DEFAULT: '#15754a', rule: '#2f8d63', wash: '#f0f8f4' },
@@ -51,6 +55,10 @@ export default {
     'eyebrow': 'text-[11px] font-600 uppercase tracking-[0.12em] leading-[1.2] text-t3',
     'kicker': 'text-[1.0625rem] leading-snug text-t3',
     'text-meta': 'text-[13px] leading-[1.4] text-t3 tabular-nums',
+    // Le registre machine : tout ce qui se lit comme une valeur plutôt que
+    // comme une phrase passe en mono. C'est le partage des deux familles qui
+    // donne sa texture au support, plus que n'importe quelle couleur.
+    'mono-value': 'font-mono tabular-nums tracking-[0.01em]',
     'chip': 'inline-block px-1.5 py-[1px] rounded-xs bg-surface-4 text-t2 text-[0.8em] leading-[1.5]',
 
     // Encadré à filet gauche : un lavis + un trait de 2px coloré.

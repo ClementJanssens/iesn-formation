@@ -337,14 +337,15 @@
   color: var(--c-t1);
 }
 
-/* Le chiffre de module est un ancrage, pas un texte : il est grand plutôt
-   que lumineux. 3,81:1 est volontairement sous le seuil de lecture. */
+/* Le chiffre de module est un ancrage, pas un texte. Il est maintenant assis
+   dans la tuile encadrée : la grille et le reflet lui donnent la présence que
+   la seule taille devait porter avant, donc il rétrécit et gagne en valeur. */
 .deck-section .module-numeral {
-  font-size: 86px;
+  font-size: 58px;
   font-weight: 500;
   line-height: 0.85;
-  letter-spacing: -0.04em;
-  color: var(--c-t4);
+  letter-spacing: -0.03em;
+  color: var(--c-t2);
   font-variant-numeric: tabular-nums;
 }
 
@@ -394,3 +395,303 @@
 /* Le retour arrière doit être instantané : un dé-révèle échelonné se lit
    comme un bug. */
 .slidev-vclick-hidden { transition-delay: 0ms !important; }
+
+/* ─────────────────────────────────────────────────────────────
+   ▲ Fin de l'habillage typographique.
+   ▼ Ce qui suit est le langage visuel proprement dit : le cadre de page, le
+     faisceau, la tuile à grille et le plateau isométrique. C'est la couche qui
+     donne au support un caractère au lieu d'un simple bon réglage de texte.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --deck-mono: 'DM Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Le violet complet. Le support n'utilisait que le plein ; le tint clair et
+     le fond de gamme servent aux dégradés et aux faisceaux, jamais au texte. */
+  --c-accent-light: #b7a8ff;
+  --c-accent-deep: #220fa0;
+
+  --ease-breathe: cubic-bezier(0.42, 0, 0.58, 1);
+  --ease-decel: cubic-bezier(0, 0, 0.2, 1);
+  --dur-beam: 6s;
+
+  /* Plateau isométrique — transposition papier. Les cinq états gardent leur
+     teinte d'origine : c'est elle qui porte le sens, pas la luminosité. Seule
+     la tuile au repos s'inverse, chrome clair ici au lieu d'anthracite. */
+  --iso-floor: #f1f1f1;
+  --iso-idle: #dcdcdc;
+  --iso-accent: #4d34f7;
+  --iso-working: #f59e0b;
+  --iso-error: #ef4444;
+  --iso-waiting: #06b6d4;
+  --iso-beam: #dedede;
+  --iso-cable: #cfcfcf;
+  --iso-label: rgba(255, 255, 255, 0.95);
+  --iso-sheen: rgba(255, 255, 255, 0.8);
+}
+
+/* Sur une tuile claire, l'étiquette blanche disparaît : elle repasse en encre. */
+.iso-agent.is-idle .iso-label,
+.iso-agent.is-offline .iso-label {
+  color: var(--c-t2);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Le cadre de page
+
+   Deux filets verticaux et quatre marqueurs de 8px. C'est la seule chose qui
+   se répète sur les 66 slides, et c'est ce qui fait qu'une page vide reste
+   composée : le texte a désormais un bord contre lequel se poser.
+   ───────────────────────────────────────────────────────────── */
+
+.deck-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.deck-frame .rule {
+  position: absolute;
+  top: 22px;
+  bottom: 22px;
+  width: 1px;
+  background: var(--c-hairline);
+}
+
+.deck-frame .mark {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background: var(--c-paper);
+  border: 1px solid var(--c-hairline-strong);
+}
+
+/* Le folio est une donnée machine : mono, chiffres tabulaires, sous le seuil
+   de lecture courante. On le trouve si on le cherche, jamais autrement. */
+.deck-folio {
+  position: absolute;
+  right: 36px;
+  bottom: 7px;
+  font-family: var(--deck-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--c-t4);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Le faisceau
+
+   La signature du système : un dégradé conique réduit à un anneau d'un pixel,
+   derrière le bord d'une carte ou d'une pastille. Là où il faut dire qu'une
+   chose est vivante, on pose un faisceau — pas une couleur de fond.
+
+   Chaque faisceau statique est épinglé à son propre angle, de sorte qu'une
+   rangée de cartes ne s'allume jamais à l'unisson.
+   ───────────────────────────────────────────────────────────── */
+
+@property --beam-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 35deg;
+}
+
+.beam {
+  position: relative;
+  isolation: isolate;
+}
+
+.beam::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--beam-angle),
+    transparent 0deg,
+    transparent 296deg,
+    var(--c-accent-light) 322deg,
+    var(--c-accent) 344deg,
+    var(--c-accent-deep) 356deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Deux arcs opposés : la variante « arcs » du guide, pour les pastilles. */
+.beam-arcs::after {
+  background: conic-gradient(
+    from var(--beam-angle),
+    transparent 0deg,
+    var(--c-accent) 18deg,
+    transparent 46deg,
+    transparent 180deg,
+    var(--c-accent-light) 198deg,
+    transparent 226deg,
+    transparent 360deg
+  );
+}
+
+.beam-spin::after {
+  animation: beam-spin var(--dur-beam) linear infinite;
+}
+
+@keyframes beam-spin {
+  to { --beam-angle: 395deg; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   La tuile à grille
+
+   Le traitement qui encadre le symbole et les icônes : une grille carrée
+   estompée par un masque radial, un reflet central doux, puis le glyphe.
+   Ici elle porte les chiffres de module.
+   ───────────────────────────────────────────────────────────── */
+
+.tile-mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--c-surface-1);
+  border: 1px solid var(--c-hairline);
+  overflow: hidden;
+}
+
+.tile-mark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, var(--c-hairline-strong) 0 1px, transparent 1px 25%),
+    repeating-linear-gradient(90deg, var(--c-hairline-strong) 0 1px, transparent 1px 25%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 0%, transparent 78%);
+  opacity: 0.75;
+}
+
+/* La lumière tombe d'en haut : sur papier le reflet est une ombre douce
+   inversée, sinon il ne se voit pas sur du blanc. */
+.tile-mark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.9) 0%, transparent 70%);
+}
+
+.tile-mark > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Le fond de plateau
+
+   La grille isométrique, à peine visible, estompée par un masque radial. Elle
+   ne se lit pas : elle empêche la page d'être plate. Réservée aux slides qui
+   respirent — couverture, séparateurs, énoncés — jamais sous du texte dense.
+   ───────────────────────────────────────────────────────────── */
+
+.iso-grid-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(26.565deg, var(--c-hairline) 0 1px, transparent 1px 25.04px),
+    repeating-linear-gradient(-26.565deg, var(--c-hairline) 0 1px, transparent 1px 25.04px);
+  -webkit-mask-image: radial-gradient(95% 110% at 100% 100%, #000 0%, transparent 74%);
+  mask-image: radial-gradient(95% 110% at 100% 100%, #000 0%, transparent 74%);
+  opacity: 0.85;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Le titre en dégradé
+
+   Un dégradé radial découpé dans le texte, ancré au-dessus de la ligne pour
+   que la lumière semble tomber de hors-champ. Les arrêts sont ceux du guide ;
+   seul le rayon est resserré, parce que sur blanc le tint clair du haut
+   passerait sous le seuil de lecture. Le bas de la lettre reste à 12,77:1.
+   ───────────────────────────────────────────────────────────── */
+
+.headline-gradient {
+  background: radial-gradient(
+    80% 200% at 50% -80%,
+    var(--c-accent-light) 25%,
+    var(--c-accent) 75%,
+    var(--c-accent-deep) 160%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Le registre machine
+
+   Deuxième famille, deuxième rôle : DM Mono ne porte que ce qui se lit comme
+   une machine qui parle — valeurs, identifiants, horaires, étiquettes. Inter
+   garde la prose. C'est ce partage qui donne au support sa texture, plus que
+   n'importe quelle couleur.
+   ───────────────────────────────────────────────────────────── */
+
+.slidev-layout .eyebrow,
+.slidev-layout .text-meta,
+.deck-cover .eyebrow,
+.deck-section .eyebrow {
+  font-family: var(--deck-mono);
+}
+
+/* Le chiffre de module, lui, reste en Inter. DM Mono barre son zéro — sur un
+   module 0 la salle lit « ø », ce qui n'est pas le contrat. */
+
+/* Les slides d'énoncé — `center` et `statement` — sont les respirations du
+   support : une phrase, beaucoup de vide. C'est là que le blanc devenait un
+   défaut plutôt qu'un choix. Elles reçoivent donc la grille de plateau, et
+   l'énoncé passe au dégradé : ce sont les deux seules slides sur dix où le
+   support hausse la voix, ce qui est exactement leur rôle dans la journée. */
+
+.slidev-layout.center,
+.slidev-layout.statement {
+  position: relative;
+}
+
+.slidev-layout.center::before,
+.slidev-layout.statement::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(26.565deg, var(--c-hairline) 0 1px, transparent 1px 25.04px),
+    repeating-linear-gradient(-26.565deg, var(--c-hairline) 0 1px, transparent 1px 25.04px);
+  -webkit-mask-image: radial-gradient(85% 105% at 50% 122%, #000 0%, transparent 76%);
+  mask-image: radial-gradient(85% 105% at 50% 122%, #000 0%, transparent 76%);
+  opacity: 0.85;
+}
+
+.slidev-layout.center > *,
+.slidev-layout.statement > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* L'énoncé prend le dégradé, la question de fil rouge non : `statement` ouvre
+   une démonstration, `center` pose une question à laquelle la salle doit
+   répondre — elle se lit mieux à 18,88:1 qu'en violet. */
+.slidev-layout.statement h1 {
+  background: radial-gradient(
+    80% 200% at 50% -80%,
+    var(--c-accent-light) 25%,
+    var(--c-accent) 75%,
+    var(--c-accent-deep) 160%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
