@@ -1,0 +1,396 @@
+/* Habillage du support.
+   Le cadre fait 980 × 552 px ; tout ce qui dépasse est coupé sans avertissement
+   à l'export (voir scripts/check-clipping.py).
+
+   Trois règles gouvernent ce fichier :
+   - une surface se sépare par un filet 1px + un écart de valeur, jamais par une ombre ;
+   - les titres sont en graisse 500, jamais en gras ;
+   - le mouvement se pose, il ne rebondit pas (courbe --ease-settle, pas d'overshoot). */
+
+:root {
+  /* Surfaces — sur blanc l'écart de valeur est forcément ténu, on est au
+     plafond. C'est le filet qui sépare, la valeur ne fait que le confirmer. */
+  --c-paper: #ffffff;
+  --c-surface-1: #f8f8f8;
+  --c-surface-2: #f6f6f6;
+  --c-surface-3: #eeeeee;
+  --c-surface-4: #e6e6e6;
+
+  --c-hairline-faint: #ededed;
+  --c-hairline: #e2e2e2;
+  --c-hairline-strong: #c9c9c9;
+
+  /* Texte. Les ratios sont mesurés sur #ffffff et reprennent presque
+     exactement ceux de la version sombre.
+     t4 est sous le seuil du texte : décoratif uniquement. */
+  --c-t1: #111111;  /* 18.88:1 */
+  --c-t2: #414141;  /* 10.21:1 */
+  --c-t3: #616161;  /*  6.19:1 */
+  --c-t4: #828282;  /*  3.84:1 */
+
+  /* Sur papier, c'est le violet plein qui devient lisible en texte —
+     l'inverse exact de l'encre, où c'était le tint clair. */
+  --c-accent: #4d34f7;       /*  6.67:1 — sûr en texte */
+  --c-accent-rule: #4d34f7;  /*  filets de 2px */
+  --c-accent-core: #220fa0;  /* 12.77:1 — marques les plus fortes */
+  --c-accent-wash: #f3f1fe;
+
+  --c-ok: #15754a;    --c-ok-rule: #2f8d63;    --c-ok-wash: #f0f8f4;
+  --c-warn: #8a5a10;  --c-warn-rule: #a5762f;  --c-warn-wash: #fdf7ec;
+  --c-bad: #b8332c;   --c-bad-rule: #c8564e;   --c-bad-wash: #fdf2f1;
+  --c-cool: #0f6f88;  --c-cool-rule: #2c8aa4;  --c-cool-wash: #eef7fa;
+  --c-info: #57575f;
+
+  --ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur-hover: 200ms;
+  --dur-reveal: 220ms;
+  --dur-panel: 300ms;
+
+  /* Variables Slidev */
+  --slidev-theme-primary: #4d34f7;
+  --slidev-slide-container-background: #ffffff;
+  --slidev-transition-duration: 0.22s;
+
+  --slidev-code-background: #f6f6f6;
+  --slidev-code-foreground: #1f1f1f;
+  --slidev-code-radius: 8px;
+  --slidev-code-padding: 0.7rem 0.9rem;
+  --slidev-code-font-size: 0.72rem;
+  --slidev-code-line-height: 1.45;
+  --slidev-code-margin: 0.5rem 0;
+  --slidev-code-tab-divider: #e2e2e2;
+  --slidev-code-tab-text-color: #616161;
+  --slidev-code-tab-active-text-color: #111111;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Densité et corps de texte
+   ───────────────────────────────────────────────────────────── */
+
+.slidev-layout {
+  padding: 1.5rem 2.4rem;
+  font-size: 1.0625rem;  /* 17px, au lieu des 17.6 par défaut */
+  line-height: 1.5;
+  color: var(--c-t1);
+}
+
+.slidev-layout p {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.slidev-layout li {
+  line-height: 1.65em;
+}
+
+.slidev-layout ul {
+  list-style: none;
+}
+
+/* Puce discrète : un carré de 3px en t4, aligné sur la première ligne. */
+.slidev-layout ul > li {
+  position: relative;
+}
+.slidev-layout ul > li::before {
+  content: '';
+  position: absolute;
+  left: -0.95em;
+  top: 0.68em;
+  width: 3px;
+  height: 3px;
+  background: var(--c-t4);
+}
+
+/* Jamais de gras : à cette échelle, le 500 marque déjà nettement contre le 400,
+   et le 600 déséquilibre la page. */
+.slidev-layout b,
+.slidev-layout strong {
+  font-weight: 500;
+  color: var(--c-t1);
+}
+
+.slidev-layout em {
+  color: var(--c-t2);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Titres — graisse 500, tracking négatif sur les grandes tailles
+   ───────────────────────────────────────────────────────────── */
+
+.slidev-layout h1 {
+  font-size: 1.8125rem;   /* 29px */
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.020em;
+  margin-bottom: 0.45rem;
+  color: var(--c-t1);
+}
+
+.slidev-layout h2 {
+  font-size: 1.25rem;     /* 20px */
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+  color: var(--c-t1);
+}
+
+.slidev-layout h3 {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  color: var(--c-t1);
+}
+
+/* Le thème par défaut impose font-700 sur ces deux layouts. */
+.slidev-layout.statement h1 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.14;
+}
+
+.slidev-layout.center h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: -0.022em;
+  line-height: 1.18;
+}
+.slidev-layout.center > div {
+  max-width: 62ch;
+  margin-inline: auto;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Opacité → tokens de texte
+
+   Le support s'appuyait sur opacity-40/50 pour la hiérarchie. Le problème n'est
+   pas propre au fond sombre : les opacités se multiplient en cascade
+   (0,5 × 0,7 = 0,35) et délavent aussi les filets et les lavis des blocs, alors
+   qu'un token de couleur ne touche que le texte. On les neutralise et on passe
+   par la couleur. Scopé sous .slidev-layout pour gagner en spécificité quel que
+   soit l'ordre de chargement.
+   ───────────────────────────────────────────────────────────── */
+
+.slidev-layout .opacity-40,
+.slidev-layout .opacity-50 {
+  opacity: 1;
+  color: var(--c-t3);
+}
+
+.slidev-layout .opacity-60,
+.slidev-layout .opacity-70,
+.slidev-layout .opacity-75,
+.slidev-layout .opacity-80 {
+  opacity: 1;
+  color: var(--c-t2);
+}
+
+.slidev-layout .opacity-85,
+.slidev-layout .opacity-90 {
+  opacity: 1;
+  color: var(--c-t1);
+}
+
+/* Une emphase dans un bloc atténué monte d'un cran, jamais de deux. */
+.slidev-layout .opacity-40 strong, .slidev-layout .opacity-40 b,
+.slidev-layout .opacity-50 strong, .slidev-layout .opacity-50 b {
+  color: var(--c-t2);
+}
+.slidev-layout .opacity-60 strong, .slidev-layout .opacity-60 b,
+.slidev-layout .opacity-70 strong, .slidev-layout .opacity-70 b,
+.slidev-layout .opacity-75 strong, .slidev-layout .opacity-75 b,
+.slidev-layout .opacity-80 strong, .slidev-layout .opacity-80 b {
+  color: var(--c-t1);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Tableaux — bande d'en-tête en capitales, filets au lieu de bordures
+   ───────────────────────────────────────────────────────────── */
+
+.slidev-layout table {
+  font-size: 0.845rem;
+  line-height: 1.4;
+  border-collapse: collapse;
+}
+.slidev-layout thead tr {
+  border-bottom: 1px solid var(--c-hairline-strong);
+}
+.slidev-layout tbody tr {
+  border-bottom: 1px solid var(--c-hairline-faint);
+}
+.slidev-layout tbody tr:last-child {
+  border-bottom: none;
+}
+.slidev-layout th {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--c-t3);
+  padding: 0.2rem 0.6rem 0.42rem;
+  text-align: left;
+}
+.slidev-layout td {
+  padding: 0.28rem 0.6rem;
+  color: var(--c-t2);
+}
+/* La première colonne porte le terme : elle reste au niveau de lecture haut. */
+.slidev-layout td:first-child {
+  color: var(--c-t1);
+}
+.slidev-layout td strong {
+  color: var(--c-t1);
+  font-weight: 500;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Code
+   ───────────────────────────────────────────────────────────── */
+
+.slidev-layout .slidev-code {
+  font-size: 0.72rem;
+  line-height: 1.45;
+  padding: 0.7rem 0.9rem;
+  /* Le filet fait la séparation ; l'écart de valeur ne fait que la confirmer. */
+  border: 1px solid var(--c-hairline);
+  background: var(--slidev-code-background) !important;
+}
+
+/* Encore plus serré là où le code cohabite avec un diagramme. */
+.compact .slidev-code {
+  font-size: 0.66rem;
+  line-height: 1.35;
+  padding: 0.55rem 0.75rem;
+}
+
+/* Code inline : un cran plus clair que le bloc, pour se lire comme un jeton. */
+.slidev-layout :not(pre) > code {
+  background: var(--c-surface-3);
+  color: var(--c-t1);
+  border-radius: 6px;
+  font-size: 0.88em;
+}
+
+.slidev-code-line-numbers .slidev-code code .line::before {
+  color: var(--c-t4);
+}
+
+.slidev-layout blockquote {
+  background: var(--c-surface-1);
+  border-left: 2px solid var(--c-accent-rule);
+  border-radius: 0 6px 6px 0;
+  color: var(--c-t2);
+}
+
+.slidev-layout a {
+  color: var(--c-accent);
+  border-bottom-color: var(--c-hairline-strong);
+}
+
+.slidev-layout kbd {
+  background: var(--c-surface-4);
+  border-color: var(--c-hairline-strong);
+  color: var(--c-t2);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Diagrammes Mermaid
+   Le reste de leur habillage passe par setup/mermaid.ts : ils sont rendus
+   dans un ShadowRoot, aucune CSS d'ici ne les atteint.
+   ───────────────────────────────────────────────────────────── */
+
+.slidev-layout .mermaid {
+  display: flex;
+  justify-content: center;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Layouts de marque
+   ───────────────────────────────────────────────────────────── */
+
+.deck-cover,
+.deck-section {
+  padding: 0 3.5rem;
+  height: 100%;
+  display: grid;
+  position: relative;
+}
+
+.deck-cover h1 {
+  font-size: 3.25rem;   /* 52px */
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.030em;
+  margin: 0;
+  color: var(--c-t1);
+}
+
+.deck-section h1 {
+  font-size: 2.625rem;  /* 42px */
+  font-weight: 500;
+  line-height: 1.10;
+  letter-spacing: -0.028em;
+  margin: 0;
+  color: var(--c-t1);
+}
+
+/* Le chiffre de module est un ancrage, pas un texte : il est grand plutôt
+   que lumineux. 3,81:1 est volontairement sous le seuil de lecture. */
+.deck-section .module-numeral {
+  font-size: 86px;
+  font-weight: 500;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--c-t4);
+  font-variant-numeric: tabular-nums;
+}
+
+.deck-section .progress-fill {
+  transition: width var(--dur-panel) var(--ease-settle);
+  transition-delay: 120ms;   /* laisse le chiffre se poser d'abord */
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Mouvement
+
+   Les défauts de Slidev sont trop brusques ici : .slidev-vclick-target est en
+   « all 0.1s ease » et les variantes directionnelles translatent de 20px, soit
+   3,6 % d'une scène de 552px — ça claque au lieu de se poser.
+   ───────────────────────────────────────────────────────────── */
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity var(--slidev-transition-duration) var(--ease-settle);
+}
+
+.slidev-vclick-target {
+  transition:
+    opacity var(--dur-hover) var(--ease-settle),
+    translate var(--dur-reveal) var(--ease-settle);
+}
+.slidev-vclick-target.slidev-vclick-anim-fade-in {
+  transition-duration: var(--dur-hover);
+}
+
+.slidev-vclick-hidden.slidev-vclick-anim-up { translate: 0 6px; }
+.slidev-vclick-hidden.slidev-vclick-anim-down { translate: 0 -6px; }
+.slidev-vclick-hidden.slidev-vclick-anim-left { translate: 6px 0; }
+.slidev-vclick-hidden.slidev-vclick-anim-right { translate: -6px 0; }
+/* Pas de zoom sur une révélation. */
+.slidev-vclick-hidden.slidev-vclick-anim-scale { scale: 1; }
+
+/* Tempo décalé entre frères révélés d'un même clic : trois cartes se posent
+   en 300 ms — assez vite pour qu'on n'attende pas, assez lent pour que ça se
+   lise comme séquentiel. */
+.stagger > *:nth-child(2) { transition-delay: 40ms; }
+.stagger > *:nth-child(3) { transition-delay: 80ms; }
+.stagger > *:nth-child(4) { transition-delay: 120ms; }
+.stagger > *:nth-child(5) { transition-delay: 160ms; }
+.stagger > *:nth-child(6) { transition-delay: 200ms; }
+.stagger > *:nth-child(7) { transition-delay: 240ms; }
+/* Le retour arrière doit être instantané : un dé-révèle échelonné se lit
+   comme un bug. */
+.slidev-vclick-hidden { transition-delay: 0ms !important; }

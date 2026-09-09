@@ -1,0 +1,26 @@
+{
+  "name": "formation-orchestrateurs-ia",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "slidev --open",
+    "build": "slidev build --out dist/web",
+    "export": "slidev export --output dist/orchestrateurs-ia.pdf",
+    "export:handout": "slidev export --with-toc --output dist/orchestrateurs-ia-handout.pdf",
+    "export:build": "slidev export --with-clicks --output dist/orchestrateurs-ia-etapes.pdf",
+    "check": "python3 scripts/check-clipping.py"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52.0.0",
+    "@slidev/theme-default": "^0.25.0",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "playwright-chromium": "^1.49.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "playwright-chromium"
+    ]
+  }
+}
