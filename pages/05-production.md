@@ -32,27 +32,27 @@ Le mal est fait avant qu'on ait relu.
 layout: default
 ---
 
-# Le périmètre réel de l'agent
+# Ce que l'agent peut réellement faire
 
 <div class="pt-6 text-2xl pb-10">
-Un agent a exactement les droits du processus qui exécute ses outils.
+Un agent ne peut agir qu'avec les outils et les droits qu'on lui donne.
 </div>
 
 <div class="grid grid-cols-3 gap-6 text-base">
 
 <div v-click class="box p-5">
-<div class="font-semibold pb-2">Périmètre d'outils</div>
-<div class="eyebrow">le moins cher, le plus efficace</div>
+<div class="font-semibold pb-2">Outils accessibles</div>
+<div class="eyebrow">seulement ceux nécessaires à sa mission</div>
 </div>
 
 <div v-click class="box p-5">
-<div class="font-semibold pb-2">Droits d'exécution</div>
-<div class="eyebrow">un compte de service dédié</div>
+<div class="font-semibold pb-2">Droits accordés</div>
+<div class="eyebrow">un compte dédié, avec le minimum de permissions</div>
 </div>
 
 <div v-click class="box p-5">
-<div class="font-semibold pb-2">Bac à sable</div>
-<div class="eyebrow">dès qu'il exécute du code</div>
+<div class="font-semibold pb-2">Exécution du code</div>
+<div class="eyebrow">toujours dans un environnement isolé</div>
 </div>
 
 </div>
@@ -64,10 +64,10 @@ en écriture. Votre réseau interne est son réseau interne. Vos droits sur la b
 sont ses droits sur la base. Le dire lentement, ça fait son effet.
 
 Les trois niveaux, développés :
-1 · Périmètre d'outils — ce qui n'est pas exposé ne peut pas arriver.
-2 · Droits d'exécution — un compte de service dédié, en lecture seule par défaut,
+1 · Outils accessibles — ce qui n'est pas exposé ne peut pas arriver.
+2 · Droits accordés — un compte de service dédié, en lecture seule par défaut,
     jamais vos identifiants personnels.
-3 · Bac à sable — conteneur ou machine jetable dès que l'agent exécute du code
+3 · Exécution du code — conteneur ou machine jetable dès que l'agent exécute du code
     arbitraire. Non négociable dans ce cas.
 
 LA phrase du module, à poser ici : la première ligne de défense, c'est la liste
@@ -476,7 +476,7 @@ layout: default
 
 <div class="flex gap-4"><span class="text-accent font-bold">1</span><div><strong>La liste d'outils est la première défense</strong>, avant tout prompt.</div></div>
 
-<div class="flex gap-4"><span class="text-accent font-bold">2</span><div>Triez par <strong>réversibilité</strong>, pas par importance.</div></div>
+<div class="flex gap-4"><span class="text-accent font-bold">2</span><div>Plus une action est difficile à annuler, plus elle doit être <strong>encadrée</strong>.</div></div>
 
 <div class="flex gap-4"><span class="text-accent font-bold">3</span><div>Sans trace, pas de débogage. <strong>Instrumentez le premier jour.</strong></div></div>
 

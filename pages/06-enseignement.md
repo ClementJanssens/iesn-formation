@@ -77,94 +77,117 @@ le pattern. Les trois slides suivantes font exactement ça sur trois cas.
 layout: default
 ---
 
-# Cas 1 · Le flux de demandes entrantes
+# Cas 1 · Les mails du secrétariat
 
-<div class="pt-4 grid grid-cols-2 gap-10">
-<div>
+<div class="teaching-case">
 
-```mermaid {scale: 1.05}
-flowchart TD
-  M([Demande]) --> C{"Classifier"}
-  C -->|"info publique"| A["Réponse type<br>+ lien"]
-  C -->|"cas particulier"| B["Brouillon<br>→ humain"]
-  C -->|"doute"| H["File humaine"]
-  A --> L[(Journal)]
-  B --> L
-  H --> L
-```
+<div class="case-situation">
+<div class="eyebrow">Situation</div>
+<div>Deux mails arrivent : « Où trouver le formulaire ? » et « Puis-je encore m'inscrire ? »</div>
+</div>
+
+<div class="case-path">
+
+<div v-click class="case-step">
+<div class="case-step-number">01</div>
+<div class="case-step-title">L'agent classe le mail</div>
+<div class="case-step-copy">Information publique, situation personnelle ou doute.</div>
+</div>
+
+<div v-click class="case-step">
+<div class="case-step-number">02</div>
+<div class="case-step-title">Il choisit une action</div>
+<div class="case-step-copy case-choices">
+<div><strong>Public</strong><span>réponse avec lien</span></div>
+<div><strong>Personnel</strong><span>brouillon à relire</span></div>
+<div><strong>Doute</strong><span>transmission sans réponse</span></div>
+</div>
+</div>
+
+<div v-click class="case-step">
+<div class="case-step-number">03</div>
+<div class="case-step-title">L'humain reprend la main</div>
+<div class="case-step-copy">Le secrétariat traite les cas personnels et tous les doutes.</div>
+</div>
 
 </div>
-<div class="space-y-5 pt-4">
 
-<v-clicks>
-
-<div class="rail"><strong>Pattern</strong> — routage, avec sortie « je ne sais pas »</div>
-<div class="rail"><strong>Le garde-fou</strong> — la classe « doute », généreuse</div>
-<div class="rail"><strong>Déjà deux sur trois</strong> — donc <strong>pas</strong> d'accès aux dossiers</div>
-<div class="rail"><strong>La mesure</strong> — les réponses fausses vues après coup</div>
-
-</v-clicks>
-
+<div v-click class="case-footer">
+<div><span>Architecture</span><strong>Routage</strong></div>
+<div><span>Limite</span><strong>Aucun accès aux dossiers étudiants</strong></div>
+<div><span>À mesurer</span><strong>Les réponses erronées</strong></div>
 </div>
+
 </div>
 
 <!--
-Ce qui rend le cas viable : une part importante des demandes porte sur une
-information publique et stable, et sur cette part la valeur ajoutée humaine
-est nulle. NE PAS l'affirmer à leur place — ils connaissent leur secrétariat,
-pas moi. Le poser en question : « chez vous, quelle proportion des mails
-appelle une réponse qui est déjà écrite quelque part ? » Leur réponse vaut
-mieux que mon estimation, et c'est exactement le critère à chercher en premier
-sur n'importe quel cas.
+Commencer par lire les deux mails. Le premier appelle une information publique
+et stable. Le second dépend d'une situation personnelle. C'est cette différence,
+très ordinaire, qui justifie le routage.
 
-Le garde-fou : mieux vaut escalader trop que répondre de travers à quelqu'un
-qui s'inquiète d'une inscription. La classe « doute » doit être généreuse
-au démarrage, on la resserre ensuite avec les données.
+Au premier clic, l'agent ne répond encore à rien : il classe. Au deuxième,
+montrer que chaque classe ouvre une action différente. Une information publique
+peut recevoir une réponse avec sa source. Un cas personnel ne reçoit qu'un
+brouillon. En cas de doute, aucun message ne part.
 
-Les trois du module 5, appliqués : cet agent est exposé à du contenu non maîtrisé
-(des mails) et possède un canal de sortie (répondre). Il en a donc déjà deux
-sur trois. Donc il N'A PAS accès aux dossiers. S'il en faut, on sépare
-en deux services. Le faire dire à la salle plutôt que le dire.
+Au troisième clic, faire nommer le rôle humain : le secrétariat reprend les cas
+personnels et les doutes. Le garde-fou doit favoriser le doute au démarrage.
+Mieux vaut transmettre trop de mails que répondre de travers à une personne
+qui s'inquiète de son inscription.
 
-La mesure : part traitée sans humain, part escaladée, et surtout le nombre
-de réponses fausses détectées après coup. C'est ce dernier chiffre qui décide
-si on continue.
+Cet agent lit du contenu non maîtrisé et peut envoyer une réponse. Il possède
+donc déjà deux capacités risquées du module 5. Il n'accède pas aux dossiers
+étudiants. Si cet accès devient nécessaire, on sépare les deux services.
+
+La mesure principale reste le nombre de réponses erronées découvertes après
+l'envoi. La part automatisée n'a de sens qu'à côté de ce chiffre.
 -->
 
 ---
 layout: default
 ---
 
-# Cas 2 · La pré-relecture d'un travail écrit
+# Cas 2 · Préparer la correction
 
-<div class="pt-4 grid grid-cols-2 gap-10">
-<div>
+<div class="teaching-case">
 
-```mermaid {scale: 1.05}
-flowchart TD
-  T([Travail]) --> A["Méthode"]
-  T --> B["Sources"]
-  T --> C["Structure<br>et langue"]
-  A --> S["Consolidation"]
-  B --> S
-  C --> S
-  S --> R([Grille annotée<br>sans note])
-  R --> H["Lecture<br>humaine"]
-```
+<div class="case-situation">
+<div class="eyebrow">Situation</div>
+<div>Quatre-vingts travaux doivent être relus avec la même grille.</div>
+</div>
+
+<div class="case-path">
+
+<div v-click class="case-step">
+<div class="case-step-number">01</div>
+<div class="case-step-title">Trois lectures séparées</div>
+<div class="case-step-copy case-choices">
+<div><strong>Méthode</strong><span>la démarche répond-elle à la question ?</span></div>
+<div><strong>Sources</strong><span>les affirmations sont-elles étayées ?</span></div>
+<div><strong>Clarté</strong><span>où le raisonnement devient-il difficile à suivre ?</span></div>
+</div>
+</div>
+
+<div v-click class="case-step">
+<div class="case-step-number">02</div>
+<div class="case-step-title">Une grille annotée</div>
+<div class="case-step-copy">Chaque remarque renvoie à un passage précis. Aucun score n'est produit.</div>
+</div>
+
+<div v-click class="case-step">
+<div class="case-step-number">03</div>
+<div class="case-step-title">L'enseignant décide</div>
+<div class="case-step-copy">Il garde, corrige ou écarte les remarques, puis formule son retour.</div>
+</div>
 
 </div>
-<div class="space-y-5 pt-4">
 
-<v-clicks>
-
-<div class="rail"><strong>Pattern</strong> — parallélisation, trois lectures</div>
-<div class="rail"><strong>Non négociable</strong> — des remarques, jamais un score</div>
-<div class="rail"><strong>Le gain</strong> — du temps de correction <em>utile</em></div>
-<div class="rail"><strong>À dire aux étudiants</strong> — dès le début du cours</div>
-
-</v-clicks>
-
+<div v-click class="case-footer">
+<div><span>Architecture</span><strong>Parallélisation</strong></div>
+<div><span>Limite</span><strong>L'agent ne note pas</strong></div>
+<div><span>À mesurer</span><strong>Remarques utiles et temps gagné</strong></div>
 </div>
+
 </div>
 
 <SourceNote :items="[
@@ -172,9 +195,16 @@ flowchart TD
 ]" />
 
 <!--
-La règle non négociable, développée : la sortie est une grille de remarques
-LOCALISÉES, jamais un score. Dès qu'un chiffre apparaît, il devient l'ancre
-de la lecture humaine.
+Commencer par le problème concret : quatre-vingts travaux, une grille commune,
+et du temps enseignant absorbé par le repérage des passages à revoir.
+
+Au premier clic, expliquer la parallélisation sans jargon : trois lecteurs
+reçoivent le même travail, mais chacun n'observe qu'une dimension. Ils ne
+produisent pas trois corrections concurrentes.
+
+Au deuxième clic, leur sortie commune est une grille de remarques localisées,
+jamais un score. Dès qu'un chiffre apparaît, il devient l'ancre de la lecture
+humaine.
 
 CE QUE DIT VRAIMENT LA LITTÉRATURE, à donner exactement comme ça si on me
 demande la source — c'est un public qui la demandera : la méta-analyse de
@@ -187,14 +217,13 @@ L'application à une pré-note produite par un agent est une extrapolation
 raisonnable — la présenter comme telle. Ça reste un argument recevable en
 conseil pédagogique.
 
-Pourquoi trois lectures et pas une : trois contextes séparés, trois attentions
-pleines. Même remarque qu'au module 2 — la formule « il en fait deux bien »
-est une image de praticien, pas un chiffre. Le vrai travail est ensuite dans
-la consolidation des avis divergents.
+Au troisième clic, l'enseignant reste le correcteur. Il vérifie le travail,
+écarte les remarques faibles et décide du retour. Le gain recherché concerne
+le repérage, pas la responsabilité de la correction.
 
-Le gain : pas du temps de correction, du temps de correction UTILE.
-L'humain arrive avec les passages déjà repérés. Nuance importante,
-sinon on promet un gain de temps qui ne vient pas.
+Mesurer deux choses sur un petit lot : la part des remarques que l'enseignant
+conserve, puis le temps réellement gagné. Si les remarques sont nombreuses
+mais peu utiles, le système a seulement déplacé le travail.
 
 L'annonce aux étudiants : une pré-relecture automatique non annoncée
 est un problème de confiance avant d'être un problème technique.
@@ -204,52 +233,63 @@ est un problème de confiance avant d'être un problème technique.
 layout: default
 ---
 
-# Cas 3 · L'assistant de révision d'un cours
+# Cas 3 · Aider à réviser un cours
 
-<div class="pt-4 grid grid-cols-2 gap-10">
-<div>
+<div class="teaching-case">
 
-```mermaid {scale: 1.05}
-flowchart TD
-  Q([Question<br>étudiant]) --> A{"Agent borné"}
-  A --> R["chercher_dans_le_cours"]
-  R --> A
-  A --> V["poser_une_question<br>de vérification"]
-  V --> A
-  A --> S(["Réponse<br>+ renvoi au support"])
-  A -.->|"hors périmètre"| X(["« Hors du périmètre<br>de ce cours »"])
-```
+<div class="case-situation">
+<div class="eyebrow">Situation</div>
+<div>Un étudiant demande : « Quelle différence entre corrélation et causalité ? »</div>
+</div>
+
+<div class="case-path">
+
+<div v-click class="case-step">
+<div class="case-step-number">01</div>
+<div class="case-step-title">Chercher dans le cours</div>
+<div class="case-step-copy">L'assistant consulte uniquement les supports fournis par l'enseignant.</div>
+</div>
+
+<div v-click class="case-step">
+<div class="case-step-number">02</div>
+<div class="case-step-title">Faire réfléchir d'abord</div>
+<div class="case-step-copy">Il demande : « Quelle différence vois-tu déjà entre les deux notions ? »</div>
+</div>
+
+<div v-click class="case-step">
+<div class="case-step-number">03</div>
+<div class="case-step-title">Répondre ou refuser</div>
+<div class="case-step-copy">Il cite la page du support. Si le cours ne répond pas, il le dit.</div>
+</div>
 
 </div>
-<div class="space-y-5 pt-4">
 
-<v-clicks>
-
-<div class="rail"><strong>Pattern</strong> — agent borné, corpus fermé</div>
-<div class="rail"><strong>Il cite</strong> — la page, sinon il refuse</div>
-<div class="rail"><strong>Le sous-produit</strong> — le journal des questions</div>
-<div class="rail"><strong>La limite</strong> — répondre trop bien remplace l'effort</div>
-
-</v-clicks>
-
+<div v-click class="case-footer">
+<div><span>Architecture</span><strong>Agent borné</strong></div>
+<div><span>Limite</span><strong>Le cours, rien d'autre</strong></div>
+<div><span>Pour l'enseignant</span><strong>Les questions récurrentes</strong></div>
 </div>
+
 </div>
 
 <!--
-Le choix structurant : le corpus est FERMÉ — vos supports, et rien d'autre.
-Hors périmètre, l'agent refuse au lieu d'improviser. C'est ce refus qui fait
-la valeur pédagogique.
+Lire d'abord la question de l'étudiant. Elle paraît simple, mais un assistant
+général pourrait répondre avec une définition différente de celle du cours.
 
-Ce que ça change : l'étudiant obtient une réponse ancrée dans le cours,
-pas dans une moyenne du web. Et vous voyez, en agrégé, sur quoi il bute.
+Au premier clic, poser la borne : l'assistant cherche dans les supports fournis,
+et nulle part ailleurs. L'étudiant obtient ainsi une réponse ancrée dans le cours.
 
-Le sous-produit le plus intéressant, et c'est celui qui accroche toujours :
-le journal des questions. C'est une donnée d'enseignement que vous n'aviez
-jamais eue — les incompréhensions réelles, en volume, AVANT l'examen.
+Au deuxième clic, montrer le choix pédagogique. Avant d'expliquer, l'assistant
+demande à l'étudiant de formuler ce qu'il comprend déjà. Sans cette étape, une
+réponse trop complète peut remplacer l'effort de rappel.
 
-La limite honnête : un agent qui répond trop bien remplace l'effort de recherche.
-Le remède est dans le schéma — le faire poser une question de vérification
-avant de répondre change complètement l'effet. Montrer la branche dans le diagramme.
+Au troisième clic, la réponse cite une page précise. Si aucune page ne soutient
+la réponse, l'assistant refuse d'improviser et annonce que la question dépasse
+le cours.
+
+Le sous-produit utile pour l'enseignant est le journal agrégé des questions.
+Il révèle les incompréhensions récurrentes avant l'examen. Ne pas conserver
+les conversations nominatives si elles ne sont pas nécessaires.
 -->
 
 ---
@@ -283,7 +323,6 @@ Vos étudiants ont déjà des agents.
 - noter les versions successives, pas le fichier
 - deux questions sur son rendu, sans machine
 - exiger la trace et ce que l'agent a raté
-- un sujet que le web ne connaît pas
 
 </div>
 </div>
@@ -317,7 +356,7 @@ Ce qui ne fonctionne plus, développé :
   elle ne trie pas les étudiants selon leur travail, elle les trie selon leur
   obéissance. Ceux qui la respectent sont les seuls à en payer le prix.
 
-Ce qui fonctionne encore — quatre gestes, pas quatre principes :
+Ce qui fonctionne encore — trois gestes, pas trois principes :
 — noter les versions successives, pas le fichier : demander le dépôt à trois
   dates, ou l'historique du document. Le barème porte sur ce qui a bougé entre
   deux versions. C'est ce qui coûte le moins cher à mettre en place ;
@@ -327,10 +366,7 @@ Ce qui fonctionne encore — quatre gestes, pas quatre principes :
 — exiger la trace et ce que l'agent a raté : la consigne devient « utilise un
   agent, joins la conversation, et écris un paragraphe sur ce qu'il a écrit de
   faux ». Le paragraphe est la partie notée — il est impossible à écrire sans
-  avoir relu ;
-— un sujet que le web ne connaît pas : les données mesurées en labo la semaine
-  dernière, le cas vu en séance, le terrain de stage, le corpus interne. L'agent
-  reste utile, mais il ne peut plus produire la réponse tout seul.
+  avoir relu.
 
 Si on me demande quoi mettre en place demain matin, répondre : les versions
 successives et les deux questions. Les deux se font sans changer le sujet

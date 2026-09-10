@@ -90,7 +90,7 @@ layout: default
 </div>
 
 <div class="flex gap-8 items-baseline">
-<div class="w-44 shrink-0"><span class="font-semibold text-cool">2 · Décharger</span></div>
+<div class="w-44 shrink-0"><span class="font-semibold text-cool">2 · Stocker ailleurs</span></div>
 <div>Écrire ailleurs, ne garder qu'une référence</div>
 </div>
 
@@ -116,11 +116,11 @@ des gens sautent directement à 3 ou 4.
 pas le HTML. C'est la stratégie la plus rentable et la plus négligée,
 parce qu'elle se fait dans le code de l'outil, là où personne ne regarde.
 
-2 · Décharger — le gros volume sur disque ou en base, une référence dans
+2 · Stocker ailleurs — le gros volume sur disque ou en base, une référence dans
 le contexte. L'agent relit le fichier s'il en a besoin. Le contexte redevient
 un index. C'est là que le RAG trouve sa place, et seulement là — le dire
 franchement : la recherche documentaire est un outil au service de la
-stratégie 2, rien de plus.
+stratégie « Stocker ailleurs », rien de plus.
 
 3 · Résumer — quand le contexte atteint un seuil, remplacer les vingt premiers
 tours par un résumé. On perd du détail, on gagne de la marge. À faire à des
@@ -136,27 +136,33 @@ layout: default
 
 # Trois mémoires qu'il faut distinguer
 
-<div class="pt-8 grid grid-cols-3 gap-6">
+<div class="pt-6 grid grid-cols-3 gap-6">
 
-<div v-click class="box p-6">
+<div v-click class="box p-6 min-h-[176px] flex flex-col">
 <div class="text-xl pb-2">De travail</div>
-<div class="eyebrow">le tableau de messages</div>
+<div class="eyebrow">la tâche en cours</div>
+<div class="mt-5 pt-4 border-t border-hairline text-[0.9rem] leading-snug">« Corrige ce bug » + les logs</div>
+<div class="mt-auto pt-4 text-meta">conversation, fichiers ouverts</div>
 </div>
 
-<div v-click class="box p-6">
+<div v-click class="box p-6 min-h-[176px] flex flex-col">
 <div class="text-xl pb-2">Persistante</div>
-<div class="eyebrow">des faits durables</div>
+<div class="eyebrow">les faits à retenir</div>
+<div class="mt-5 pt-4 border-t border-hairline text-[0.9rem] leading-snug">« Toujours répondre en français »</div>
+<div class="mt-auto pt-4 text-meta">mémoire locale, README.md</div>
 </div>
 
-<div v-click class="box p-6">
+<div v-click class="box p-6 min-h-[176px] flex flex-col">
 <div class="text-xl pb-2">Procédurale</div>
-<div class="eyebrow">des façons de faire</div>
+<div class="eyebrow">la marche à suivre</div>
+<div class="mt-5 pt-4 border-t border-hairline text-[0.9rem] leading-snug">« Après une modif : lint et tests »</div>
+<div class="mt-auto pt-4 text-meta">AGENTS.md, SKILL.md</div>
 </div>
 
 </div>
 
-<div v-click class="pt-10 text-lg">
-La distinction décide <strong>quand</strong> chaque chose entre dans le contexte.
+<div v-click class="mt-7 callout-note text-[0.95rem]">
+<strong>AGENTS.md peut mêler les deux dernières</strong> : ce que l'agent doit savoir et comment il doit agir.
 </div>
 
 <!--
@@ -170,6 +176,13 @@ ou un fichier. Toujours présent.
 Procédurale — « pour préparer une séance, commencer par relire les objectifs,
 puis… ». Long, et chargé SEULEMENT quand c'est pertinent. C'est un mode d'emploi,
 pas un fait.
+
+Pointer la dernière ligne de chaque carte : la mémoire de travail prend la forme
+de la conversation et des fichiers ouverts ; la persistante, d'une mémoire locale
+ou d'un document du projet ; la procédurale, d'un AGENTS.md ou d'un SKILL.md.
+
+AGENTS.md peut contenir les deux dernières. « Le projet utilise pnpm » est un fait
+durable. « Après une modification, lancer lint et tests » est une procédure.
 
 Pourquoi la distinction compte : un fait durable est toujours là, une procédure
 ne se charge qu'au moment où on en a besoin. Sinon elle mange le budget pour rien,
@@ -188,58 +201,61 @@ class: text-center
 # Labo 3
 
 <div class="text-xl opacity-60 pt-6">
-Dites-lui bonjour.<br>Puis ouvrez une conversation neuve.
+Tous les lundis, 9h.<br>Sans vous.
 </div>
 
 <div class="pt-14 text-sm opacity-50">
-Vingt minutes. Une phrase, et un onglet à aller voir.
+Vingt minutes. Une dernière phrase, et un onglet à aller voir.
 </div>
 
 <!--
-LABO 3 — 20 minutes. Le plus simple des trois, et celui qui laisse la trace
-la plus longue.
+**LABO 3 · 20 MIN**
 
-TEMPS 1 (3 min). Une phrase dans le chat, la leur :
-  « Bonjour, je m'appelle Untel, j'enseigne telle matière, et je déteste
-    les réponses en paragraphes. »
-Puis lui demander n'importe quoi, pour que la conversation existe.
+**Temps 1 · 5 min · Ce qu'ils font**
 
-TEMPS 2 (4 min). Aller voir l'onglet des mémoires. Les faits y sont.
-Personne ne lui a demandé de les retenir : il l'a fait tout seul, après coup.
+1. Rester dans la même conversation.
+2. Taper :
 
-TEMPS 3 (3 min) — CELUI QUI FAIT MOUCHE.
-Une conversation NEUVE. Pas un nouveau message : une nouvelle conversation,
-celle-là même dont on a dit à 13h00 qu'elle ne se souvient de rien.
-« Tu te souviens de moi ? » — il se souvient.
+> Tous les lundis à 9h, refais cette liste et envoie-moi le PDF par mail.
 
-TEMPS 4 (5 min) — LE VRAI SUJET.
-Leur faire chercher, dans les mémoires, CE QU'ILS N'ONT PAS DIT.
-Il y aura des déductions : une discipline devinée, une préférence extrapolée,
-un niveau d'étudiants supposé. Certaines seront fausses.
-Ne pas désamorcer, c'est le cœur du module : la mémoire d'un agent est une
-reconstruction, et elle s'écrit sans qu'on la relise.
-Demander qui a trouvé une mémoire fausse. Il y aura des mains.
+3. Vérifier que la tâche planifiée existe.
 
-DÉBRIEF (5 min), deux faits vrais et une distinction :
+Faire remarquer qu'ils n'ont ouvert aucun formulaire ni choisi une fréquence dans un menu.
 
-— Les mémoires s'effacent si rien ne les utilise, et chaque rappel prolonge
-  leur durée de vie. Ce qui sert reste, le reste se retire tout seul.
-  C'est un métabolisme.
+**Temps 2 · 3 min · Déclenchement immédiat**
 
-— L'écriture automatique après conversation est ACTIVE PAR DÉFAUT, et elle se
-  coupe. C'est une décision d'architecture, pas un réglage de confort :
-  un agent qui écrit sa propre mémoire sans relecture est un agent dont
-  personne ne peut expliquer le comportement six mois plus tard.
+1. Taper : « Déclenche-la maintenant. »
+2. Vérifier que le mail et son PDF arrivent.
 
-— La distinction du module, à reposer sur ce qu'ils viennent de faire :
-  « je m'appelle Untel » est un FAIT, ça va en mémoire. « Les comptes rendus,
-  toujours en trois puces » est une RÈGLE, ça va dans une procédure écrite,
-  qui ne se charge que quand la tâche correspond.
-  La formule à donner : une mémoire peut être contredite par une procédure,
-  l'inverse n'est pas vrai.
+Dire : « Vous pouvez fermer votre ordinateur, ça continuera sans vous. »
 
-Enchaîner sur « L'agent qui apprend de ses exécutions » : ils viennent d'en
-voir les deux premières flèches.
+**Temps 3 · 5 min · Nouvelle exécution**
+
+1. Ouvrir l'exécution qui vient de tourner.
+2. Constater qu'elle a créé une conversation neuve.
+3. Constater que l'agent a tout refait et ne sait pas ce qu'il avait envoyé trois minutes plus tôt.
+
+Demander : « Comment pourrait-il le savoir ? » Laisser un silence. Réponse : quelque chose doit traverser les exécutions. C'est la mémoire.
+
+**Temps 4 · 4 min · Les mémoires**
+
+1. Ouvrir l'onglet des mémoires.
+2. Chercher les informations enregistrées automatiquement.
+3. Repérer une déduction fausse ou une information que personne n'avait demandé de retenir.
+
+Demander : « Qui a une mémoire fausse ? » Puis dire : « La mémoire d'un agent est une reconstruction. Elle s'écrit sans que personne la relise. »
+
+**Débrief · 3 min**
+
+1. Une mémoire inutilisée finit par disparaître. Chaque rappel prolonge sa durée de vie.
+2. L'écriture automatique après une conversation est active par défaut et peut être coupée.
+3. Les cabinets déjà envoyés constituent un fait à mémoriser. Le format « une fiche par cabinet » constitue une règle à écrire dans une procédure.
+
+**Phrase de clôture**
+
+« Trois phrases depuis ce matin. La première a cherché, la deuxième a produit un document, la troisième a mis les deux au calendrier. On n'a touché aucun réglage de la journée. »
+
+**Ensuite :** passer à « L'agent qui apprend de ses exécutions ».
 -->
 
 ---
@@ -315,7 +331,7 @@ layout: default
 
 <div class="brand-wall pt-1">
 
-<BrandRow v-click label="Index de corpus" marks="qdrant Qdrant, chroma Chroma, neo4j Neo4j, cognee Cognee" />
+<BrandRow v-click label="Recherche dans vos documents" marks="qdrant Qdrant, chroma Chroma, neo4j Neo4j, cognee Cognee" />
 
 <BrandRow v-click label="Mémoire pour agents" marks="mem0 Mem0, supermemory Supermemory, zep Zep, letta Letta" />
 
@@ -333,7 +349,7 @@ tout de suite et renvoyer à la slide suivante — c'est exactement ce qu'elle s
 
 Dérouler les rangées au clic, une phrase chacune, pas plus :
 
-INDEX DE CORPUS. On y range des documents pour les retrouver. Qdrant et Chroma
+RECHERCHE DANS VOS DOCUMENTS. On y range des documents pour les retrouver. Qdrant et Chroma
 indexent par similarité de vecteurs ; Neo4j est une base de graphes, et Cognee
 construit le graphe à partir des documents. Ce sont des moteurs de recherche,
 pas des mémoires : ils ne retiennent rien de vous, ils retrouvent ce qu'on
@@ -367,17 +383,30 @@ c'est ça qu'ils doivent noter, pas les douze noms.
 layout: default
 ---
 
-# RAG, graphes, mémoire hébergée : où ça se branche
+# Le mot « mémoire » désigne deux besoins
 
-| Ce qu'on vous proposera | La case que ça remplit |
-|---|---|
-| Recherche vectorielle — le **RAG** | Décharger — la stratégie 2 |
-| Index de graphe — le **GraphRAG** | Décharger, relations comprises |
-| Base de mémoire hébergée | Mémoire persistante, sous-traitée |
-| Outil « mémoire » exposé par le modèle | Mémoire persistante, chez vous |
+<div class="pt-4 grid grid-cols-2 gap-8">
+
+<div v-click class="card">
+<div class="eyebrow pb-3">Chercher dans des documents</div>
+<div class="text-[1.05rem] leading-snug">« Que dit le règlement sur les absences&nbsp;? »</div>
+<div class="mt-4 pt-4 border-t border-hairline text-[0.95rem] leading-snug text-t3">
+Le <strong>RAG</strong> retrouve des passages. Le <strong>GraphRAG</strong> relie des informations dispersées.
+</div>
+</div>
+
+<div v-click class="card">
+<div class="eyebrow pb-3">Se souvenir entre deux échanges</div>
+<div class="text-[1.05rem] leading-snug">« Cet étudiant préfère un exemple avant la théorie. »</div>
+<div class="mt-4 pt-4 border-t border-hairline text-[0.95rem] leading-snug text-t3">
+Une <strong>mémoire persistante</strong> conserve cette information pour une prochaine conversation.
+</div>
+</div>
+
+</div>
 
 <div v-click class="mt-8 callout-note">
-Quatre offres, <strong>deux cases</strong>. Aucune n'est une architecture d'agent.
+Le premier besoin concerne un <strong>corpus</strong>. Le second concerne ce que le système <strong>retient dans la durée</strong>.
 </div>
 
 <SourceNote :items="[
@@ -386,42 +415,24 @@ Quatre offres, <strong>deux cases</strong>. Aucune n'est une architecture d'agen
 ]" />
 
 <!--
-LA SLIDE QUI RÉPOND À LA QUESTION QUI VA TOMBER. Elle tombe toujours, et souvent
-pendant le labo 3 : « et le RAG, là-dedans ? ». Y répondre ici, une fois,
-proprement, et ne plus y revenir.
+LA DISTINCTION À INSTALLER. Le mot « mémoire » recouvre deux besoins qui se
+retrouvent souvent dans la même conversation commerciale. Les séparer avant de
+nommer les outils.
 
-Le vocabulaire, dans l'ordre du tableau — une phrase chacun, pas plus :
+COLONNE DE GAUCHE. Le système cherche une information dans un ensemble de
+documents qu'on lui a fourni. Le RAG retrouve des passages proches de la
+question. Le GraphRAG ajoute des relations entre les personnes, les notions et
+les événements pour répondre à des questions d'ensemble. Dans les deux cas, le
+système consulte un corpus. Il n'apprend rien sur l'utilisateur.
 
-RECHERCHE VECTORIELLE / RAG. On découpe un corpus, on calcule un vecteur par
-morceau, on retrouve les morceaux proches de la question, on les colle dans le
-contexte. C'est de la recherche documentaire branchée sur un prompt. Le terme
-vient de Lewis et al., NeurIPS 2020 — un papier d'il y a six ans, pas une
-nouveauté de l'année, et ça vaut la peine de le dire à cette salle.
+COLONNE DE DROITE. Le système conserve une information issue d'un échange pour
+la réutiliser lors d'une session future. C'est une mémoire persistante. Elle
+peut être écrite automatiquement par un service ou explicitement par le code de
+l'application. La slide suivante détaille cette différence de contrôle.
 
-INDEX DE GRAPHE / GraphRAG. Le nom vient d'un papier de Microsoft Research
-(Edge et al., avril 2024). Au lieu d'un sac de morceaux, on fait extraire par un
-modèle les entités et leurs relations, on construit un graphe, on le découpe en
-communautés, et on fait résumer chaque communauté. Le problème visé est nommé
-dans le résumé du papier : le RAG classique échoue sur les questions globales du
-type « quels sont les grands thèmes de ce corpus ? », parce que c'est une
-question de synthèse, à laquelle aucune recherche de passages ne répond.
-
-BASE DE MÉMOIRE HÉBERGÉE. Un service qui range les faits durables à votre place :
-extraction automatique depuis les conversations, mise à jour, oubli. C'est
-exactement la mémoire persistante de tout à l'heure, tenue par un fournisseur.
-Plusieurs acteurs, open source comme propriétaires — ne pas en nommer un seul,
-et ne pas ouvrir le débat outil contre outil.
-
-OUTIL MÉMOIRE DU MODÈLE. Plusieurs fournisseurs exposent maintenant la mémoire
-comme un outil de leur API : le modèle demande de lire ou d'écrire un fichier,
-c'est votre code qui exécute et qui décide où ça atterrit. Même case que la
-ligne du dessus, mais vous gardez la main — et la responsabilité.
-
-LE CALLOUT, à dire posément et sans mépris. Ces outils marchent. Mais aucun ne
-répond à la question « qu'est-ce que mon agent a le droit de faire » : ils
-répondent à « où je range ce qui ne tient pas dans le contexte ». Un projet qui
-commence par choisir sa base vectorielle a choisi une plomberie avant d'avoir
-une architecture. C'est la même erreur d'ordre qu'au module 7.
+LE CALLOUT. Faire reformuler la distinction par la salle : d'un côté, « dans
+quel document se trouve la réponse ? » ; de l'autre, « qu'est-ce que le système
+doit encore savoir la prochaine fois ? ».
 
 SI ON DEMANDE « le RAG est mort ? » — non, et la question est mal posée. Ce qui
 a changé, c'est qu'on ne pré-charge plus tout au début : l'agent va chercher
@@ -435,32 +446,17 @@ enterrement.
 layout: default
 ---
 
-# Ce que chacun achète, et ce qu'il coûte
+# Quatre solutions, quatre compromis
 
-<div class="pt-4 grid grid-cols-3 gap-6">
+| Solution | Ce qu'elle fait | Point de vigilance |
+|---|---|---|
+| **RAG vectoriel** | Retrouve les passages proches d'une question | Peut manquer une idée dispersée |
+| **GraphRAG** | Relie les informations pour une vue d'ensemble | Coûte plus cher à construire et à actualiser |
+| **Service de mémoire** | Retient automatiquement des informations tirées des échanges | Peut retenir une erreur. Vous contrôlez moins. |
+| **Mémoire dans l'application** | Votre code décide quoi conserver, corriger ou supprimer | Demande du développement et une validation |
 
-<div v-click class="card">
-<div class="eyebrow pb-3">Vectoriel</div>
-<div class="text-[0.95rem] leading-snug">Retrouve <strong>le passage exact</strong></div>
-<div class="mt-3 pt-3 border-t border-hairline text-[0.95rem] leading-snug text-t3">Rate les questions d'ensemble</div>
-</div>
-
-<div v-click class="card">
-<div class="eyebrow pb-3">Graphe</div>
-<div class="text-[0.95rem] leading-snug">Répond aux <strong>questions d'ensemble</strong></div>
-<div class="mt-3 pt-3 border-t border-hairline text-[0.95rem] leading-snug text-t3">L'index se paie en appels de modèle</div>
-</div>
-
-<div v-click class="card">
-<div class="eyebrow pb-3">Hébergé</div>
-<div class="text-[0.95rem] leading-snug">Retient <strong>sans que vous l'écriviez</strong></div>
-<div class="mt-3 pt-3 border-t border-hairline text-[0.95rem] leading-snug text-t3">Personne ne relit ce qui est retenu</div>
-</div>
-
-</div>
-
-<div v-click class="mt-8 callout-warn">
-Les scores publiés ne se comparent pas : changez une convention de calcul, <strong>le classement s'inverse</strong>.
+<div v-click class="mt-6 callout-warn">
+Les scores dépendent aussi de la manière de compter les bonnes réponses.
 </div>
 
 <SourceNote :items="[
@@ -469,17 +465,19 @@ Les scores publiés ne se comparent pas : changez une convention de calcul, <str
 ]" />
 
 <!--
-Trois colonnes, trois arbitrages. Le geste de la slide : donner le gain ET la
-facture, pour qu'ils sachent quoi demander à un prestataire.
+QUATRE LIGNES, DEUX FAMILLES. Les deux premières cherchent dans des documents.
+Les deux suivantes conservent une information entre les conversations. Ne pas
+présenter ces quatre solutions comme des concurrentes directes.
 
-VECTORIEL — le gain est réel et bon marché. La limite est structurelle : la
-question « quels sont les grands thèmes » n'a pas de passage à retrouver,
-donc la recherche par similarité n'a rien à ramener.
+RAG VECTORIEL. On découpe les documents en passages et on retrouve ceux qui
+ressemblent le plus à la question. C'est efficace pour une question précise.
+La limite est structurelle : une question comme « quels sont les grands thèmes
+du corpus ? » n'a pas forcément un passage unique à retrouver.
 
-GRAPHE — le coût est la partie qu'on ne dit jamais. Construire le graphe suppose
-de faire passer TOUT le corpus dans un modèle pour en extraire les entités et
-les relations. C'est un coût d'indexation proportionnel à la taille du corpus,
-à repayer à chaque mise à jour. Deux faits pour l'appuyer :
+GRAPHRAG. On extrait les personnes, les notions, les événements et leurs
+relations afin de produire une vue d'ensemble. Construire ce graphe suppose de
+faire passer le corpus dans un modèle. Il faut repayer une partie de ce travail
+quand les documents changent. Deux faits pour l'appuyer :
 — Microsoft a publié en novembre 2024 une variante, LazyGraphRAG, dont
   l'argument de vente est exactement celui-là : « LazyGraphRAG data indexing
   costs are identical to vector RAG and 0.1% of the costs of full GraphRAG ».
@@ -491,10 +489,15 @@ les relations. C'est un coût d'indexation proportionnel à la taille du corpus,
   underperforms vanilla RAG on many real-world tasks ». Le graphe gagne sur la
   synthèse d'ensemble, pas sur le fait précis.
 
-HÉBERGÉ — le gain est le confort, et il est réel. La facture, ils viennent de la
-voir au labo 3 : des mémoires écrites toutes seules, dont certaines étaient
-fausses, et que personne n'avait relues. Sous-traiter l'écriture de la mémoire,
-c'est sous-traiter ce que le système croit savoir de vous.
+MÉMOIRE GÉRÉE PAR UN SERVICE. Le fournisseur lit les échanges, extrait ce qu'il
+juge utile, le stocke sur son infrastructure et le réinjecte plus tard. Voilà ce
+que l'ancienne slide appelait « hébergé ». Le gain est le confort. La limite est
+le contrôle : le service peut conserver un fait faux ou devenu obsolète.
+
+MÉMOIRE GÉRÉE PAR VOTRE APPLICATION. Le modèle peut proposer une information à
+retenir, mais le code de l'application décide de l'écrire, de la corriger ou de
+la supprimer. Vous choisissez aussi le lieu de stockage. Cela demande plus de
+travail, mais permet de définir une validation et une politique d'effacement.
 
 LE CALLOUT — c'est le point à ne pas rater devant cette salle, et c'est le seul
 moment de la journée où on parle méthode d'évaluation.
@@ -630,13 +633,13 @@ layout: default
 
 # Les trois labos, sans la plateforme
 
-| Ce que vous avez cliqué | Le nom générique |
+| Ce que vous avez vu | Le nom générique |
 |---|---|
-| Le texte de présentation de l'agent | Le **prompt système** |
-| Les cases à cocher des permissions | La **liste d'outils** passée au modèle |
+| La phrase tapée dans le chat | Un **prompt**, ajouté au prompt système |
+| Les pages qu'il est allé ouvrir | Des **appels d'outils** |
+| Le PDF qui est sorti | Un **appel d'outil**, lui aussi |
 | Le rendez-vous du lundi | Un **ordonnanceur**, `cron`, Unix V7, 1979 |
-| L'adresse de déclenchement | Un **webhook**, une route HTTP |
-| L'appel au voisin | Un **appel d'outil**, dont l'outil est un agent |
+| L'adresse que j'ai déclenchée | Un **webhook**, une route HTTP |
 | L'onglet des mémoires | Une **table**, relue à chaque démarrage |
 
 <div v-click class="mt-8 callout-note">
@@ -648,19 +651,23 @@ La slide de contrepoids. Elle a deux fonctions et il faut assumer les deux.
 
 La première est honnête : je vous ai fait manipuler MON outil toute la journée,
 voilà ce qu'il y a derrière, et tout est reproductible ailleurs. Vous refaites les
-trois labos avec cinquante lignes de code et une bibliothèque au choix — les
-deux documentations de la slide de clôture le montrent, l'une avec du code,
-l'autre sans.
+trois labos avec quelques fonctions, une table et un ordonnanceur, dans la
+bibliothèque de votre choix.
 
 La seconde est pédagogique, et c'est la vraie : une interface qui marche bien
-donne l'illusion d'une technologie nouvelle. Six clics, six concepts. Quatre
-d'entre eux sont vieux : l'appel de fonction est aussi vieux que la programmation,
-la table relationnelle date de 1970, cron de 1979, et le plus jeune des quatre —
-le webhook, nommé par Jeff Lindsay — a dix-neuf ans. Les deux autres, le prompt
-système et la liste d'outils passée au modèle, ont trois ans : ceux-là sont
-récents, autant le dire. Ce qui est neuf, ce n'est aucune de ces six lignes :
-c'est le fait que ce soit le modèle qui décide dans quel ordre les employer.
+donne l'illusion d'une technologie nouvelle. Six lignes, cinq concepts, et
+quatre d'entre eux sont vieux : l'appel de fonction est aussi vieux que la
+programmation, la table relationnelle date de 1970, cron de 1979, et le plus
+jeune des quatre — le webhook, nommé par Jeff Lindsay — a dix-neuf ans. Le
+cinquième, le prompt système, a trois ans : celui-là est récent, autant le dire.
+Ce qui est neuf, ce n'est aucune de ces six lignes : c'est le fait que ce soit
+le modèle qui décide dans quel ordre les employer.
 On revient au fil rouge, une fois de plus.
+
+Appuyer sur les deux lignes du milieu : elles portent le même nom. Chercher une
+page et fabriquer un PDF sont le même geste pour le modèle — il écrit un nom de
+fonction et des arguments, et il attend. Ce que l'outil fait derrière, il ne le
+sait pas.
 
 Ne pas s'excuser sur cette slide. La dire vite, elle se suffit.
 -->

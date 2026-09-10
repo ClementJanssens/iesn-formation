@@ -59,7 +59,7 @@ layout: default
 
 <div class="rail">Ce qui ne changera pas — <strong>le sans-état, le budget, l'injection</strong></div>
 
-<div class="rail">Le bon réflexe — <strong>chercher les bornes avant la démo</strong></div>
+<div class="rail">Face à un nouvel outil — <strong>vérifiez ce qu'il peut faire, ce qu'il conserve et quand il s'arrête</strong></div>
 
 </v-clicks>
 
@@ -76,9 +76,9 @@ une ressource à budgéter. L'injection de prompt indirecte restera structurelle
 La liste d'outils restera la première défense. Et « qui répond de cette décision »
 restera une question humaine.
 
-Le bon réflexe, développé : quand un nouvel outil sort, cherchez d'abord ses
-BORNES — où il s'arrête, ce qu'il a le droit de faire, ce qu'il enregistre.
-La démonstration est toujours belle ; les bornes disent le reste.
+Face à un nouvel outil, ne vous arrêtez pas à la démonstration. Vérifiez ce
+qu'il a le droit de faire, ce qu'il enregistre et ce qui met fin à son action.
+C'est là que se joue son usage réel.
 C'est la grille de lecture qu'ils emportent.
 -->
 
@@ -86,50 +86,47 @@ C'est la grille de lecture qu'ils emportent.
 layout: default
 ---
 
-# Pour continuer
+# Demain matin
 
-<div class="pt-8 grid grid-cols-2 gap-12 text-base">
-<div v-click>
+<div class="pt-8 grid grid-cols-3 gap-6 text-base">
 
-**Deux documentations**
+<div v-click class="card-ok">
+<div class="eyebrow pb-4">1 · Choisir</div>
+<div class="font-semibold">Une tâche fréquente et peu risquée</div>
+<div class="pt-3 opacity-75">Son résultat se vérifie facilement.</div>
+</div>
 
-<div class="pt-3 space-y-3 opacity-80">
-<div>Patterns, contrôle de boucle, délégation, approbations</div>
-<div>Mémoire persistante et compétences auto-générées</div>
+<div v-click class="card">
+<div class="eyebrow pb-4">2 · Définir</div>
+<div class="font-semibold">Le résultat attendu et les limites</div>
+<div class="pt-3 opacity-75">Ce que le système peut faire, quand il s'arrête et quand l'humain reprend.</div>
+</div>
+
+<div v-click class="card">
+<div class="eyebrow pb-4">3 · Tester</div>
+<div class="font-semibold">Des cas réels, avant le déploiement</div>
+<div class="pt-3 opacity-75">Mesurez les erreurs, corrigez, puis élargissez le périmètre.</div>
 </div>
 
 </div>
-<div v-click>
 
-**Par quoi commencer**
-
-<div class="pt-3 space-y-2">
-
-1. Une tâche de la colonne verte
-2. La fiche en cinq lignes
-3. Trente cas réels
-4. Le workflow le plus bête qui marche
-5. L'agent, seulement si un cas l'exige
-
-</div>
-
-</div>
+<div v-click class="mt-8 callout-cool">
+Si les étapes sont connues, construisez un workflow. Ajoutez une boucle agent seulement quand le prochain choix ne peut pas être écrit à l'avance.
 </div>
 
 <!--
-Les deux références, à donner à l'oral et à écrire au tableau :
-— ai-sdk.dev : les patterns d'orchestration, le contrôle de boucle, la délégation
-  et les approbations d'outils, avec du code exécutable. C'est la documentation
-  la plus proche du plan suivi aujourd'hui.
-— hermes-agent.nousresearch.com/docs (Nous Research) : une implémentation complète
-  et ouverte de la boucle d'apprentissage vue au module 4.
+La dernière marche à suivre doit se comprendre sans renvoi à une slide précédente.
 
-Bien redire : ce sont des sources techniques, pas des recommandations d'outillage.
-D'autres bibliothèques font la même chose autrement.
+1 — Partir d'une tâche fréquente, réversible et dont une erreur se voit. Éviter
+les décisions qui engagent une personne : note, fraude, échec, recours.
+2 — Écrire avant le code : le résultat attendu, les outils autorisés, la condition
+d'arrêt, le plafond d'actions et le moment où un humain reprend la main.
+3 — Tester sur des cas réellement rencontrés. Compter les erreurs importantes,
+pas seulement les réponses jugées convaincantes.
 
-Sur l'ordre de démarrage : la grande majorité des projets qui échouent ont commencé
-à l'étape 4 en sautant les trois premières. Le dire comme ça, c'est la dernière
-chose utile de la journée.
+La conclusion reprend la distinction centrale de la journée : un workflow quand
+l'enchaînement est connu ; une boucle agent bornée quand le système doit choisir
+la prochaine action à partir de ce qu'il observe.
 -->
 
 ---
