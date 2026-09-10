@@ -355,6 +355,204 @@
 }
 
 /* ─────────────────────────────────────────────────────────────
+   Le layout de contenu — l'en-tête et le corps
+
+   Un titre seul, posé contre le bord haut d'une page blanche, n'est pas une
+   composition : c'est un document. L'en-tête lui donne un socle — ligne de
+   repère, titre, filet traversant — et le segment d'accent de 56 × 2 px à
+   gauche du filet est exactement celui de la couverture. C'est ce qui fait que
+   les 58 slides de contenu appartiennent au même support que les six pages qui
+   respirent, au lieu d'en être le remplissage.
+   ───────────────────────────────────────────────────────────── */
+
+.slidev-layout.deck-default {
+  display: flex;
+  flex-direction: column;
+  /* Le bas est plus généreux que le haut : le corps se centre dans l'espace
+     restant, et un bloc posé au milieu exact se lit toujours comme tombant
+     trop bas. */
+  padding: 1.35rem 2.4rem 3rem;
+  /* Une slide ne porte que des repères, jamais de paragraphe : le texte y est
+     rare, donc il peut être grand. À 18px la ligne se lit du fond de la salle,
+     et le corps occupe la page au lieu de la survoler. */
+  font-size: 1.125rem;
+}
+
+.slidev-layout.deck-default li {
+  line-height: 1.75em;
+}
+
+.deck-topline {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Les deux familles se partagent la ligne : DM Mono porte le repère, qui se lit
+   comme une coordonnée, Inter porte le nom, qui se lit comme une phrase. */
+.deck-topline-code {
+  font-family: var(--deck-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  color: var(--c-t3);
+}
+
+/* Inter, et rien d'autre : voir le commentaire dans layouts/default.vue. */
+.deck-topline-num {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.06em;
+  padding-left: 0.35em;
+}
+
+.deck-topline-sep {
+  width: 1px;
+  height: 9px;
+  background: var(--c-hairline-strong);
+}
+
+.deck-topline-name {
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  color: var(--c-t3);
+}
+
+.slidev-layout.deck-default > h1 {
+  position: relative;
+  font-size: 1.875rem;   /* 30px */
+  letter-spacing: -0.022em;
+  margin: 0;
+  padding-bottom: 0.62rem;
+  border-bottom: 1px solid var(--c-hairline);
+}
+
+.slidev-layout.deck-default > h1::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 56px;
+  height: 2px;
+  background: var(--c-accent-rule);
+}
+
+/* Le corps se place au tiers de l'espace libre, pas au milieu.
+
+   Le layout pose deux ressorts — un sous le filet, un en bas de page — et leur
+   donne des forces de 1 et 2 : le vide restant se répartit à un tiers au-dessus
+   du corps et deux tiers en dessous. Une slide ne portant que des repères, il y
+   a presque toujours du vide à placer ; le mettre à parts égales fait décrocher
+   le corps de son titre, le mettre entièrement en bas ramène la mise en page
+   collée au bord haut d'où l'on vient.
+
+   Les deux ressorts sont rendus après le contenu et remis à leur place par
+   `order` : le markdown d'une slide ne peut pas être découpé, mais l'ordre
+   d'affichage, si. Sur une slide dense ils se compriment à zéro (le premier
+   garde son écart minimal) et rien ne bouge. */
+
+.slidev-layout.deck-default > * {
+  flex: none;
+}
+
+.slidev-layout.deck-default > .deck-topline { order: 1; }
+.slidev-layout.deck-default > h1 { order: 2; }
+.slidev-layout.deck-default > h1 ~ * { order: 4; }
+
+/* L'écart sous le filet appartient maintenant au layout : les `pt-5` / `pt-6` /
+   `pt-8` posés à la main en tête de chaque slide s'y ajoutaient et faisaient
+   décrocher le corps un peu différemment à chaque page. */
+.slidev-layout.deck-default > h1 + * {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.slidev-layout.deck-default > .deck-gap {
+  order: 3;
+  flex: 1 1 0;
+  min-height: 1.15rem;
+}
+
+.slidev-layout.deck-default > .deck-tail {
+  order: 5;
+  flex: 2 1 0;
+  min-height: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   La note de source
+
+   Elle passe après le ressort de queue : elle se colle au bas de la page au
+   lieu de suivre le corps, et le vide qui la sépare du contenu est ce qui la
+   désigne comme un pied de page plutôt que comme une ligne de plus.
+
+   Le filet du haut répond à celui du titre — l'un ouvre la slide, l'autre la
+   ferme — mais en encre faible : il délimite, il ne structure pas.
+
+   Registre machine intégral, 10,5 px. C'est en dessous du seuil de lecture
+   depuis le fond de la salle, et c'est voulu : une source ne se lit pas en
+   séance, elle se retrouve dans le PDF. Les URL sont de vrais liens, cliquables
+   à l'export.
+   ───────────────────────────────────────────────────────────── */
+
+.slidev-layout.deck-default > .deck-sources {
+  order: 6;
+  display: flex;
+  gap: 0.85rem;
+  margin-top: 1.1rem;
+  padding-top: 0.42rem;
+  border-top: 1px solid var(--c-hairline-faint);
+}
+
+.deck-sources-label {
+  flex: none;
+  font-family: var(--deck-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  line-height: 1.65;
+  color: var(--c-t4);
+}
+
+.deck-sources-list {
+  font-family: var(--deck-mono);
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: var(--c-t3);
+}
+
+/* Une référence trop longue passe à la ligne, et la suite s'aligne sous elle
+   plutôt que sous la marge : deux références qui se suivent restent deux blocs
+   distincts, sans qu'il faille un puce ni un filet de plus. */
+.deck-sources-item {
+  padding-left: 1.1em;
+  text-indent: -1.1em;
+}
+
+/* L'URL est le seul fragment qu'on recopie : elle se détache par l'encre, pas
+   par un soulignement — un lien souligné dans un pied de page à 10 px fait du
+   bruit sur les huit slides où il apparaît. La spécificité vient de
+   `.slidev-layout` : le lien du support est violet et souligné, celui-ci ne
+   l'est pas. */
+.slidev-layout .deck-sources-url {
+  /* Insécable : une URL coupée en deux ne se recopie plus. Elle bascule
+     entière à la ligne suivante plutôt que de se rompre au milieu. */
+  display: inline-block;
+  white-space: nowrap;
+  /* L'inline-block hérite du retrait négatif de la référence et décalerait
+     l'URL par-dessus le texte qui la précède. */
+  text-indent: 0;
+  padding-left: 0.55em;
+  color: var(--c-t4);
+  text-decoration: none;
+  border-bottom: none;
+}
+
+/* ─────────────────────────────────────────────────────────────
    Mouvement
 
    Les défauts de Slidev sont trop brusques ici : .slidev-vclick-target est en
@@ -440,7 +638,7 @@
    Le cadre de page
 
    Deux filets verticaux et quatre marqueurs de 8px. C'est la seule chose qui
-   se répète sur les 66 slides, et c'est ce qui fait qu'une page vide reste
+   se répète sur les 77 slides, et c'est ce qui fait qu'une page vide reste
    composée : le texte a désormais un bord contre lequel se poser.
    ───────────────────────────────────────────────────────────── */
 
@@ -588,6 +786,31 @@
 .tile-mark > * {
   position: relative;
   z-index: 1;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Le mur de marques
+
+   Un empilement de <BrandRow>. Le mur du module 0 en porte cinq rangées —
+   entreprises, produits, plateformes, systèmes, bibliothèques — et touche le
+   bas de page ; celui du module 4 n'en porte que trois et garde la taille
+   pleine. `is-tight` resserre le premier en surchargeant les variables que le
+   composant lit : les variables traversent son style scopé, une classe non.
+   ───────────────────────────────────────────────────────────── */
+
+.brand-wall {
+  display: grid;
+  gap: var(--brand-row-gap, 12px);
+}
+
+.brand-wall.is-tight {
+  --brand-row-gap: 8px;
+  --brand-tile: 46px;
+  --brand-glyph-w: 34px;
+  --brand-glyph-h: 22px;
+  --brand-name: 11px;
+  --brand-stack-gap: 5px;
+  --brand-label-pad: 13px;
 }
 
 /* ─────────────────────────────────────────────────────────────

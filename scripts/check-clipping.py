@@ -44,9 +44,24 @@ def fragments_du_fichier(chemin: Path):
     lignes = source.splitlines()
     dans_frontmatter = False
     dans_code = False
+    dans_source_note = False
 
     for numero, ligne in enumerate(lignes, start=1):
         brute = ligne.strip()
+
+        # Les notes de source portent leurs références dans un tableau JS, pas
+        # dans du Markdown : sans ce cas particulier, la ligne comparée serait
+        # `['Liu et al., …', 'arxiv.org/…'],`, qui ne peut évidemment pas se
+        # retrouver telle quelle dans le PDF. On compare chaque chaîne citée.
+        if brute.startswith("<SourceNote"):
+            dans_source_note = True
+        if dans_source_note:
+            for chaine in re.findall(r"'(.*?)'\s*(?:,|\])", brute):
+                if len(normaliser(chaine)) >= LONGUEUR_MIN:
+                    yield numero, chaine
+            if brute.endswith("/>"):
+                dans_source_note = False
+            continue
 
         if brute.startswith("```"):
             dans_code = not dans_code

@@ -3,3 +3,4 @@ dist/
 .slidev/
 *.log
 .conductor/settings.local.toml
+.DS_Store

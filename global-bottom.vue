@@ -1,5 +1,5 @@
 <!--
-  Chrome de page, présent sur les 66 slides.
+  Chrome de page, présent sur les 77 slides.
 
   Deux filets verticaux, quatre marqueurs de 8px, un folio en mono. C'est la
   seule chose qui se répète d'un bout à l'autre du support, et c'est elle qui

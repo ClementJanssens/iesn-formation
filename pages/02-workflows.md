@@ -5,7 +5,7 @@ module: 2
 
 # Les cinq patterns d'orchestration
 
-<div class="opacity-50 pt-2">75 minutes · le graphe est écrit par vous</div>
+<div class="opacity-50 pt-2">l'enchaînement est écrit par vous</div>
 
 ---
 layout: default
@@ -13,41 +13,67 @@ layout: default
 
 # Le principe du workflow
 
-<div class="text-xl pt-2 pb-6">
-Vous écrivez le graphe. Le modèle remplit les cases.
+<div class="text-2xl pt-4 pb-10">
+Vous écrivez l'enchaînement.<br>Le modèle remplit les cases.
 </div>
 
-<div class="grid grid-cols-2 gap-10">
-<div>
+<div class="grid grid-cols-2 gap-x-14 text-base">
+<div v-click class="card">
 
-**Ce que vous gardez**
+<div class="eyebrow">Vous gardez</div>
 
-- L'ordre des étapes
-- Les conditions de passage
-- Le nombre d'appels au modèle, donc le coût
-- La capacité à rejouer une exécution à l'identique
-- Un point de reprise après panne
+<div class="pt-3">
 
-</div>
-<div>
-
-**Ce que vous déléguez**
-
-- Le contenu de chaque étape
-- La compréhension du langage naturel
-- La classification, l'extraction, la rédaction
+- l'ordre des étapes
+- le nombre d'appels, donc le coût
+- la reproductibilité
+- un point de reprise
 
 </div>
+
+</div>
+<div v-click class="card">
+
+<div class="eyebrow">Vous déléguez</div>
+
+<div class="pt-3">
+
+- le contenu de chaque étape
+- le langage naturel
+- classer, extraire, rédiger
+
 </div>
 
-<div v-click class="pt-8 callout-cool">
-Cinq patterns couvrent la quasi-totalité des cas réels. Ils se combinent : un vrai système en empile généralement deux ou trois.
 </div>
+</div>
+
+<div v-click class="mt-10 callout-cool">
+Cinq patterns couvrent la quasi-totalité des cas réels. Ils se combinent.
+</div>
+
+<SourceNote label="D'après" :items="[
+  ['Anthropic, « Building Effective Agents », déc. 2024', 'anthropic.com/research/building-effective-agents'],
+]" />
 
 <!--
-Bien poser que ces cinq patterns ne sont pas une taxonomie académique mais un
-vocabulaire d'atelier. L'intérêt est de pouvoir dire "ça c'est du routage" en réunion
-et que tout le monde voie la même chose.
+Bien poser que ces cinq patterns ne sont pas une taxonomie académique mais
+un vocabulaire d'atelier. L'intérêt est de pouvoir dire « ça, c'est du routage »
+en réunion, et que tout le monde voie la même chose.
+
+D'OÙ ILS VIENNENT, à créditer d'une phrase — devant des chercheurs, on ne
+présente pas comme sien un découpage qu'on a repris : ces cinq-là sont la
+nomenclature de « Building Effective Agents », publié par Anthropic en décembre
+2024 (prompt chaining, routing, parallelization, orchestrator-workers,
+evaluator-optimizer). Je la reprends parce qu'elle s'est imposée dans le métier,
+pas parce qu'elle fait autorité. Le dire tôt évite qu'on me le fasse remarquer
+tard.
+
+Sur « vous gardez » : le point le plus sous-estimé est la reprise après panne.
+Un workflow s'arrête à l'étape 4 et redémarre à l'étape 4. Un agent, non.
+
+Sur le callout : un vrai système en empile généralement deux ou trois.
+Un routage en entrée, une parallélisation au milieu, un évaluateur en sortie.
+On les présente séparément pour les nommer, pas parce qu'on les utilise seuls.
 -->
 
 ---
@@ -56,10 +82,10 @@ layout: default
 
 # 1 · Chaînage séquentiel
 
-<div class="grid grid-cols-[1.05fr_1fr] gap-7 pt-1 compact">
-<div>
+<div class="grid grid-cols-[1.05fr_1fr] gap-8 pt-1 compact">
+<div class="min-w-0">
 
-```mermaid {scale: 0.85}
+```mermaid {scale: 0.72}
 flowchart LR
   I([Entrée]) --> A["Étape 1<br>générer"] --> G{"contrôle"}
   G -->|ok| B["Étape 2<br>transformer"] --> C["Étape 3<br>formater"] --> O([Sortie])
@@ -79,15 +105,16 @@ const final = await generate(
 ```
 
 </div>
-<div class="text-sm space-y-3 pt-1">
+<div class="space-y-5 pt-3">
 
-**Quand** — la séquence est connue d'avance et ne change pas selon l'entrée.
+<v-clicks>
 
-**À la fac** — produire un énoncé, en vérifier le niveau, puis générer le corrigé.
+<div class="rail"><strong>Quand</strong> — la séquence est fixe</div>
+<div class="rail"><strong>Un cas</strong> — énoncé → contrôle → corrigé</div>
+<div class="rail"><strong>Le piège</strong> — l'erreur d'une étape s'amplifie</div>
+<div class="rail"><strong>Coût</strong> — <em>n</em> étapes, <em>n</em> appels</div>
 
-**Le piège** — l'erreur de l'étape 1 est amplifiée par l'étape 3. Mettez des contrôles **déterministes** entre les maillons, pas un second modèle qui hallucine son accord.
-
-**Coût** — parfaitement prévisible : *n* étapes, *n* appels.
+</v-clicks>
 
 </div>
 </div>
@@ -95,6 +122,16 @@ const final = await generate(
 <!--
 Le contrôle entre étapes est le vrai apport du pattern. Un chaînage sans contrôle,
 c'est juste un prompt plus long, et souvent moins bon.
+
+« La séquence est fixe » = connue d'avance et indépendante de l'entrée.
+Si elle change selon l'entrée, c'est du routage, slide suivante.
+
+Le piège développé : l'erreur de l'étape 1 est amplifiée par l'étape 3, pas
+corrigée. D'où la règle : mettre des contrôles DÉTERMINISTES entre les maillons —
+une longueur, une regex, un schéma — pas un second modèle qui hallucine son accord.
+
+Le coût est parfaitement prévisible. C'est la valeur du pattern, à mettre en face
+de l'agent de cet après-midi dont le coût ne l'est pas.
 -->
 
 ---
@@ -103,7 +140,7 @@ layout: default
 
 # 2 · Routage
 
-<div class="grid grid-cols-[1.05fr_1fr] gap-7 pt-1 compact">
+<div class="grid grid-cols-[1.05fr_1fr] gap-8 pt-1 compact">
 <div>
 
 ```mermaid {scale: 0.8}
@@ -129,23 +166,36 @@ if (confiance < 0.7) return escaladeHumaine(mail)
 ```
 
 </div>
-<div class="text-sm space-y-3 pt-1">
+<div class="space-y-5 pt-3">
 
-**Quand** — les entrées sont hétérogènes et appellent des traitements franchement différents.
+<v-clicks>
 
-**À la fac** — le flux de mails entrants d'un secrétariat, trié avant d'atterrir chez quelqu'un.
+<div class="rail"><strong>Quand</strong> — les entrées sont hétérogènes</div>
+<div class="rail"><strong>Un cas</strong> — les mails d'un secrétariat</div>
+<div class="rail"><strong>Le levier</strong> — un petit modèle trie, un grand traite</div>
+<div class="rail"><strong>Jamais sans</strong> — la route « je ne sais pas »</div>
 
-**Le levier économique** — un petit modèle classe, un grand ne traite que ce qui le mérite. Souvent une division du coût par cinq.
-
-**À ne pas oublier** — la route « je ne sais pas ». Un routeur sans porte de sortie envoie de travers avec aplomb.
+</v-clicks>
 
 </div>
 </div>
 
 <!--
-Le score de confiance n'est pas une probabilité calibrée, c'est une auto-évaluation.
-Utile comme signal relatif, jamais comme garantie. Le seuil se règle empiriquement
-sur un jeu de cas réels.
+Le levier économique : un petit modèle classe tout, un grand ne traite que ce
+qui le mérite. Ne PAS annoncer un facteur tout fait — il dépend entièrement des
+deux modèles et de la part de cas simples. Ce qui est vérifiable et qu'on peut
+donner : l'écart de prix catalogue entre un petit et un grand modèle d'une même
+famille est d'un ordre de grandeur, donc le gain suit la part du trafic qu'on
+arrive à faire traiter par le petit. Si on me demande un chiffre, sortir celui
+du jour, depuis la page de tarifs, pas de mémoire.
+
+La route « doute » : un routeur sans porte de sortie envoie de travers, avec aplomb.
+C'est le défaut de conception le plus fréquent sur ce pattern. Insister.
+
+Sur le score de confiance — point technique important : c'est une
+auto-évaluation du modèle, sans calibration statistique derrière. Utile comme
+signal relatif, jamais comme garantie. Le seuil (0,7 ici) se règle empiriquement sur
+un jeu de cas réels, il n'a aucune valeur théorique.
 -->
 
 ---
@@ -154,7 +204,7 @@ layout: default
 
 # 3 · Parallélisation
 
-<div class="grid grid-cols-[1.05fr_1fr] gap-7 pt-1 compact">
+<div class="grid grid-cols-[1.05fr_1fr] gap-8 pt-1 compact">
 <div>
 
 ```mermaid {scale: 0.8}
@@ -180,20 +230,39 @@ const synthese = await generate(
 ```
 
 </div>
-<div class="text-sm space-y-3 pt-1">
+<div class="space-y-5 pt-3">
 
-**Quand** — plusieurs regards indépendants sur un même objet, ou des sous-tâches sans dépendance.
+<v-clicks>
 
-**À la fac** — pré-relecture d'un mémoire selon trois axes distincts, avant lecture humaine.
+<div class="rail"><strong>Quand</strong> — plusieurs regards sur un même objet</div>
+<div class="rail"><strong>Un cas</strong> — pré-relire un mémoire sur trois axes</div>
+<div class="rail"><strong>Le coût</strong> — en argent, pas en temps</div>
+<div class="rail"><strong>Le vrai travail</strong> — l'agrégation</div>
 
-**Pourquoi c'est mieux qu'un seul prompt** — un modèle à qui on demande trois choses en fait deux bien et une mal. Trois contextes séparés, trois attentions pleines.
-
-**Le coût** — il se paie en argent, pas en temps. Trois appels simultanés, une seule latence.
-
-**Le vrai travail** est dans l'agrégation : trois avis qui se contredisent, il faut décider qui tranche.
+</v-clicks>
 
 </div>
 </div>
+
+<!--
+Pourquoi c'est mieux qu'un seul prompt qui demande les trois choses :
+trois contextes séparés, trois attentions pleines. La formule courte —
+« à qui on demande trois choses en fait deux bien et une mal » — est une image,
+pas un résultat mesuré : la donner comme telle (« mon expérience »), sans
+la chiffrer. Ce qui est documenté et qu'on peut avancer, c'est la dégradation
+de l'attention quand le contexte s'allonge : voir la slide « le contexte est
+un budget » du module 4 et ses sources.
+
+Le coût : trois appels simultanés, une seule latence. On paie trois fois
+en argent, une seule fois en temps d'attente. Souvent le bon échange.
+
+L'agrégation est là où se joue la qualité : trois avis qui se contredisent,
+il faut décider qui tranche. Ne pas déléguer ça à un quatrième modèle
+sans y réfléchir — c'est le cas d'usage typique où un humain doit voir
+les trois avis bruts.
+
+Ce pattern revient au module 6, cas 2, sur la pré-relecture.
+-->
 
 ---
 layout: default
@@ -201,7 +270,7 @@ layout: default
 
 # 4 · Orchestrateur et exécutants
 
-<div class="grid grid-cols-[0.9fr_1.1fr] gap-7 pt-1">
+<div class="grid grid-cols-[0.95fr_1.05fr] gap-8 pt-1">
 <div>
 
 ```mermaid {scale: 0.9}
@@ -218,23 +287,37 @@ flowchart TD
 ```
 
 </div>
-<div class="text-sm space-y-3 pt-2">
+<div class="space-y-5 pt-6">
 
-**La différence avec la parallélisation** — ici **le modèle décide** du découpage. Vous ne connaissiez à l'avance ni le nombre ni la nature des sous-tâches. C'est le premier pattern vraiment agentique de la liste : le curseur vient de se déplacer.
+<v-clicks>
 
-**À la fac** — « construis le syllabus d'un cours de 12 séances sur *X* » : l'orchestrateur décide qu'il faut douze exécutants, un par séance, plus un pour la bibliographie.
+<div class="rail"><strong>La différence</strong> — ici <strong>le modèle décide</strong> du découpage</div>
+<div class="rail"><strong>Un cas</strong> — « construis un syllabus de 12 séances »</div>
+<div class="rail"><strong>Le piège</strong> — il ne voit pas les exécutants travailler</div>
+<div class="rail"><strong>Le garde-fou</strong> — plafonner, et valider le plan avant</div>
 
-**Le piège** — l'orchestrateur ne voit pas ce que font les exécutants pendant qu'ils travaillent. S'il a mal découpé, il ne le découvre qu'à la fin, après avoir tout payé.
-
-**Le garde-fou** — plafonner le nombre d'exécutants, et faire valider le plan **avant** de lancer.
+</v-clicks>
 
 </div>
 </div>
 
 <!--
-"Faire valider le plan avant de lancer" est un pattern à part entière : plan-then-execute.
-Un humain, ou un contrôle déterministe, approuve le découpage. Ça coûte une interruption
-et ça évite de payer quarante sous-tâches sur un mauvais plan.
+La différence avec la parallélisation, développée : là-bas vous connaissiez
+d'avance le nombre et la nature des sous-tâches. Ici, non. C'est le premier
+pattern vraiment agentique de la liste — le curseur du fil rouge vient
+de se déplacer. Le nommer explicitement.
+
+L'exemple du syllabus : l'orchestrateur décide qu'il faut douze exécutants,
+un par séance, plus un pour la bibliographie. Vous n'aviez pas écrit « douze ».
+
+Le piège, développé : l'orchestrateur ne voit pas ce que font les exécutants
+pendant qu'ils travaillent. S'il a mal découpé, il ne le découvre qu'à la fin,
+après avoir tout payé. C'est le premier pattern où on peut brûler un budget
+sur un mauvais plan.
+
+Le garde-fou « valider le plan avant de lancer » est un pattern à part entière :
+plan-then-execute. Un humain, ou un contrôle déterministe, approuve le découpage.
+Ça coûte une interruption et ça évite de payer quarante sous-tâches inutiles.
 -->
 
 ---
@@ -243,7 +326,7 @@ layout: default
 
 # 5 · Évaluateur et optimiseur
 
-<div class="grid grid-cols-[1.05fr_1fr] gap-7 pt-1 compact">
+<div class="grid grid-cols-[1.05fr_1fr] gap-8 pt-1 compact">
 <div>
 
 ```mermaid {scale: 0.8}
@@ -267,25 +350,36 @@ for (let i = 0; i < 3; i++) {
 ```
 
 </div>
-<div class="text-sm space-y-3 pt-1">
+<div class="space-y-5 pt-3">
 
-**Quand** — il existe un critère de qualité exprimable, et une seconde passe améliore réellement.
+<v-clicks>
 
-**À la fac** — traduire un support de cours en vérifiant que la terminologie du domaine est respectée.
+<div class="rail"><strong>Quand</strong> — un critère de qualité existe</div>
+<div class="rail"><strong>La condition</strong> — l'évaluateur doit battre le producteur</div>
+<div class="rail"><strong>Toujours</strong> — un budget d'itérations</div>
+<div class="rail"><strong>Mieux</strong> — un évaluateur déterministe</div>
 
-**La condition de validité** — l'évaluateur doit être **plus fiable que le producteur** sur ce critère. Sinon vous itérez vers son biais.
-
-**Toujours** — un budget d'itérations. Une boucle qualité sans plafond est une facture sans plafond.
-
-Un évaluateur **déterministe** (tests, schéma, compilation) bat un évaluateur-modèle chaque fois qu'il est possible.
+</v-clicks>
 
 </div>
 </div>
 
 <!--
-Le point "plus fiable que le producteur" est subtil et important. Si le même modèle
-produit et évalue avec un prompt à peine différent, on obtient surtout de la confirmation.
+Exemple : traduire un support de cours en vérifiant que la terminologie
+du domaine est respectée. Le critère est exprimable, une seconde passe améliore
+réellement.
+
+« L'évaluateur doit être plus fiable que le producteur » — c'est le point subtil
+et le plus important. Si le même modèle produit et évalue avec un prompt à peine
+différent, on obtient surtout de la confirmation, et on paie trois fois pour ça.
 Ce qui marche : un évaluateur différent, ou un critère vérifiable mécaniquement.
+
+Le budget : une boucle qualité sans plafond est une facture sans plafond.
+Montrer la ligne du commentaire dans le code — on sort TOUJOURS, avec ou sans
+le seuil. C'est la même idée que les bornes de l'agent, cet après-midi.
+
+Un évaluateur déterministe — tests, schéma, compilation — bat un évaluateur-modèle
+chaque fois qu'il est possible. Le chercher en premier, systématiquement.
 -->
 
 ---
@@ -294,19 +388,37 @@ layout: default
 
 # Choisir : la grille
 
+<v-clicks at="+0" every="6">
+
 | Vous êtes dans ce cas | Le pattern |
 |---|---|
-| La séquence est connue et fixe | **Chaînage** |
+| La séquence est fixe | **Chaînage** |
 | Les entrées sont hétérogènes | **Routage** |
 | Plusieurs angles sur un même objet | **Parallélisation** |
 | Le découpage dépend de l'entrée | **Orchestrateur / exécutants** |
-| Il existe un critère de qualité vérifiable | **Évaluateur / optimiseur** |
-| Vous ne savez pas dire les étapes à l'avance | **Agent** — module 3 |
-| Vous savez dire les étapes, et il n'y a pas de langage naturel | **Ni l'un ni l'autre.** Écrivez le code. |
+| Un critère de qualité est vérifiable | **Évaluateur / optimiseur** |
+| Vous ne savez pas dire les étapes | **Agent** — module 3 |
+| Vous savez les dire, sans langage naturel | **Écrivez le code.** |
 
-<div v-click class="pt-6 callout-bad text-sm">
-La dernière ligne est celle qu'on oublie. Un <code>if</code> qui coûte zéro milliseconde et se teste au unitaire vaut mieux qu'un appel de modèle qui coûte 200 ms, deux centimes, et se trompe une fois sur cinquante.
+</v-clicks>
+
+<div v-click class="mt-8 callout-bad">
+La dernière ligne est celle qu'on oublie.
 </div>
+
+<!--
+Cette grille est le livrable du module. La photographier, elle sert au module 6.
+
+Développer la dernière ligne : un « if » se teste au unitaire, s'exécute en
+microsecondes, coûte zéro et ne se trompe jamais. Un appel de modèle coûte une
+latence réseau, une fraction de centime, et a un taux d'erreur non nul. Les
+trois termes sont vrais sans chiffre — ne pas inventer « 200 ms, deux centimes,
+une fois sur cinquante », c'est le genre de nombre qu'on me demandera de
+sourcer. On l'oublie parce que l'appel de modèle s'écrit plus vite.
+
+Question à poser à la salle avant de cliquer : « à votre avis, il manque
+quelle ligne ? » Souvent quelqu'un trouve.
+-->
 
 ---
 layout: default
@@ -314,31 +426,33 @@ layout: default
 
 # Trois anti-patterns qu'on voit tout le temps
 
-<div class="pt-4 space-y-6">
+<div class="pt-8 space-y-6 text-[1.15rem]">
 <v-clicks>
 
-<div class="rail-bad">
-<div class="font-semibold">« Un agent pour tout »</div>
-<div class="opacity-70 text-sm pt-1">On donne 30 outils à un modèle et on espère. Résultat : il en utilise 5, se trompe d'outil, boucle. Un système d'agents se conçoit comme un organigramme — des rôles étroits, des périmètres clairs.</div>
-</div>
+<div class="rail-bad">« Un agent pour tout » — trente outils, et on espère</div>
 
-<div class="rail-bad">
-<div class="font-semibold">Le modèle comme colle</div>
-<div class="opacity-70 text-sm pt-1">Un appel de modèle pour reformater un JSON, extraire une date, choisir entre deux branches booléennes. C'est cher, lent, et non déterministe pour un travail que du code fait parfaitement.</div>
-</div>
+<div class="rail-bad">Le modèle comme colle — un appel pour reformater un JSON</div>
 
-<div class="rail-bad">
-<div class="font-semibold">Le prompt géant</div>
-<div class="opacity-70 text-sm pt-1">Trois pages d'instructions qui décrivent un enchaînement d'étapes. Si vous êtes capable d'écrire la séquence dans le prompt, vous êtes capable de l'écrire en code — et là, elle sera respectée.</div>
-</div>
+<div class="rail-bad">Le prompt géant — trois pages qui décrivent une séquence</div>
 
 </v-clicks>
 </div>
 
 <!--
-Le troisième est le plus fréquent chez les gens qui débutent, parce que c'est le plus
-facile à écrire. Reformulation à donner : "si tu peux le décrire, code-le ;
-garde le modèle pour ce que tu ne peux pas décrire".
+1 · Un agent pour tout — on donne trente outils à un modèle et on espère.
+Résultat : il en utilise cinq, se trompe d'outil, boucle. Un système d'agents
+se conçoit comme un organigramme : des rôles étroits, des périmètres clairs.
+
+2 · Le modèle comme colle — un appel pour reformater un JSON, extraire une date,
+choisir entre deux branches booléennes. C'est cher, lent, et non déterministe
+pour un travail que du code fait parfaitement. C'est la dernière ligne
+de la grille précédente, en pratique.
+
+3 · Le prompt géant — trois pages d'instructions qui décrivent un enchaînement
+d'étapes. C'est le plus fréquent chez les débutants parce que c'est le plus
+facile à écrire. La reformulation à donner, elle marque : « si tu peux le décrire,
+code-le ; garde le modèle pour ce que tu ne peux pas décrire ».
+Et surtout : dans le code, la séquence sera RESPECTÉE. Dans le prompt, non.
 -->
 
 ---
@@ -347,18 +461,32 @@ layout: default
 
 # Ce qu'il faut retenir du module 2
 
-<div class="pt-6 space-y-4 text-lg">
+<div class="pt-8 space-y-5 text-lg">
 <v-clicks>
 
-<div class="flex gap-4"><span class="text-accent font-bold">1</span><div>Cinq patterns, et ils se combinent : <strong>chaînage, routage, parallélisation, orchestrateur/exécutants, évaluateur/optimiseur</strong>.</div></div>
+<div class="flex gap-4"><span class="text-accent font-bold">1</span><div>Cinq patterns, et ils se <strong>combinent</strong>.</div></div>
 
-<div class="flex gap-4"><span class="text-accent font-bold">2</span><div>Dans un workflow, le coût et le comportement sont <strong>prévisibles</strong>. C'est sa valeur principale.</div></div>
+<div class="flex gap-4"><span class="text-accent font-bold">2</span><div>Dans un workflow, coût et comportement sont <strong>prévisibles</strong>.</div></div>
 
-<div class="flex gap-4"><span class="text-accent font-bold">3</span><div>Un contrôle <strong>déterministe</strong> entre deux étapes vaut mieux qu'un second modèle qui valide le premier.</div></div>
+<div class="flex gap-4"><span class="text-accent font-bold">3</span><div>Un contrôle <strong>déterministe</strong> bat un second modèle qui valide.</div></div>
 
-<div class="flex gap-4"><span class="text-accent font-bold">4</span><div>Si vous savez énoncer les étapes, <strong>écrivez-les</strong> — dans le code, pas dans le prompt.</div></div>
+<div class="flex gap-4"><span class="text-accent font-bold">4</span><div>Si vous savez énoncer les étapes, <strong>écrivez-les</strong> — en code.</div></div>
 
 </v-clicks>
 </div>
 
-<div class="pt-10 opacity-50 text-sm">Déjeuner. Cet après-midi : ce qui se passe quand on retire le graphe.</div>
+<v-click>
+<div class="pt-12 opacity-50 text-sm">Déjeuner. Cet après-midi : ce qui se passe quand on retire l'enchaînement.</div>
+</v-click>
+
+<!--
+Point 1 — les redonner de mémoire, sans regarder : chaînage, routage,
+parallélisation, orchestrateur/exécutants, évaluateur/optimiseur.
+
+Point 2 — c'est la valeur principale du workflow, pas un détail.
+
+Point 4 — insister sur « en code, pas dans le prompt ».
+
+Annoncer l'après-midi en une phrase : on retire l'enchaînement, et on regarde
+ce qu'il faut remettre à la place.
+-->
