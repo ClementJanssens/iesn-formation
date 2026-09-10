@@ -5,6 +5,9 @@ module: 7
 
 # Clôture
 
+<!--
+**Transition :** consolider les idées de la journée, proposer une première action concrète, puis ouvrir les questions.
+-->
 ---
 layout: default
 ---
@@ -32,17 +35,12 @@ layout: default
 </div>
 
 <!--
-Les reprendre une par une, en développant celle qui a le mieux marché
-dans la journée — regarder la salle, pas la slide.
+**Idée clé :** reprendre les sept repères sans relire la slide.
 
-Les compléments s'ils sont utiles :
-2 — tous les garde-fous se placent sur cette frontière.
-3 — l'autonomie est une décision d'ingénierie, elle se règle dans le code.
-4 — gardez le modèle pour ce que vous ne savez pas décrire.
-5 — on troque le contrôle de l'enchaînement contre celui des bornes.
-6 — deux sur trois, c'est gérable ; les trois ensemble, la fuite est une
-    question de temps.
-7 — et un critère par cas.
+- **Faire :** regarder la salle et développer seulement l’idée qui a le mieux fonctionné.
+- **Insister :** les garde-fous se placent entre décision du modèle et action du code.
+- **Rappeler :** autonomie signifie contrôle des bornes plutôt que contrôle de chaque étape.
+- **Dire :** deux éléments de la combinaison restent gérables. Les trois ensemble ne le sont pas.
 -->
 
 ---
@@ -66,20 +64,12 @@ layout: default
 </div>
 
 <!--
-Ce qui va probablement changer : le coût par tâche continuera de baisser.
-Les boucles longues deviendront banales. L'exécution s'éloignera de la machine
-locale vers des environnements gérés. Les mécanismes d'apprentissage entre
-sessions vont se stabiliser et sortir de la phase expérimentale.
+**Idée clé :** les produits changeront plus vite que les principes de contrôle.
 
-Ce qui ne changera pas : le modèle restera sans état. Le contexte restera
-une ressource à budgéter. L'injection de prompt indirecte restera structurelle.
-La liste d'outils restera la première défense. Et « qui répond de cette décision »
-restera une question humaine.
-
-Face à un nouvel outil, ne vous arrêtez pas à la démonstration. Vérifiez ce
-qu'il a le droit de faire, ce qu'il enregistre et ce qui met fin à son action.
-C'est là que se joue son usage réel.
-C'est la grille de lecture qu'ils emportent.
+- **Dire :** coût, longueur des boucles et exécution gérée continueront probablement d’évoluer.
+- **Insister :** modèle sans état, budget de contexte et injection indirecte resteront structurants.
+- **Demander face à un nouvel outil :** que peut-il faire, que conserve-t-il et quand s’arrête-t-il ?
+- **Transition :** cette grille restera utile même lorsque les noms des produits auront changé.
 -->
 
 ---
@@ -115,18 +105,12 @@ Si les étapes sont connues, construisez un workflow. Ajoutez une boucle agent s
 </div>
 
 <!--
-La dernière marche à suivre doit se comprendre sans renvoi à une slide précédente.
+**Idée clé :** commencer petit, borner avant de coder et tester sur des cas réels.
 
-1 — Partir d'une tâche fréquente, réversible et dont une erreur se voit. Éviter
-les décisions qui engagent une personne : note, fraude, échec, recours.
-2 — Écrire avant le code : le résultat attendu, les outils autorisés, la condition
-d'arrêt, le plafond d'actions et le moment où un humain reprend la main.
-3 — Tester sur des cas réellement rencontrés. Compter les erreurs importantes,
-pas seulement les réponses jugées convaincantes.
-
-La conclusion reprend la distinction centrale de la journée : un workflow quand
-l'enchaînement est connu ; une boucle agent bornée quand le système doit choisir
-la prochaine action à partir de ce qu'il observe.
+- **Choisir :** une tâche fréquente, réversible et dont l’erreur se voit.
+- **Définir :** résultat attendu, outils, arrêt, plafond d’actions et reprise humaine.
+- **Tester :** cas réellement rencontrés et erreurs importantes.
+- **Conclure :** workflow si les étapes sont connues, agent borné si le système doit choisir la prochaine action.
 -->
 
 ---
@@ -137,12 +121,10 @@ class: text-center
 # Questions
 
 <!--
-Garder dix minutes. Si personne ne parle, relancer avec :
-« quelqu'un a un cas concret qu'il aimerait qu'on architecture ensemble ? »
+**Objectif :** appliquer la grille à un cas concret de la salle.
 
-C'est le meilleur usage de la fin de journée : appliquer la grille en direct
-sur un cas apporté par la salle. Écrire les cinq lignes au tableau
-pendant qu'ils parlent.
-
-Remercier, et donner un moyen de me joindre pour les questions d'après.
+- **Garder :** dix minutes.
+- **Relancer si nécessaire :** « Quelqu’un a un cas concret qu’il aimerait qu’on architecture ensemble ? »
+- **Faire :** remplir les cinq lignes au tableau pendant l’échange.
+- **Clore :** remercier et donner un moyen de contact pour les questions ultérieures.
 -->

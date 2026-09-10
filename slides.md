@@ -30,12 +30,11 @@ Comprendre, concevoir et encadrer<br>des systèmes qui agissent
 <div class="text-meta">Septembre 2026</div>
 
 <!--
-Bonjour. Une journée, six heures de contenu, trois pauses — 10h30, le déjeuner, 15h15.
+**Idée clé :** repartir capable de comprendre, évaluer et cadrer un système d’agents.
 
-Objectif annoncé d'entrée : qu'en repartant vous sachiez lire l'architecture d'un
-système d'agents, dire pourquoi il échoue, et décider s'il a sa place dans votre cours.
-
-Ton à installer dès la première minute : on ne vend rien, on ouvre le capot.
+- **Dire :** « Aujourd’hui, on ouvre le capot. On ne vend aucun outil. »
+- **Annoncer :** six heures de contenu et trois pauses à 10h30, 12h00 et 15h15.
+- **Objectif :** savoir lire une architecture, expliquer ses échecs et décider si elle a sa place dans un cours.
 -->
 
 ---
@@ -79,26 +78,12 @@ eyebrow: Avant de commencer
 </div>
 
 <!--
-Développer chaque ligne de gauche en une phrase, pas plus :
-— « comprendre le fonctionnement » : on regarde ce qu'il y a vraiment dans la boucle,
-   pas la description marketing.
-— « cinq patterns » : un vocabulaire d'atelier, pas une taxonomie académique.
-— « réussis et ratés » : deux démos, dont une qui échoue. C'est volontaire.
-— « vos usages » : le module 6 est à vous, il se règle sur ce que vous direz ce matin.
-— « trois labos » : annoncer tout de suite qu'ils sortent leur portable trois fois
-   dans la journée, à 10h, à 13h et à 14h45. Une manip par labo, rien à installer.
+**Idée clé :** la journée porte sur les mécanismes et les choix d’architecture.
 
-Colonne de droite, la phrase à dire : le code à l'écran est en TypeScript, il est là
-pour MONTRER UNE FORME, jamais pour être appris ni noté. Public mid-tech :
-le code sert de support visuel à un concept. Personne ne recopie rien.
-
-Insister sur « pas de comparatif d'outils » : cadre académique, je ne fais pas
-la promotion d'une bibliothèque. Les concepts d'abord, les implémentations
-en illustration et toujours au pluriel.
-
-Ne PAS déclarer le conflit d'intérêts ici — c'est trop tôt, ça n'a pas encore
-de sens pour eux. La déclaration se fait au labo 1, à 10h05, quand la plateforme
-apparaît à l'écran. Elle est écrite mot pour mot dans les notes de cette slide-là.
+- **Dire :** cinq patterns, des cas réussis et ratés, puis trois labos dans le navigateur.
+- **Insister :** le TypeScript montre une forme. Personne ne doit apprendre ni recopier le code.
+- **Éviter :** comparatif d’outils, promesse de remplacement ou débat sur le meilleur framework.
+- **Transition :** la déclaration d’intérêt viendra au labo 1, lorsque la plateforme apparaîtra.
 -->
 
 ---
@@ -136,18 +121,12 @@ eyebrow: Programme
 </div>
 
 <!--
-Ne pas commenter ligne par ligne. Deux repères seulement :
-— le matin construit le vocabulaire, l'après-midi le met sous tension ;
-— le module 6 est le leur, et il est calibré sur le tour de salle de 09h15.
+**Idée clé :** le matin construit le vocabulaire, l’après-midi l’applique aux risques et à l’enseignement.
 
-Signaler les pauses : 10h30, 12h00, 15h15. Les gens s'installent mieux
-quand ils savent quand ils sortent.
-
-Les trois « labo » du programme : dire maintenant qu'il leur faut un portable
-et rien d'autre — tout se passe dans le navigateur, il n'y a rien à installer
-et rien à payer. Ceux qui n'en ont pas se mettent à deux, c'est même mieux.
-Leur accès a été envoyé hier par mail : leur demander de l'ouvrir pendant la
-pause de 10h30 s'ils ne l'ont pas encore fait.
+- **Dire :** le module 6 sera adapté aux réponses du tour de salle.
+- **Annoncer :** pauses à 10h30, 12h00 et 15h15.
+- **Préciser :** trois labos dans le navigateur, sans installation ni paiement. Travail à deux possible.
+- **Demander :** ouvrir avant 10h45 l’accès reçu par mail.
 -->
 
 ---

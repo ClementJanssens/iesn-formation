@@ -7,6 +7,9 @@ module: 3
 
 <div class="opacity-50 pt-2">reprendre le contrôle de la boucle</div>
 
+<!--
+**Transition :** retirer l’enchaînement fixé par le workflow, puis examiner les bornes nécessaires pour garder le contrôle.
+-->
 ---
 layout: statement
 class: text-center
@@ -23,37 +26,21 @@ Vingt minutes. Encore une phrase, et un fichier à ouvrir.
 </div>
 
 <!--
-**LABO 2 · 20 MIN · 13H00**
+**Objectif :** observer deux déclencheurs et faire produire un PDF par un outil.
 
-**Temps 1 · 3 min · Tu déclenches, ils regardent**
+1. **Depuis le pupitre :** dire « Personne ne touche son clavier. Regardez le plateau, pas votre écran. », puis déclencher les quinze agents.
+2. **Demander :** « Qu’est-ce qui a lancé la boucle ? » Réponse : un service, pas l’utilisateur.
+3. **Faire :** rouvrir la conversation du matin et taper « Mets-moi cette liste en PDF, une fiche par cabinet. »
+4. **Attendre :** chacun télécharge et ouvre réellement le PDF.
 
-1. Dire : « Personne ne touche son clavier. Regardez le plateau, pas votre écran. »
-2. Depuis le pupitre, appeler d'un coup les quinze adresses de déclenchement préparées la veille.
-3. Quand les agents démarrent, demander : « Qu'est-ce qui a lancé cette boucle ? » Réponse : pas eux.
+**Débrief :**
+- Quatre déclencheurs : utilisateur, horaire, service ou autre agent.
+- L’URL de déclenchement n’est pas protégée. Toute personne qui la possède peut lancer l’agent.
+- Le modèle choisit la fonction et ses arguments. Le code produit le fichier et peut facturer.
 
-**Temps 2 · 10 min · Ce qu'ils font**
+**Rappel pour 14h45 :** au prochain labo, le PDF arrivera sans intervention.
 
-1. Retourner dans la conversation du matin, celle qui contient la liste.
-2. Taper :
-
-> Mets-moi cette liste en PDF, une fiche par cabinet.
-
-3. Télécharger le PDF.
-4. Ouvrir le fichier et regarder le résultat.
-
-Les laisser réellement ouvrir le document avant de reprendre. Toujours aucun réglage : deux phrases depuis le matin, zéro configuration.
-
-**Débrief · 7 min**
-
-1. « Combien de façons peut-on utiliser pour démarrer un agent ? » Réponse : l'utilisateur lui écrit, une heure arrive, un service l'appelle ou un autre agent l'appelle. Ils viennent d'en voir deux.
-2. « Qu'est-ce qui protège l'adresse que je viens de déclencher ? » Réponse : rien. Toute personne qui possède l'URL peut déclencher l'agent. Annoncer qu'on y revient au module 5.
-3. « Le PDF sort d'où ? » Réponse : d'un outil. Le modèle a choisi la fonction et ses arguments, puis le code a produit le fichier.
-
-Demander : « Laquelle des deux parties peut vous facturer quelque chose ? » Réponse : l'outil.
-
-**À rappeler à 14h45 :** cette fois, ils ont demandé le PDF. Au labo suivant, ils le recevront sans intervenir.
-
-**Si le réseau lâche :** montrer les captures et faire une démonstration commentée de 8 minutes.
+**Si problème :** utiliser les captures et la démonstration commentée.
 -->
 
 ---
@@ -97,16 +84,12 @@ Vous échangez le contrôle de <strong>l'enchaînement</strong> contre le contr�
 </div>
 
 <!--
-C'est la phrase-pivot de l'après-midi. Tout le reste du module ne fait que
-détailler les bornes disponibles : arrêt, budget, périmètre d'outils, approbation.
+**Idée clé :** sans séquence fixe, on contrôle les bornes plutôt que les étapes.
 
-À dire par-dessus la colonne de droite : vous ne savez ni le nombre d'étapes,
-ni lesquelles, ni le coût. Vous savez où ça s'arrête — SI vous l'avez écrit.
-Et si vous ne l'avez pas écrit, vous n'avez plus aucun contrôle du tout.
-Marquer un temps sur cette dernière phrase.
-
-Renvoyer au curseur d'autonomie du module 1 : on vient de sauter deux crans
-vers la droite, et on va passer une heure à revenir un peu vers la gauche.
+- **Dire :** nombre d’étapes, actions précises et coût restent inconnus.
+- **Insister :** on connaît la fin seulement si une condition d’arrêt a été écrite.
+- **Faire :** marquer un silence après « Sans condition d’arrêt, vous n’avez plus de contrôle. »
+- **Transition :** revenir vers la gauche du curseur grâce à l’arrêt, au budget, aux outils et à l’approbation.
 -->
 
 ---
@@ -138,21 +121,14 @@ const resultat = await agent.generate({
 </div>
 
 <!--
-Cliquer étape par étape, ne pas tout montrer d'un coup.
+**Idée clé :** un agent minimal combine instructions, outils et condition d’arrêt.
 
-instructions — le rôle et les règles. Elles persistent à chaque tour, donc chaque
-mot est repayé vingt fois. Un prompt système de 2 000 tokens sur 20 étapes,
-c'est 40 000 tokens rien que pour les consignes. Le dire, ça surprend.
+- **Montrer :** révéler le code étape par étape.
+- **Dire :** les instructions reviennent à chaque tour et sont repayées à chaque appel.
+- **Insister :** un outil absent de la liste ne peut pas être utilisé. Cette absence protège mieux qu’un prompt.
+- **Transition :** `stopWhen` est la ligne la plus importante.
 
-tools — le périmètre d'action. La phrase à poser ici, elle ressert au module 5 :
-ce qui n'est pas dans cette liste ne peut pas arriver. Aucune instruction en
-langue naturelle n'a la force d'une capacité absente.
-
-stopWhen — la ligne la plus importante du fichier. C'est la slide suivante.
-
-Préciser : la plupart des bibliothèques d'agents exposent une forme très voisine,
-aux noms près. Cette structure vient du problème lui-même, et elle survit
-au choix du produit.
+**Si question :** 2 000 tokens d’instructions répétés sur 20 étapes représentent 40 000 tokens.
 -->
 
 ---
@@ -234,33 +210,14 @@ L'arrêt « naturel » est <strong>le moins fiable</strong>.
 </div>
 
 <!--
-La colonne de droite change à chaque clic : à gauche la condition, à droite ce
-qu'elle donne dans le code. Sur deux des quatre, il n'y a rien à écrire — c'est
-tout le propos de la slide, et il se voit avant d'être dit.
+**Idée clé :** une boucle fiable possède un arrêt explicite et un plafond dur.
 
-Développer les quatre :
-— naturellement : le modèle estime avoir fini. C'est une déclaration, pas un fait.
-  Montrer le tableau vide à droite : cette condition-là ne se paramètre pas, elle
-  se subit. La boucle rend la main dès qu'une étape n'appelle plus d'outil.
-— outil terminal : un arrêt EXPLICITE, bien plus fiable. Une ligne, et l'agent ne
-  peut plus conclure autrement qu'en passant par la porte qu'on lui a laissée.
-— budget : le garde-fou. Toujours présent. Insister : cette ligne-là, on ne la
-  discute pas, on l'écrit d'abord.
-— erreur : dépassement de contexte, coupure réseau, exception non rattrapée.
-  Le try/catch est DEHORS. C'est une panne, elle survient : la question à poser
-  à la salle, c'est « à l'étape 14 sur 20, qu'est-ce qui reste du travail déjà
-  fait ? » — rien, sauf si on l'a écrit quelque part. On y revient
-  au module 5.
+- **Montrer :** fin naturelle, outil terminal, budget puis erreur.
+- **Insister :** la fin naturelle reste une déclaration du modèle. Le budget doit toujours exister.
+- **Dire :** un outil terminal impose une sortie structurée avec les preuves attendues.
+- **Demander :** « À l’étape 14 sur 20, que reste-t-il après une panne ? »
 
-Le point à développer, c'est le « done tool », très sous-utilisé et très rentable.
-Un modèle déclare volontiers avoir terminé une tâche qu'il n'a pas faite.
-Le remède : un outil rendreSynthese que le modèle DOIT appeler pour finir,
-avec un schéma qui exige les preuves — le tableau des liens vérifiés,
-les sources retenues. Si le schéma exige un tableau non vide, il ne peut pas
-conclure à vide.
-
-La formule à donner : vous ne pouvez pas contrôler ce qu'il PENSE avoir fait.
-Vous pouvez contrôler la FORME de sa sortie.
+**Si question :** le `try/catch` vit hors de la boucle. On ne contrôle pas ce que le modèle pense avoir fait, mais on contrôle la forme de sa sortie.
 -->
 
 ---
@@ -294,17 +251,12 @@ On refixe une partie de <strong>l'enchaînement</strong>.<br>
 </div>
 
 <!--
-Pourquoi c'est efficace : un modèle à qui on présente vingt outils choisit moins
-bien qu'un modèle à qui on en présente trois. Restreindre le menu améliore
-la décision — et raccourcit le contexte au passage. Double gain.
+**Idée clé :** réduire les outils disponibles améliore le choix et raccourcit le contexte.
 
-Ce que ça permet aussi : changer de modèle en cours de route. Un modèle rapide
-et bon marché pour explorer, un modèle large pour la synthèse finale.
-La facture n'est pas la même, et la qualité non plus.
-
-Le message de fond, à appuyer : « agent » et « workflow » ne sont pas deux camps.
-On dose. Les meilleurs systèmes en production sont des agents dont on a
-refixé une bonne partie de l'enchaînement.
+- **Dire :** proposer trois outils plutôt que vingt réduit les erreurs de sélection.
+- **Montrer :** exploration avec un petit modèle, synthèse avec un modèle plus capable.
+- **Insister :** agent et workflow se combinent. On peut refixer une partie de l’enchaînement.
+- **Transition :** les systèmes stables dosent l’autonomie selon la phase.
 -->
 
 ---
@@ -323,26 +275,15 @@ Même consigne que ce matin. J'ai retiré une borne.
 </div>
 
 <!--
-**DÉMO 2 · TRACE PRÉPARÉE À L'AVANCE**
+**Objectif :** reconnaître une boucle qui déraille dans une trace préparée.
 
-Ne pas relancer cette démonstration en direct. Ouvrir la trace JSON sauvegardée et la dérouler lentement. Garder les captures de secours à portée de main.
+- **Règle :** ne pas relancer en direct. Ouvrir la trace JSON sauvegardée.
+- **Contexte :** « J’ai demandé si l’on peut empiler les +2 au UNO. J’ai retiré la borne d’arrêt. »
+- **Montrer :** erreur d’outil, mauvaise interprétation, répétitions annoncées comme des progrès, puis réussite déclarée.
+- **Demander :** « À quelle étape auriez-vous coupé ? » Attendre une réponse.
+- **Transition :** nommer ensuite les cinq modes d’échec.
 
-**Contexte à donner**
-
-« J'ai demandé si l'on peut empiler les cartes +2 au UNO. J'ai retiré la borne d'arrêt. L'agent cherche une règle officielle définitive qu'il ne trouve pas et finit par boucler. »
-
-**Ce que tu montres**
-
-1. L'étape où l'outil renvoie une erreur.
-2. L'étape où le modèle comprend mal cette erreur.
-3. Les trois étapes suivantes où il répète presque la même action tout en annonçant qu'il progresse.
-4. L'étape finale où il affirme avoir réussi.
-
-**Question à la salle**
-
-« À quelle étape auriez-vous coupé ? » Attendre une vraie réponse.
-
-**Ensuite :** passer à « Les cinq modes d'échec ».
+**Si problème :** garder les captures de secours prêtes.
 -->
 
 ---
@@ -370,29 +311,12 @@ Quatre sur cinq se corrigent <strong>sans toucher au modèle</strong>.
 </div>
 
 <!--
-Ces cinq modes couvrent l'écrasante majorité des incidents. Quand on débugge
-un agent, on commence par se demander lequel des cinq c'est — ça oriente
-immédiatement le remède. Le dire comme une méthode, pas comme une liste.
+**Idée clé :** identifier le mode d’échec indique directement le type de remède.
 
-1 · La boucle polie — il annonce qu'il progresse à chaque tour. Se détecte
-mécaniquement, en comparant les arguments d'outil d'un tour à l'autre.
-
-2 · La dérive d'objectif — il résout brillamment un sous-problème rencontré
-en chemin et ne revient jamais à la demande initiale. Plus la boucle est longue,
-plus c'est probable.
-
-3 · La fin déclarée — il en a vérifié un sur trois. Le remède est structurel :
-exiger les preuves dans le SCHÉMA DE SORTIE, pas dans le prompt. C'est le done tool
-de tout à l'heure.
-
-4 · La contamination — une donnée fausse entrée à l'étape 3 reste dans le contexte
-jusqu'à l'étape 20 et oriente tout le reste. → module 4.
-
-5 · Le mauvais outil — la cause est dans la rédaction des descriptions.
-Relire les deux côte à côte, elles se ressemblent.
-
-La phrase du bas est la bonne nouvelle du module : le réflexe « il faut un modèle
-plus fort » est presque toujours faux.
+- **Dire :** boucle polie, dérive d’objectif, fin déclarée, contamination, mauvais outil.
+- **Montrer :** détecter la répétition en comparant les appels. Exiger les preuves dans le schéma de sortie.
+- **Insister :** une donnée fausse reste dans le contexte et déforme les étapes suivantes.
+- **Éviter :** conclure trop vite qu’il faut un modèle plus puissant. Vérifier d’abord boucle, bornes, contexte et descriptions.
 -->
 
 ---
@@ -421,23 +345,12 @@ Ordres de grandeur illustratifs. La mise en cache atténue la facture, pas la fo
 </div>
 
 <!--
-Laisser la salle lire le tableau, puis dire la phrase. Elle produit son effet
-toute seule.
+**Idée clé :** relire tout le contexte à chaque tour produit une croissance quadratique.
 
-Le tableau est arithmétiquement juste et il faut qu'il le reste — un public de
-profs additionne. Modèle : le contexte relu à l'étape n vaut 2 000 × n, donc le
-cumulé vaut 2 000 × n(n+1)/2. À vingt étapes : 2 000 × 210 = 420 000, soit
-210 fois la première étape. Si on me sort le calcul, c'est un nombre
-triangulaire, et c'est exactement le point : la croissance est quadratique.
+- **Faire :** laisser la salle lire le tableau avant de commenter.
+- **Dire :** à l’étape `n`, le modèle relit tout ce qui précède parce qu’il reste sans état.
+- **Montrer :** 20 étapes de 2 000 tokens cumulent 420 000 tokens, soit 210 fois la première étape.
+- **Transition :** gérer le contexte détermine la viabilité économique du système.
 
-Le pourquoi, à redire même si on l'a vu ce matin : chaque appel relit tout
-ce qui précède. Le modèle est sans état. C'est la conséquence directe de la slide
-« le fait que tout le monde oublie ».
-
-Enchaîner : c'est ce qui rend le module 4 nécessaire. Gérer le contexte décide
-si le système est viable économiquement.
-
-Si on me demande le cache de préfixe : oui, ça réduit fortement la facture réelle,
-non, ça ne change pas la forme quadratique de la courbe. Et le cache tombe
-dès qu'on modifie le début du contexte — donc dès qu'on résume. Module 4.
+**Si question :** le cache de préfixe réduit la facture réelle, mais pas la forme quadratique. Il tombe lorsque le début du contexte change.
 -->
