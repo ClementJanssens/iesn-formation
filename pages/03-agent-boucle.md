@@ -15,60 +15,45 @@ class: text-center
 # Labo 2
 
 <div class="text-xl opacity-60 pt-6">
-Qui a lancé ça ?
+La même liste. En PDF.
 </div>
 
 <div class="pt-14 text-sm opacity-50">
-Vingt minutes. Vous ne cliquez sur rien : vous lui parlez.
+Vingt minutes. Encore une phrase, et un fichier à ouvrir.
 </div>
 
 <!--
-LABO 2 — 20 minutes, à 13h00 pile, AVANT la première slide du module.
-C'est la reprise d'après-déjeuner : ils sont lourds, on les fait regarder
-quelque chose avant de leur faire faire quelque chose.
+**LABO 2 · 20 MIN · 13H00**
 
-TEMPS 1 — je tire, ils regardent (3 min).
-Depuis le pupitre, j'appelle d'un coup les quinze adresses de déclenchement
-préparées la veille. Les quinze agents de la salle démarrent en même temps.
-Personne dans la salle n'a touché à son clavier.
-Leur faire regarder le plateau, pas leur écran.
-La phrase : « qu'est-ce qui a lancé cette boucle ? Pas vous. »
+**Temps 1 · 3 min · Tu déclenches, ils regardent**
 
-TEMPS 2 — le voisin (7 min).
-Une seule phrase à écrire, en français, dans leur chat :
-  « Demande à @prénom-du-voisin sur quel cours il travaille, et rapporte-moi
-    sa réponse. »
-Leur agent en appelle un autre — qui n'est pas le leur, qui appartient à la
-personne assise à côté. La carte des prénoms est sur les tables.
+1. Dire : « Personne ne touche son clavier. Regardez le plateau, pas votre écran. »
+2. Depuis le pupitre, appeler d'un coup les quinze adresses de déclenchement préparées la veille.
+3. Quand les agents démarrent, demander : « Qu'est-ce qui a lancé cette boucle ? » Réponse : pas eux.
 
-TEMPS 3 — le rendez-vous (5 min).
-Encore une phrase, pas un formulaire :
-  « Donne-toi rendez-vous tous les lundis à 9h pour me résumer ma semaine. »
-Il se crée la tâche tout seul. Leur faire vérifier qu'elle existe, puis lui
-demander de la déclencher tout de suite pour ne pas attendre lundi.
+**Temps 2 · 10 min · Ce qu'ils font**
 
-DÉBRIEF (5 min), trois choses et pas une de plus :
+1. Retourner dans la conversation du matin, celle qui contient la liste.
+2. Taper :
 
-1. Quatre façons de démarrer une boucle : vous lui écrivez, l'heure arrive,
-   un autre service appelle, un autre agent l'appelle. Trois sur quatre se
-   passent de vous. C'est ça, « autonome » — pas l'intelligence, le déclencheur.
+> Mets-moi cette liste en PDF, une fiche par cabinet.
 
-2. L'ADRESSE DE DÉCLENCHEMENT EST LE MOT DE PASSE. Pas de signature, pas
-   d'en-tête secret : qui détient l'URL déclenche votre agent. On y revient
-   au module 5, slide « la combinaison à ne jamais réunir ».
+3. Télécharger le PDF.
+4. Ouvrir le fichier et regarder le résultat.
 
-3. « Est-ce que ça valait le coup d'avoir deux agents ? » — Non. On vient de
-   payer deux boucles pour une info qu'un seul agent aurait trouvée. Le dire
-   franchement : c'est la moitié de la slide « Multi-agents : quand ça aide,
-   quand ça nuit » du module 4, qui se traitera en deux minutes en rappelant
-   ce moment.
+Les laisser réellement ouvrir le document avant de reprendre. Toujours aucun réglage : deux phrases depuis le matin, zéro configuration.
 
-À GARDER POUR LE LABO 3 : chaque exécution planifiée ouvre une conversation
-NEUVE. L'agent ne se souvient pas de lundi dernier. Ce qui traverse, c'est
-autre chose, et c'est le sujet de 14h45.
+**Débrief · 7 min**
 
-REPLI : si le réseau lâche, je déroule les captures et ça devient une démo
-commentée de 8 minutes. Le module tient quand même.
+1. « Combien de façons peut-on utiliser pour démarrer un agent ? » Réponse : l'utilisateur lui écrit, une heure arrive, un service l'appelle ou un autre agent l'appelle. Ils viennent d'en voir deux.
+2. « Qu'est-ce qui protège l'adresse que je viens de déclencher ? » Réponse : rien. Toute personne qui possède l'URL peut déclencher l'agent. Annoncer qu'on y revient au module 5.
+3. « Le PDF sort d'où ? » Réponse : d'un outil. Le modèle a choisi la fonction et ses arguments, puis le code a produit le fichier.
+
+Demander : « Laquelle des deux parties peut vous facturer quelque chose ? » Réponse : l'outil.
+
+**À rappeler à 14h45 :** cette fois, ils ont demandé le PDF. Au labo suivant, ils le recevront sans intervenir.
+
+**Si le réseau lâche :** montrer les captures et faire une démonstration commentée de 8 minutes.
 -->
 
 ---
@@ -191,26 +176,81 @@ layout: default
 </div>
 <div>
 
+<v-switch at="1">
+
+<template #1>
+
 ```ts
 stopWhen: [
-  stepCountIs(20),
+  // rien à écrire ici : dès qu'une étape
+  // n'appelle aucun outil, la boucle rend
+  // la main d'elle-même
+]
+```
+
+</template>
+
+<template #2>
+
+```ts
+stopWhen: [
   hasToolCall("rendreSynthese"),
 ]
 ```
 
-<div v-click class="pt-8 text-lg">
+</template>
+
+<template #3>
+
+```ts
+stopWhen: [
+  hasToolCall("rendreSynthese"),
+  stepCountIs(20),
+]
+```
+
+</template>
+
+<template #4-6>
+
+```ts
+try {
+  await agent.generate({ prompt })
+} catch (err) {
+  // hors de la boucle : elle ne s'arrête pas,
+  // elle casse
+}
+```
+
+</template>
+
+</v-switch>
+
+</div>
+</div>
+
+<div v-click="5" class="pt-10 text-lg">
 L'arrêt « naturel » est <strong>le moins fiable</strong>.
 </div>
 
-</div>
-</div>
-
 <!--
+La colonne de droite change à chaque clic : à gauche la condition, à droite ce
+qu'elle donne dans le code. Sur deux des quatre, il n'y a rien à écrire — c'est
+tout le propos de la slide, et il se voit avant d'être dit.
+
 Développer les quatre :
 — naturellement : le modèle estime avoir fini. C'est une déclaration, pas un fait.
-— outil terminal : un arrêt EXPLICITE, bien plus fiable.
-— budget : le garde-fou. Toujours présent.
+  Montrer le tableau vide à droite : cette condition-là ne se paramètre pas, elle
+  se subit. La boucle rend la main dès qu'une étape n'appelle plus d'outil.
+— outil terminal : un arrêt EXPLICITE, bien plus fiable. Une ligne, et l'agent ne
+  peut plus conclure autrement qu'en passant par la porte qu'on lui a laissée.
+— budget : le garde-fou. Toujours présent. Insister : cette ligne-là, on ne la
+  discute pas, on l'écrit d'abord.
 — erreur : dépassement de contexte, coupure réseau, exception non rattrapée.
+  Le try/catch est DEHORS. C'est une panne, elle survient : la question à poser
+  à la salle, c'est « à l'étape 14 sur 20, qu'est-ce qui reste du travail déjà
+  fait ? » — rien, sauf si on l'a écrit quelque part. On y revient
+  au module 5.
 
 Le point à développer, c'est le « done tool », très sous-utilisé et très rentable.
 Un modèle déclare volontiers avoir terminé une tâche qu'il n'a pas faite.
@@ -283,26 +323,26 @@ Même consigne que ce matin. J'ai retiré une borne.
 </div>
 
 <!--
-DÉMO 2 — une trace réelle et ratée, SAUVEGARDÉE À L'AVANCE en JSON, déroulée
-lentement. Ne pas relancer en direct : on veut un échec reproductible,
-pas la loterie. Captures de secours prêtes.
+**DÉMO 2 · TRACE PRÉPARÉE À L'AVANCE**
 
-Même consigne que la démo du matin (l'empilage des +2 au UNO, cf. module 0),
-relancée sans borne d'arrêt : l'agent cherche une règle officielle définitive
-qui n'existe pas sous la forme qu'il attend, et il boucle. Le rappeler en une
-phrase pour que la salle reconnaisse la tâche.
+Ne pas relancer cette démonstration en direct. Ouvrir la trace JSON sauvegardée et la dérouler lentement. Garder les captures de secours à portée de main.
 
-Ce qu'il faut faire voir, dans cet ordre :
-1. l'étape où l'outil renvoie une erreur
-2. l'étape où le modèle réinterprète l'erreur de travers
-3. les trois étapes suivantes où il répète la même action avec une variation
-   cosmétique, en annonçant à chaque fois qu'il progresse
-4. l'étape finale où il annonce avoir réussi
+**Contexte à donner**
 
-Puis la question à poser à la salle, et attendre la réponse :
-« à quelle étape auriez-vous coupé ? »
+« J'ai demandé si l'on peut empiler les cartes +2 au UNO. J'ai retiré la borne d'arrêt. L'agent cherche une règle officielle définitive qu'il ne trouve pas et finit par boucler. »
 
-Enchaîner sur la slide suivante : ce qu'on vient de voir a un nom, et il y en a cinq.
+**Ce que tu montres**
+
+1. L'étape où l'outil renvoie une erreur.
+2. L'étape où le modèle comprend mal cette erreur.
+3. Les trois étapes suivantes où il répète presque la même action tout en annonçant qu'il progresse.
+4. L'étape finale où il affirme avoir réussi.
+
+**Question à la salle**
+
+« À quelle étape auriez-vous coupé ? » Attendre une vraie réponse.
+
+**Ensuite :** passer à « Les cinq modes d'échec ».
 -->
 
 ---
@@ -400,32 +440,4 @@ si le système est viable économiquement.
 Si on me demande le cache de préfixe : oui, ça réduit fortement la facture réelle,
 non, ça ne change pas la forme quadratique de la courbe. Et le cache tombe
 dès qu'on modifie le début du contexte — donc dès qu'on résume. Module 4.
--->
-
----
-layout: default
----
-
-# Ce qu'il faut retenir du module 3
-
-<div class="pt-8 space-y-5 text-lg">
-<v-clicks>
-
-<div class="flex gap-4"><span class="text-accent font-bold">1</span><div>Passer à l'agent = échanger l'enchaînement contre <strong>les bornes</strong>.</div></div>
-
-<div class="flex gap-4"><span class="text-accent font-bold">2</span><div>L'arrêt naturel est le moins fiable. Un <strong>outil terminal exigeant</strong>.</div></div>
-
-<div class="flex gap-4"><span class="text-accent font-bold">3</span><div>Restreindre les outils par phase. <strong>Refixez l'enchaînement.</strong></div></div>
-
-<div class="flex gap-4"><span class="text-accent font-bold">4</span><div>Quatre des cinq modes d'échec se corrigent <strong>sans changer de modèle</strong>.</div></div>
-
-</v-clicks>
-</div>
-
-<!--
-Point 1 — et si vous ne posez pas les bornes, vous n'avez aucun contrôle.
-Point 3 — ça améliore la décision ET ça baisse la facture.
-Point 4 — c'est le point qui fait gagner du temps aux gens. L'appuyer.
-
-Enchaîner sans pause sur le module 4 : le contexte, la ressource rare.
 -->

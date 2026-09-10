@@ -56,7 +56,7 @@ sont récupérées chez Google Fonts, et hors ligne les métriques de repli déc
 | `pages/04-contexte-memoire.md` | Contexte, mémoire, sous-agents · **labo 3** | 75 min |
 | `pages/05-production.md` | Exécution, contrôle humain, observabilité, sécurité | 60 min |
 | `pages/06-enseignement.md` | Cartographie des usages, trois cas, évaluation des étudiants | 45 min |
-| `pages/07-cloture.md` | Sept idées à emporter, ressources, questions | 15 min |
+| `pages/07-cloture.md` | Sept idées à emporter, première mise en pratique, questions | 15 min |
 
 ### L'habillage
 
@@ -240,15 +240,54 @@ première montre qu'un agent *décide*, la seconde montre qu'il peut se tromper 
 gardant l'air sûr de lui.
 
 1. **Slide « Une tâche. Un agent. Quatre minutes. »** (module 0)
-   Un agent qui cherche, vérifie des liens, puis rédige. À tester le matin même.
-   Relever le **coût réel** et le **nombre d'étapes** : les deux chiffres sont cités
-   tout au long de la journée et doivent être vrais.
+   Une phrase tapée devant la salle — « trouve-moi les dix cabinets comptables de
+   Namur » — et un agent qui cherche, ouvre des pages, abandonne des pistes, rend
+   une liste. À tester le matin même. Relever le **coût réel** et le **nombre
+   d'étapes** : les deux chiffres sont cités tout au long de la journée et doivent
+   être vrais.
 
 2. **Slide « La trace d'un agent qui déraille »** (module 3)
    Une trace ratée, **sauvegardée à l'avance** et déroulée pas à pas. Ne pas rejouer
    en direct : on veut un échec reproductible, pas la loterie.
 
 Prévoir des captures d'écran de secours pour les deux.
+
+## Le fil rouge des trois labos
+
+La démo du matin et les trois labos portent sur **un seul objet** — une liste de
+cabinets comptables namurois — et chaque labo y ajoute **un verbe**. C'est la
+seule progression du support côté pratique, et elle tient en trois phrases tapées
+dans un chat :
+
+| | Ce que le participant tape | Ce qu'il obtient |
+|---|---|---|
+| **Labo 1** (mod. 1, 15 min) | « Trouve-moi les dix cabinets comptables de Namur… » | une liste, et une trace à regarder défiler |
+| **Labo 2** (mod. 3, 20 min) | « Mets-moi cette liste en PDF, une fiche par cabinet. » | un fichier qui s'ouvre et s'imprime |
+| **Labo 3** (mod. 4, 20 min) | « Tous les lundis à 9h, refais cette liste et envoie-moi le PDF. » | une tâche planifiée qui tourne sans eux |
+
+**Aucun réglage n'est touché de la journée.** Pas de case à cocher, pas de prompt
+système à modifier, pas d'onglet de permissions. Les labos montrent ce qu'un agent
+fait, et la mécanique se raconte depuis les slides. C'est une contrainte du support,
+pas une simplification : un participant qui passe le labo à chercher un menu ne
+regarde pas ce qui défile.
+
+Chaque labo porte quand même le point de son module, et le point sort du geste :
+
+- **Labo 1** — quinze personnes, la même phrase, quinze listes différentes ; et à
+  Namur, quelqu'un reconnaîtra un cabinet qui a fermé. Le nombre demandé (« les
+  dix ») est le piège : on regarde s'il complète pour arriver au compte.
+- **Labo 2** — l'animateur tire d'abord les quinze adresses de déclenchement
+  depuis le pupitre, personne n'a touché son clavier. Puis le PDF, qui sort d'un
+  **outil**, pas du modèle.
+- **Labo 3** — l'exécution planifiée ouvre une conversation **neuve** : il refait
+  le même travail sans savoir ce qu'il a déjà envoyé. C'est la démonstration
+  qu'il faut une mémoire, avant d'en parler. Puis l'onglet des mémoires, où il a
+  écrit sur eux des choses que personne ne lui a demandées, et dont certaines
+  sont fausses.
+
+Les deux slides qui dépendent de ce fil : « Les trois labos, sans la plateforme »
+(module 4), dont le tableau nomme chaque geste, et « Ce que vous venez de voir »
+(module 0), dont le nombre d'étapes doit être celui de la vraie démo.
 
 ## Les trois cas d'ouverture
 
@@ -307,6 +346,5 @@ un comparatif ») ; c'est le pivot vers la formule de remplacement qui est
 proscrit.
 
 Neutralité technologique. Les concepts sont présentés indépendamment de toute
-bibliothèque ; les implémentations n'apparaissent qu'en illustration, au pluriel,
-et les deux documentations citées en clôture le sont comme sources techniques.
+bibliothèque ; les implémentations n'apparaissent qu'en illustration, au pluriel.
 Le code est en TypeScript et sert à montrer une forme, pas à être recopié.

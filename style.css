@@ -308,6 +308,121 @@
 }
 
 /* ─────────────────────────────────────────────────────────────
+   Cas pédagogiques
+
+   Les trois cas du module 6 reprennent la même lecture : situation, trois
+   décisions, puis limites. Leur révélation reste un simple fondu. Les
+   déplacements de v-click se combinaient mal avec les changements de slide
+   et faisaient brièvement glisser les colonnes au mauvais endroit.
+   ───────────────────────────────────────────────────────────── */
+
+.teaching-case {
+  width: 100%;
+}
+
+.case-situation {
+  padding: 0.15rem 0 0.9rem;
+  font-size: 1.22rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.case-situation .eyebrow {
+  padding-bottom: 0.35rem;
+}
+
+.case-path {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--c-hairline-strong);
+  border-bottom: 1px solid var(--c-hairline-strong);
+}
+
+.case-step {
+  min-height: 8.7rem;
+  padding: 0.9rem 1.15rem 0.9rem 0;
+}
+
+.case-step + .case-step {
+  padding-left: 1.15rem;
+  border-left: 1px solid var(--c-hairline);
+}
+
+.case-step-number {
+  padding-bottom: 0.38rem;
+  font-family: var(--deck-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  color: var(--c-accent);
+}
+
+.case-step-title {
+  padding-bottom: 0.38rem;
+  font-size: 1.02rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--c-t1);
+}
+
+.case-step-copy {
+  font-size: 0.88rem;
+  line-height: 1.42;
+  color: var(--c-t2);
+}
+
+.case-choices {
+  display: grid;
+  gap: 0.18rem;
+}
+
+.case-choices > div {
+  display: grid;
+  grid-template-columns: 4.75rem minmax(0, 1fr);
+  gap: 0.45rem;
+}
+
+.case-choices strong {
+  color: var(--c-t1);
+}
+
+.case-footer {
+  display: grid;
+  grid-template-columns: 0.85fr 1.35fr 1fr;
+  gap: 1.5rem;
+  padding-top: 0.9rem;
+}
+
+.case-footer > div {
+  display: grid;
+  gap: 0.18rem;
+}
+
+.case-footer span {
+  font-family: var(--deck-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-t3);
+}
+
+.case-footer strong {
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+/* Les cas n'utilisent qu'un fondu : aucune translation ne peut survivre à un
+   retour arrière ou se mélanger au fondu entre deux slides. */
+.teaching-case .slidev-vclick-target {
+  translate: none !important;
+  transform: none !important;
+  transition: opacity var(--dur-reveal) var(--ease-settle) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
    Layouts de marque
    ───────────────────────────────────────────────────────────── */
 

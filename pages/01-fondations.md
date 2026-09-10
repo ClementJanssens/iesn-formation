@@ -414,15 +414,15 @@ layout: default
 ```ts
 tool({
   description:
-    "Recherche des publications académiques. " +
-    "Renvoie titre, auteurs, année, DOI.",
+    "Prévisions météo pour une ville. " +
+    "Renvoie température, vent, précipitations.",
   inputSchema: z.object({
-    query:  z.string(),
-    year:   z.number().optional(),
-    limit:  z.number().default(10),
+    ville: z.string(),
+    jours: z.number().default(3),
+    unite: z.enum(["C", "F"]).default("C"),
   }),
-  execute: async ({ query, year, limit }) => {
-    return await api.search(query, year, limit)
+  execute: async ({ ville, jours, unite }) => {
+    return await api.previsions(ville, jours, unite)
   },
 })
 ```
@@ -445,14 +445,17 @@ tool({
 La description — c'est votre seule chance d'expliquer au modèle QUAND s'en servir.
 Elle compte autant que le code, et personne ne la relit jamais. Formule à donner :
 un outil est une API documentée pour un lecteur qui devine. Écrivez la description
-pour un stagiaire compétent qui n'a jamais vu votre système.
+pour un stagiaire compétent qui n'a jamais vu votre système. Ici, un seul mot
+fait tout le travail : « prévisions ». Sans lui, le modèle appellera l'outil
+pour demander le temps qu'il faisait hier.
 
 Le schéma — traduit en contrainte de génération. Le modèle ne PEUT PAS produire
 d'arguments invalides. Mais il peut produire des arguments valides et absurdes.
-Deux exemples à donner : limit: 10000 est valide. year: 1823 pour une recherche
-sur les LLM est valide. La validation métier reste votre travail, entièrement.
+Deux exemples à donner : jours: 365 passe le schéma, alors qu'aucun service
+ne prévoit le temps à un an. ville: "Springfield" passe aussi, et il en existe
+des dizaines. La validation métier reste votre travail, entièrement.
 
-L'exécution — sur votre machine, avec vos clés, votre base. Le modèle n'y a
+L'exécution — sur votre machine, avec votre clé d'API et votre quota. Le modèle n'y a
 aucun accès. Poser la phrase ici, elle rouvre au module 5 : un agent a exactement
 les droits du processus qui exécute ses outils.
 -->
@@ -617,9 +620,8 @@ ajustement se voit dans le résultat.
 
 « Vous pouvez écrire le vôtre » n'est pas une figure de style : Pi est un
 harness minimal, MIT, écrit par un développeur (Mario Zechner), et l'écosystème
-en compte des dizaines. Le labo 3 en construira une version miniature. Si on me
-demande « faut-il écrire le sien » : non, pas pour coder au quotidien ; oui,
-dès qu'on veut un agent taillé pour un usage précis — corriger des copies,
+en compte des dizaines. Si on me demande « faut-il écrire le sien » : non, pas
+pour coder au quotidien ; oui, dès qu'on veut un agent taillé pour un usage précis — corriger des copies,
 préparer un TP — parce que c'est justement là que les harness génériques
 n'ont rien de prévu.
 
@@ -629,8 +631,9 @@ recommande rien. Ce sont des noms pour accrocher le concept. Couper court à
 la réponse aura changé d'ici la fin du trimestre.
 
 ENCHAÎNEMENT SUR LE LABO, à dire juste avant d'ouvrir l'écran :
-« dans deux minutes vous allez décocher une case. Cette case n'est pas dans
-le modèle — le modèle ne sait même pas qu'elle existe. Elle est dans le harness. »
+« dans deux minutes vous allez taper une phrase, et il va aller faire des
+choses. Ce qui se passe entre votre phrase et sa réponse n'est pas dans le
+modèle — le modèle ne sait même pas que ça existe. C'est le harness. »
 -->
 
 ---
@@ -641,47 +644,43 @@ class: text-center
 # Labo 1
 
 <div class="text-xl opacity-60 pt-6">
-Coupez-lui le web. Reposez la même question.
+Une phrase. Dix cabinets comptables.
 </div>
 
 <div class="pt-14 text-sm opacity-50">
-Quinze minutes. Une case à décocher, rien d'autre.
+Quinze minutes. Vous tapez une ligne, vous regardez ce qui défile.
 </div>
 
 <!--
-LABO 1 — 15 minutes, et c'est aussi le contrôle de connexion de la journée.
-Si trois personnes n'arrivent pas à se connecter, je veux le savoir maintenant
-et pas à 13h00 avec un labo à lancer.
+**LABO 1 · 15 MIN**
 
-LA DÉCLARATION, à faire AVANT d'ouvrir l'écran. Mot pour mot, ne pas improviser :
+Ce labo sert aussi à vérifier que tout le monde arrive à se connecter.
 
-  « L'outil qu'on va utiliser aujourd'hui, c'est le mien. Je vous le dis
-  maintenant, avant que vous le découvriez tout seuls. Je le prends pour deux
-  raisons : c'est le plus rapide pour avoir un agent qui tourne en deux minutes
-  au lieu d'y passer la journée, et je peux le casser devant vous sans demander
-  la permission à personne. Tout ce qu'on va y faire existe ailleurs — c'est le
-  même modèle, les mêmes outils, la même boucle qu'on vient de voir. »
+**Déclaration à lire mot pour mot**
 
-Puis passer à autre chose. Ne pas s'excuser, ne pas y revenir.
+« L'outil qu'on va utiliser aujourd'hui, c'est le mien. Je vous le dis maintenant, avant que vous le découvriez tout seuls. Je le prends pour deux raisons : c'est le plus rapide pour avoir un agent qui tourne en deux minutes au lieu d'y passer la journée, et je peux le casser devant vous sans demander la permission à personne. Tout ce qu'on va y faire existe ailleurs : c'est le même modèle, les mêmes outils, la même boucle qu'on vient de voir. »
 
-LE DÉROULÉ, une seule manip :
-1. « Ouvrez l'agent qui porte votre prénom. » (2 min, c'est là que ça coince)
-2. Une question dont il ne peut pas connaître la réponse sans chercher.
-   Donner la même à tout le monde : les horaires du dernier train ce soir.
-3. Onglet des permissions, décocher l'accès au web.
-4. Reposer EXACTEMENT la même question.
+**Ce qu'ils font**
 
-CE QU'IL FAUT FAIRE REMONTER : il y aura deux comportements dans la salle.
-Certains agents refusent proprement, d'autres inventent. Demander à main levée
-qui a eu quoi. La différence ne vient pas du modèle — elle vient de ce qui est
-écrit dans le prompt système de l'agent. Le garde-fou est RÉDIGÉ, pas inné.
+1. « Ouvrez l'agent qui porte votre prénom. » Prévoir 2 minutes.
+2. « Tapez cette phrase, celle de ce matin. »
 
-LA QUESTION, et attendre la réponse :
-« Qu'est-ce qui a changé entre vos deux essais ? »
-Rien du côté du modèle. Une case.
+> Trouve-moi les dix cabinets comptables de Namur : nom, adresse,
+> téléphone, site. Et dis-moi ceux que tu n'as pas pu vérifier.
 
-Enchaîner directement sur le curseur d'autonomie : ils viennent de le déplacer
-à la main.
+3. « Regardez défiler. C'est tout ce que vous avez à faire. »
+
+**Règle :** aucun réglage, aucune case et aucun menu. Si quelqu'un explore les onglets : « Fermez ça, on ne touche à rien aujourd'hui. »
+
+**Débrief à main levée**
+
+1. « Qui en a dix ? Qui en a moins de dix ? » Compter les mains, puis dire : « Même modèle, même phrase, quinze résultats différents. »
+2. « Qui a un cabinet qu'il ne reconnaît pas, ou qui a fermé ? » Puis : « Gardez-le, c'est le sujet de tout l'après-midi. »
+3. « Qu'est-ce qu'il a fait entre votre phrase et sa réponse ? »
+
+Si personne ne répond : il a cherché, ouvert des pages, abandonné des pistes et recommencé. Le modèle a choisi les actions. Du code ordinaire les a exécutées.
+
+**Ensuite :** passer directement à « Le curseur d'autonomie ».
 -->
 
 ---

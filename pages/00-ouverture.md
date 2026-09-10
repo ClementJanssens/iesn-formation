@@ -243,19 +243,22 @@ layout: default
 </div>
 
 </div>
-<div class="space-y-5 pt-11">
+<div>
 
+<div class="eyebrow pb-3">Les outils qu'il pilote</div>
+<img src="/illustrations/agent-seo.png" alt="Plateau isométrique : le bloc « Référencement » relié aux outils qu'il actionne" class="block w-full rounded-md border border-hairline">
+
+</div>
+</div>
+
+<div class="grid grid-cols-2 gap-x-12 pt-7 text-[1.05rem]">
 <v-clicks>
-
 <div class="rail"><strong>Ce qui reste à vous</strong> — la ligne éditoriale, et ce qu'on ne dira pas</div>
 <div class="rail-bad"><strong>Ce qui coince</strong> — publier en volume sans valeur, c'est du spam</div>
-
 </v-clicks>
-
-</div>
 </div>
 
-<div v-click class="pt-9 text-base">
+<div v-click class="pt-6 text-base">
 ↻ Le lundi suivant, il repart de <strong>ses propres chiffres</strong>.
 </div>
 
@@ -277,6 +280,15 @@ tombe et il ne revient pas.
 La phrase à dire sur le dernier clic : aucune de ces six étapes n'est
 impressionnante prise seule. Ce qui l'est, c'est qu'il n'y a personne
 entre elles.
+
+LE PLATEAU, À DROITE : il est là dès l'affichage, avant le premier clic, et il
+sert de carte pendant que la colonne se déroule. Un bloc au centre, les outils
+autour, un fil par outil — il n'y a rien d'autre à en dire. Les marques qui y
+figurent sont des exemples, pas des recommandations : si le débat outil contre
+outil démarre, répondre « n'importe quel outil qui expose une API fait
+l'affaire » et revenir à la colonne. Le même plateau revient sur les deux cas
+suivants avec d'autres outils — c'est déjà l'argument de la slide de synthèse,
+sauf qu'on ne le dit pas encore.
 
 AUCUN CHIFFRE DE RÉSULTAT ici : ni pourcentage de trafic, ni « ×3 ». Je décris
 une architecture, pas une performance. Si on m'en demande un, je ne le donne
@@ -320,19 +332,22 @@ layout: default
 </div>
 
 </div>
-<div class="space-y-5 pt-11">
+<div>
 
+<div class="eyebrow pb-3">Les outils qu'il pilote</div>
+<img src="/illustrations/agent-ads.png" alt="Plateau isométrique : le bloc « Budget pub » relié aux outils qu'il actionne" class="block w-full rounded-md border border-hairline">
+
+</div>
+</div>
+
+<div class="grid grid-cols-2 gap-x-12 pt-7 text-[1.05rem]">
 <v-clicks>
-
 <div class="rail"><strong>Ce qui reste à vous</strong> — le plafond de dépense, et l'image</div>
 <div class="rail-bad"><strong>Ce qui coince</strong> — l'erreur ne se voit pas, elle se facture</div>
-
 </v-clicks>
-
-</div>
 </div>
 
-<div v-click class="pt-9 text-base">
+<div v-click class="pt-6 text-base">
 ↻ À partir de l'étape 03, chaque décision engage <strong>de l'argent.</strong>
 </div>
 
@@ -343,6 +358,9 @@ Aller vite sur 01, 02, 04, 06 et RALENTIR sur 03 et 05 : ce sont les deux
 
 Le point est aux étapes 03 et 05 : il engage de l'argent, et il en coupe, sans
 repasser par moi. Écrire une accroche, n'importe quel modèle sait le faire.
+
+LE PLATEAU : deuxième fois la même image, le bloc a changé de nom et les outils
+avec. Ne pas le commenter, c'est la troisième occurrence qui portera l'argument.
 
 CE QUE PERMET VRAIMENT L'API, si on me pousse : l'API Marketing de Meta expose
 le budget quotidien d'un ensemble de publicités (champ `daily_budget`) et son
@@ -391,19 +409,22 @@ layout: default
 </div>
 
 </div>
-<div class="space-y-5 pt-11">
+<div>
 
+<div class="eyebrow pb-3">Les outils qu'il pilote</div>
+<img src="/illustrations/agent-agenda.png" alt="Plateau isométrique : le bloc « Agenda » relié aux outils qu'il actionne" class="block w-full rounded-md border border-hairline">
+
+</div>
+</div>
+
+<div class="grid grid-cols-2 gap-x-12 pt-7 text-[1.05rem]">
 <v-clicks>
-
 <div class="rail"><strong>Ce qui reste à vous</strong> — le rendez-vous, et ce qu'on y promet</div>
 <div class="rail-bad"><strong>Ce qui coince</strong> — écrire à prenom.nom@ suppose un consentement</div>
-
 </v-clicks>
-
-</div>
 </div>
 
-<div v-click class="pt-9 text-base">
+<div v-click class="pt-6 text-base">
 ↻ Le seul moment humain de la chaîne, <strong>c'est le rendez-vous</strong>.
 </div>
 
@@ -426,6 +447,11 @@ Les étapes 05 et 06 sont celles qui font lever les sourcils : préparer le
 briefing avant un rendez-vous, le résumer après, et déclencher ce qui suit.
 C'est exactement la mécanique de l'agent SEO — observer, décider, agir, mesurer —
 sur une matière qui n'a rien à voir. C'est le sujet de la slide suivante.
+
+LE PLATEAU : troisième fois le même dessin, troisième jeu d'outils. C'est ici
+qu'on le fait remarquer, d'une phrase et en le montrant — « je viens de vous
+afficher trois fois la même image » — parce que la slide suivante se contente
+d'en retirer les noms.
 
 CE QUI COINCE, et c'est du droit, pas de l'opinion : en Belgique, la publicité
 par courrier électronique suppose le consentement PRÉALABLE du destinataire
@@ -717,53 +743,38 @@ Ne regardez pas le résultat. Regardez ce qui défile.
 </div>
 
 <!--
-DÉMO EN DIRECT — préparée la veille, retestée le matin, captures d'écran de secours
-sur le portable au cas où le réseau lâche.
+**DÉMO 1 · 4 MIN · EN DIRECT**
 
-LA CONSIGNE À LIRE À VOIX HAUTE AVANT DE LANCER :
+**Avant de lancer**
 
-« Trouve la notice officielle du jeu UNO chez Mattel, en PDF. Ouvre-la et dis-moi
-si les règles autorisent à empiler les +2 : quand quelqu'un me met un +2, est-ce
-que je peux en reposer un pour faire piocher 4 au suivant ? Cite le passage exact
-et dans quelle section il se trouve. Ensuite, cherche sur le web ce que Mattel a
-répondu publiquement à cette question. Réponds-moi en cinq lignes : oui ou non,
-et pourquoi les deux sources ne disent pas la même chose. Ne me pose aucune
-question, tranche. »
+Dire : « Ne regardez pas le résultat. Regardez ce qui défile. »
 
-POURQUOI CETTE TÂCHE — tout le monde dans la salle s'est déjà engueulé là-dessus,
-ça ne s'explique pas, ça se comprend en trois secondes. Et surtout : la réponse
-n'est ni dans le PDF, ni sur le web. Elle est dans la confrontation des deux.
-C'est exactement ce qu'un chatbot ne fait pas — il répondrait de mémoire, avec
-assurance, et à côté.
+**À taper devant eux**
 
-LA RÉPONSE ATTENDUE, vérifiée le 09/09/2026 :
-— le PDF officiel Mattel décrit bien l'empilage des +2, noir sur blanc,
-  mais dans une section intitulée « HOUSE RULES » — règles maison ;
-— les règles de base disent seulement qu'un +2 « peut être posé sur une couleur
-  assortie ou sur un autre +2 », ce qui a l'air d'autoriser : c'est l'ambiguïté
-  qui alimente la dispute ;
-— le compte officiel UNO a tranché publiquement en septembre 2022 :
-  « The rumors are true. You cannot officially stack a Draw 2 on a Draw 2. »
-→ Verdict : NON. C'est une règle maison,
-  imprimée par Mattel lui-même dans sa propre notice. Tout le monde avait tort,
-  y compris ceux qui brandissaient la notice.
+> Trouve-moi les dix cabinets comptables de Namur : nom, adresse,
+> téléphone, site. Et dis-moi ceux que tu n'as pas pu vérifier.
 
-URL DE SECOURS si la recherche patine (vérifiée, répond 200, 176 Ko) :
-https://service.mattel.com/instruction_sheets/uno%20basic%20is.pdf
+**Pendant l'exécution**
 
-Pendant que ça tourne, commenter à voix haute, sans se presser :
-— « là il cherche »
-— « là il télécharge un PDF, comme vous le feriez »
-— « là il ne cherche pas juste la phrase, il regarde dans quelle section elle est »
-— « là le PDF ne lui suffit pas, il repart vérifier ailleurs »
-— « là il n'a plus rien à faire, il tranche »
+1. Quand il cherche : « Là, il cherche. »
+2. Quand il consulte une page : « Là, il ouvre un site, comme vous le feriez. »
+3. S'il rencontre une page morte : « Là, il abandonne cette piste et repart. »
+4. Quand il termine : « Là, il décide qu'il n'a plus rien à faire et rend sa réponse. »
 
-RISQUE CONNU, à tester la veille : la notice est bilingue anglais/espagnol sur
-deux colonnes, l'extraction du texte sort mélangée. Ce qui compte, c'est qu'il
-rattache bien l'empilage à « HOUSE RULES ». S'il rate ce point, ne pas le cacher :
-c'est une démo n°2 gratuite, et le module 3 en vit.
+Noter le **nombre d'étapes** et le **coût réel**. Ces deux chiffres resserviront.
 
-Ne PAS commenter la qualité du texte final. Hors sujet ici, et le dire.
+**À la fin**
+
+- Dix résultats, dont certains sont douteux : « Il a complété jusqu'à dix parce que je lui ai demandé dix. Retenez ce moment. »
+- Moins de dix résultats, avec une explication : « Il s'est arrêté avant dix et nous dit pourquoi. Retenez ce moment aussi. »
+
+Les deux issues conviennent. Ne pas commenter la mise en forme ou le style.
+
+**Transition**
+
+« On refait ce geste trois fois aujourd'hui. À 11h, vous le faites vous-mêmes. À 13h, vous en sortez un PDF. À 14h45, vous le programmez chaque lundi matin. »
+
+**Si le réseau lâche :** ouvrir les captures de secours et commenter les mêmes étapes.
 -->
 
 ---
@@ -796,10 +807,14 @@ Point 1 — dix-sept décisions, pas une réponse. C'est le déplacement du curs
 en direct.
 Point 2 — une recherche, une requête HTTP, un parseur. Du code ordinaire,
 et c'est là et nulle part ailleurs qu'il y a un effet réel. → module 1.
-Point 3 — personne n'a écrit « d'abord cherche, puis filtre, puis vérifie ».
+Point 3 — personne n'a écrit « d'abord cherche, puis ouvre, puis vérifie ».
 → module 2, qui décide de l'enchaînement.
 Point 4 — l'erreur puis la correction, c'est le mécanisme même. → module 3,
-la boucle et ses dérapages.
+la boucle et ses dérapages. SI LA DÉMO N'A PAS PRODUIT D'ERREUR VISIBLE :
+prendre le moment où il a ouvert une page morte et où il est reparti chercher
+ailleurs, ça suffit. Et s'il a complété la liste pour arriver à dix, c'est
+encore mieux : le point 4 se dit alors sur son erreur à lui, et le module 3
+est annoncé sans effort.
 
 Dire à l'oral ce que ça a coûté et combien de temps ça a pris, en reprenant
 les vrais chiffres de la démo du matin. → module 5, coût et observabilité.
