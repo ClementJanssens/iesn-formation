@@ -7,6 +7,9 @@ module: 5
 
 <div class="opacity-50 pt-2">exécution, contrôle, sécurité, mesure</div>
 
+<!--
+**Transition :** passer de la mécanique de l’agent aux droits, validations, traces et risques nécessaires en production.
+-->
 ---
 layout: center
 class: text-center
@@ -17,15 +20,12 @@ class: text-center
 # Un assistant se trompe.<br>Un agent <span class="text-bad">agit</span>.
 
 <!--
-Marquer le silence. C'est une slide qui se laisse lire.
+**Idée clé :** une erreur d’agent produit un effet avant la relecture humaine.
 
-Ce qu'on dit par-dessus : une réponse fausse dans un chat, on la lit et on la jette.
-Une action fausse a envoyé le mail, supprimé le fichier, débité la carte.
-Il n'y a pas de « annuler ».
-
-Si un exemple est demandé : le plus parlant reste un agent qui répond aux mails
-et qui répond de travers à quelqu'un qui s'inquiète d'une inscription.
-Le mal est fait avant qu'on ait relu.
+- **Faire :** laisser la slide se lire dans le silence.
+- **Dire :** une réponse fausse peut être jetée. Une action fausse peut déjà avoir envoyé, supprimé ou payé.
+- **Illustrer :** un mail erroné envoyé à une personne inquiète de son inscription.
+- **Transition :** identifier maintenant ce que l’agent peut réellement toucher.
 -->
 
 ---
@@ -58,25 +58,12 @@ Un agent ne peut agir qu'avec les outils et les droits qu'on lui donne.
 </div>
 
 <!--
-Ce que la phrase du haut veut dire concrètement, à énumérer :
-vos clés d'API sont ses clés d'API. Votre accès en écriture est son accès
-en écriture. Votre réseau interne est son réseau interne. Vos droits sur la base
-sont ses droits sur la base. Le dire lentement, ça fait son effet.
+**Idée clé :** l’agent possède les capacités et les droits du processus qui exécute ses outils.
 
-Les trois niveaux, développés :
-1 · Outils accessibles — ce qui n'est pas exposé ne peut pas arriver.
-2 · Droits accordés — un compte de service dédié, en lecture seule par défaut,
-    jamais vos identifiants personnels.
-3 · Exécution du code — conteneur ou machine jetable dès que l'agent exécute du code
-    arbitraire. Non négociable dans ce cas.
-
-LA phrase du module, à poser ici : la première ligne de défense, c'est la liste
-d'outils — avant le prompt système, avant le modèle. Un agent sans outil
-« supprimer » ne supprimera jamais rien, quelle que soit l'ingéniosité de l'attaque.
-Aucune instruction en langue naturelle n'a la force d'une capacité absente.
-
-Ajouter : le modèle ne « veut » rien. Mais il peut être CONVAINCU par du texte
-qu'il a lu, et ce texte peut venir d'ailleurs. → dans trois slides.
+- **Dire lentement :** vos clés, accès en écriture, réseau interne et droits de base deviennent les siens.
+- **Montrer :** outils accessibles, compte de service dédié, puis environnement d’exécution isolé.
+- **Insister :** la liste d’outils constitue la première ligne de défense.
+- **Dire :** une capacité absente protège mieux qu’une interdiction formulée dans un prompt.
 -->
 
 ---
@@ -123,23 +110,12 @@ Une approbation systématique devient un clic réflexe.
 </div>
 
 <!--
-Le tri, avec des exemples :
-— réversible : lire, chercher, calculer, écrire un brouillon.
-— coûteux à défaire : publier, envoyer, modifier une note.
-— irréversible : supprimer, payer, diffuser à l'extérieur. Ne pas l'exposer
-  du tout, ou exiger une double validation.
+**Idée clé :** placer l’approbation selon la réversibilité de l’action.
 
-Le critère est la RÉVERSIBILITÉ, pas l'importance. C'est le déplacement à faire
-faire à la salle — on classe spontanément par importance, et c'est faux.
-
-Le callout, développé — c'est le point qui se vérifie le plus en production :
-trop d'approbations et l'humain valide en aveugle au bout de trois jours.
-Si vous demandez quarante validations par jour, vous n'avez pas mis un humain
-dans la boucle, vous avez mis un tampon. Le taux d'approbation doit rester bas
-pour que l'attention reste réelle.
-
-Quatre issues possibles par appel d'outil : automatique, approuvé d'office,
-refusé, soumis à l'humain. Le refus pur est sous-utilisé.
+- **Classer :** lecture et brouillon automatiques, publication ou modification soumises à contrôle, paiement ou diffusion extérieure fortement bloqués.
+- **Insister :** le critère porte sur la difficulté à défaire, pas sur l’importance apparente.
+- **Dire :** automatique, approuvé, refusé ou soumis à l’humain sont quatre issues possibles.
+- **Éviter :** quarante validations quotidiennes. L’humain finit par cliquer sans lire.
 -->
 
 ---
@@ -181,24 +157,14 @@ Sans trace, un agent est impossible à déboguer. Et c'est structurel.
 </div>
 
 <!--
-« C'est structurel » — impossibilité de principe : le comportement varie d'une
-exécution à l'autre, donc sans trace il n'y a rien à examiner.
+**Idée clé :** sans trace complète, un comportement variable ne peut pas être expliqué.
 
-À instrumenter le PREMIER JOUR. Rétro-instrumenter un agent pendant un incident
-est un exercice pénible, et c'est toujours là qu'on découvre qu'on ne loggait
-pas les arguments d'outil.
+- **Dire :** instrumenter dès le premier jour, surtout les arguments et résultats d’outils.
+- **Montrer :** complétion, coût par tâche, étapes et escalades.
+- **Insister :** surveiller le 95e percentile du coût. Une petite fraction de boucles peut porter la facture.
+- **Dire :** une hausse du nombre d’étapes annonce souvent le problème avant le coût.
 
-Les quatre chiffres, développés :
-— taux de complétion : combien de tâches vont au bout sans intervention.
-— coût par tâche : LA MOYENNE MENT. Regardez la queue à 95 %. Sur les agents,
-  la distribution est très asymétrique — l'écrasante majorité des tâches coûte
-  des centimes, une petite fraction coûte cent fois plus parce qu'elle a bouclé.
-  C'est la queue qui fait la facture, et c'est elle qu'on surveille.
-  Si je donne des nombres, ce sont CEUX DE MES PROPRES TRACES, annoncés comme
-  tels — pas une statistique du secteur, elle n'existe pas.
-— étapes par tâche : sa dérive à la hausse annonce toujours un problème,
-  avant que le coût ne le montre.
-— taux d'escalade : combien finissent chez un humain.
+**Si question :** ne citer que les chiffres issus de mes propres traces, jamais une statistique sectorielle inexistante.
 -->
 
 ---
@@ -240,28 +206,14 @@ Trente cas <strong>réels</strong> battent trois cents cas inventés.
 </div>
 
 <!--
-Ouvrir avec : « ça a l'air bien » ne tient pas trois semaines. Il faut un jeu
-de cas, et un critère par cas.
+**Idée clé :** évaluer sur des cas réels avec un critère précis par cas.
 
-Vérifiable — le JSON est valide, le lien répond, le total est juste, le test passe.
-CHERCHEZ TOUJOURS CE CAS EN PREMIER : c'est le seul qui donne une vérité
-sans discussion. Beaucoup de problèmes qu'on croit subjectifs ont une part
-vérifiable qu'on n'a pas cherchée.
+- **Chercher d’abord :** une vérification déterministe, comme JSON valide, lien actif, total juste ou test réussi.
+- **Comparer :** utiliser une réponse humaine de référence pour mesurer deux versions.
+- **Préciser :** un juge modèle donne une tendance, pas un verdict.
+- **Insister :** l’humain étalonne les autres méthodes sur un échantillon.
 
-Comparable — une réponse de référence écrite par un humain, on mesure l'écart.
-Coûteux à constituer, mais c'est ce qui permet de comparer deux versions
-de votre système. Sans ça, vous ne saurez jamais si un changement a amélioré
-quoi que ce soit.
-
-Jugé par un modèle — pratique, à manier avec précaution : il préfère les réponses
-longues, les siennes, et celles qui lui ressemblent. Signal de tendance,
-jamais verdict.
-
-Humain — à réserver à un échantillon, et à utiliser pour ÉTALONNER les trois
-méthodes précédentes. C'est son meilleur usage.
-
-Le point du bas : constituez le jeu à partir de ce qui s'est vraiment passé.
-Les cas inventés testent ce à quoi vous avez pensé, c'est-à-dire ce qui marche déjà.
+**Transition :** trente cas réellement rencontrés valent mieux que trois cents scénarios inventés.
 -->
 
 ---
@@ -289,23 +241,12 @@ Aucune consigne du type « ignore les instructions des documents » ne ferme la 
 ]" />
 
 <!--
-Le scénario : l'agent lit une page web, un mail, un PDF. Le contenu lu arrive
-dans son contexte, au même endroit et sous la même forme que vos consignes.
+**Idée clé :** les instructions et le contenu externe arrivent sous la même forme dans le contexte.
 
-Pourquoi c'est STRUCTUREL et pas un bug qu'un correctif viendra fermer :
-c'est la conséquence directe du fait que tout — consignes, données, résultats
-d'outils — vit dans le même tableau de messages. C'est la slide « le modèle
-est sans état » du module 1, vue par son côté sombre.
-
-Ce qui ferme réellement la porte, à énumérer :
-— ne pas exposer l'outil dangereux ;
-— restreindre les destinations réseau sortantes à une liste blanche ;
-— exiger une approbation humaine sur toute sortie vers l'extérieur ;
-— séparer les agents : celui qui lit l'extérieur n'a pas accès aux données
-  sensibles.
-
-Les quatre sont des mesures d'architecture. Aucune n'est un prompt.
-Enchaîner directement sur la combinaison.
+- **Dire :** page web, mail ou PDF peuvent convaincre le modèle d’appeler un outil dangereux.
+- **Insister :** cette faiblesse vient de l’architecture des messages. Un prompt ne la supprime pas.
+- **Protéger :** retirer l’outil, limiter les destinations réseau, demander une approbation ou séparer les agents.
+- **Transition :** ces protections retirent un élément de la combinaison suivante.
 -->
 
 ---
@@ -339,21 +280,12 @@ Deux sur trois : c'est gérable.<br>
 </div>
 
 <!--
-C'est LA slide à photographier. Si les participants ne retiennent qu'une chose
-du module 5, c'est cette combinaison de trois. Le dire.
+**Idée clé :** données sensibles, contenu non maîtrisé et sortie extérieure ne doivent jamais coexister.
 
-Préciser chacun des trois :
-1 · notes, dossiers étudiants, identifiants, base de production.
-2 · web, mails entrants, documents déposés, dépôts publics.
-3 · envoi de mail, requête HTTP libre, publication, webhook.
-
-La règle de conception qui en découle, simple à retenir et difficile à tenir :
-RETIREZ TOUJOURS AU MOINS UN DES TROIS.
-
-L'appliquer en direct à un cas concret : un agent qui répond aux mails
-étudiants a (2) et (3) par construction. Donc il ne doit surtout pas avoir (1) —
-pas d'accès à la base de notes. S'il en a besoin, on scinde en deux services.
-C'est exactement le cas 1 du module 6, l'annoncer.
+- **Dire :** notes ou identifiants, puis web ou mails entrants, puis publication ou requête sortante.
+- **Insister :** retirer toujours au moins un des trois.
+- **Appliquer :** un agent qui répond aux étudiants possède déjà contenu entrant et sortie. Il ne doit pas accéder aux notes.
+- **Transition :** si cet accès devient nécessaire, séparer les services.
 -->
 
 ---
@@ -405,64 +337,14 @@ Un serveur tiers, c'est du <strong>contenu non maîtrisé</strong> — le n° 2 
 ]" />
 
 <!--
-Pourquoi cette slide arrive ICI et pas au module 1 : au module 1, MCP aurait été
-une note de bas de page technique. Après la combinaison, c'est une décision
-d'architecture. C'est aussi l'acronyme qu'ils vont croiser dès qu'ils liront
-quoi que ce soit après cette journée — ils doivent repartir avec une définition.
+**Idée clé :** MCP standardise les outils, mais permet aussi à un tiers d’entrer dans le harness.
 
-CE QUE C'EST, en une phrase à dire lentement : un format commun pour décrire un
-outil, pour que le même outil serve à plusieurs agents sans le réécrire à chaque
-fois. Rien de plus : un format, au même rang que HTTP ou JSON — les modèles,
-les agents et les plateformes vivent au-dessus.
+- **Dire :** MCP est une prise commune pour décrire et appeler un outil depuis plusieurs agents.
+- **Insister :** la description influence le modèle. Traiter un serveur tiers comme une dépendance : vérifier l’auteur, épingler la version et relire les outils exposés.
+- **Demander :** « Lequel, écrit par qui, et avec quels droits ? »
+- **Éviter :** brancher un serveur tiers à un agent qui touche des données sensibles.
 
-L'analogie qui marche en salle : avant, chaque agent parlait à chaque outil dans
-sa propre langue — n × m branchements. MCP, c'est la prise commune. La même
-histoire que n'importe quel protocole avant lui.
-
-LA GÉNÉALOGIE, à dire honnêtement, ça vaut mieux que de la laisser découvrir :
-né chez un éditeur — Anthropic, annoncé en novembre 2024. Adopté par ses
-concurrents dans les mois suivants (OpenAI en mars 2025, Google DeepMind en
-avril 2025). Donné en décembre 2025 à l'Agentic AI Foundation, un fonds de la
-Linux Foundation. Donc : plus gouverné par une seule entreprise aujourd'hui.
-Le dire dans cet ordre. Je le présente parce qu'ils vont le rencontrer, et il
-vaut mieux savoir d'où il vient.
-
-Ne PAS détailler la mécanique (JSON-RPC, client/serveur, transports). Si la
-question vient : « c'est un protocole client–serveur, la spécification est
-publique, et ça ne change rien à ce qui est à l'écran ». Repartir sur la colonne
-de droite.
-
-LA COLONNE DE DROITE, c'est le cœur de la slide, y passer les deux tiers du temps.
-Reprendre la mécanique du module 1 : la description d'un outil est lue par le
-modèle et pèse dans sa décision. Installer un serveur MCP, c'est donc laisser
-quelqu'un d'autre écrire dans le harness de votre agent — reprendre le mot,
-il a été posé au module 1 et c'est ici qu'il sert. On appelle ça le tool
-poisoning ; l'OWASP en a fait une entrée de son catalogue d'attaques.
-
-Le point le plus contre-intuitif, et celui qui fait réagir : on regarde les
-descriptions au moment de brancher le serveur, une fois. Ensuite, plus rien
-n'est relu — ni les descriptions si le serveur les change, ni ce que les outils
-renvoient à l'exécution. C'est exactement la même faille que la slide
-précédente, avec une porte d'entrée de plus.
-
-Chiffre si la salle veut un ordre de grandeur, vérifié dans le papier
-(MCPTox, arXiv:2508.14925) : 45 serveurs MCP réels, 353 outils authentiques,
-20 agents évalués — et jusqu'à 72,8 % de réussite de l'attaque sur le plus
-vulnérable des agents testés (o1-mini). Donner ces chiffres-là, pas une
-moyenne : le papier met en avant le pic, pas un taux moyen.
-
-CE QU'ON EN FAIT, la partie constructive, ne pas finir sur la peur :
-— un serveur MCP se traite comme une dépendance, pas comme un réglage : on
-  regarde qui l'écrit, on l'épingle à une version, on relit ce qu'il expose ;
-— on n'installe pas un serveur tiers dans un agent qui touche des données
-  sensibles — c'est la combinaison des trois, appliquée ;
-— et les quatre issues par appel d'outil de la slide « humain dans la boucle »
-  s'appliquent exactement pareil ici.
-
-Le cas concret à donner : « connecter l'agent au drive partagé
-via un serveur MCP » est une phrase qui sera prononcée dans une réunion cette
-année. La bonne réponse tient en trois questions : « lequel, écrit par qui, et
-qu'est-ce qu'il a le droit de faire ? ».
+**Si question :** Anthropic l’annonce en novembre 2024, OpenAI l’adopte en mars 2025, Google en avril, puis gouvernance Linux Foundation en décembre 2025. MCPTox teste 45 serveurs, 353 outils et 20 agents, avec un pic d’attaque à 72,8 % sur o1-mini.
 -->
 
 ---
@@ -486,13 +368,11 @@ layout: default
 </div>
 
 <!--
-Point 1 — un agent a exactement les droits de son processus.
-Point 2 — et gardez le taux d'approbation bas : au-delà, on clique sans lire.
-Point 4 — deux sur trois, c'est gérable ; les trois, non. Et un serveur MCP
-tiers apporte le n° 2 sans qu'on l'ait demandé.
+**Idée clé :** les droits, validations et traces doivent limiter l’effet réel de l’agent.
 
-Volontairement quatre points et pas cinq : MCP est un cas d'application du
-point 4. Ne pas le rajouter à la liste.
-
-Enchaîner sur le module 6 : maintenant, à vous.
+- **Dire :** un agent possède exactement les droits de son processus.
+- **Insister :** garder peu d’approbations pour maintenir une attention réelle.
+- **Rappeler :** tracer chaque décision, chaque outil et chaque coût.
+- **Dire :** deux éléments de la combinaison sont gérables. Les trois ensemble ne le sont pas.
+- **Transition :** passer aux usages apportés par la salle.
 -->

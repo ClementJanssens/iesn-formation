@@ -7,6 +7,9 @@ module: 6
 
 <div class="opacity-50 pt-2">vos usages, et le sujet qui fâche</div>
 
+<!--
+**Transition :** appliquer la grille aux usages de la salle, puis ouvrir la question de l’évaluation des étudiants.
+-->
 ---
 layout: default
 ---
@@ -58,19 +61,12 @@ Le critère de la troisième colonne : <strong>quelqu'un doit pouvoir en répond
 </div>
 
 <!--
-Ouvrir la discussion ici, cinq minutes : est-ce que quelqu'un placerait un item
-dans une autre colonne ? Les désaccords sont instructifs et souvent disciplinaires.
-Ne pas trancher à leur place — l'objectif est qu'ils repartent avec la grille,
-pas avec mon classement.
+**Idée clé :** classer un usage selon la responsabilité humaine avant de choisir son architecture.
 
-Le critère de la troisième colonne, développé : la responsabilité. La question
-à poser est « qui répond de cette décision ? », et jamais « est-ce que la
-machine y arriverait ? ». Une décision qu'on ne peut pas justifier reste
-inacceptable, quelle que soit sa qualité.
-C'est un argument qui tient en conseil pédagogique.
-
-Rappeler la grille du module 2 : une fois la colonne choisie, on choisit
-le pattern. Les trois slides suivantes font exactement ça sur trois cas.
+- **Demander :** « Quelqu’un déplacerait-il un exemple dans une autre colonne ? »
+- **Laisser :** cinq minutes de discussion sans imposer mon classement.
+- **Insister :** la question est « Qui répond de cette décision ? », pas « La machine peut-elle le faire ? »
+- **Transition :** les trois cas suivants appliquent cette grille puis choisissent un pattern.
 -->
 
 ---
@@ -121,26 +117,14 @@ layout: default
 </div>
 
 <!--
-Commencer par lire les deux mails. Le premier appelle une information publique
-et stable. Le second dépend d'une situation personnelle. C'est cette différence,
-très ordinaire, qui justifie le routage.
+**Idée clé :** router selon le risque avant de répondre.
 
-Au premier clic, l'agent ne répond encore à rien : il classe. Au deuxième,
-montrer que chaque classe ouvre une action différente. Une information publique
-peut recevoir une réponse avec sa source. Un cas personnel ne reçoit qu'un
-brouillon. En cas de doute, aucun message ne part.
+- **Lire :** distinguer la demande publique de la situation personnelle.
+- **Montrer :** l’agent classe d’abord. Public reçoit une réponse sourcée, personnel un brouillon, doute aucune réponse.
+- **Demander :** faire nommer le rôle du secrétariat sur les cas personnels et douteux.
+- **Insister :** aucun accès aux dossiers étudiants. Séparer les services si cet accès devient nécessaire.
 
-Au troisième clic, faire nommer le rôle humain : le secrétariat reprend les cas
-personnels et les doutes. Le garde-fou doit favoriser le doute au démarrage.
-Mieux vaut transmettre trop de mails que répondre de travers à une personne
-qui s'inquiète de son inscription.
-
-Cet agent lit du contenu non maîtrisé et peut envoyer une réponse. Il possède
-donc déjà deux capacités risquées du module 5. Il n'accède pas aux dossiers
-étudiants. Si cet accès devient nécessaire, on sépare les deux services.
-
-La mesure principale reste le nombre de réponses erronées découvertes après
-l'envoi. La part automatisée n'a de sens qu'à côté de ce chiffre.
+**Mesurer :** le nombre de réponses erronées après envoi, pas seulement la part automatisée.
 -->
 
 ---
@@ -195,38 +179,14 @@ layout: default
 ]" />
 
 <!--
-Commencer par le problème concret : quatre-vingts travaux, une grille commune,
-et du temps enseignant absorbé par le repérage des passages à revoir.
+**Idée clé :** plusieurs lecteurs automatiques repèrent des passages, mais l’enseignant reste le correcteur.
 
-Au premier clic, expliquer la parallélisation sans jargon : trois lecteurs
-reçoivent le même travail, mais chacun n'observe qu'une dimension. Ils ne
-produisent pas trois corrections concurrentes.
+- **Montrer :** trois lectures séparées sur méthode, sources et clarté.
+- **Insister :** produire des remarques localisées, jamais un score.
+- **Dire :** l’enseignant garde, corrige ou écarte chaque remarque.
+- **Mesurer :** remarques conservées et temps réellement gagné. Annoncer la pré-relecture aux étudiants.
 
-Au deuxième clic, leur sortie commune est une grille de remarques localisées,
-jamais un score. Dès qu'un chiffre apparaît, il devient l'ancre de la lecture
-humaine.
-
-CE QUE DIT VRAIMENT LA LITTÉRATURE, à donner exactement comme ça si on me
-demande la source — c'est un public qui la demandera : la méta-analyse de
-Malouff & Thorsteinsson (« Bias in grading », Australian Journal of Education,
-2016 ; 20 études, 1 935 correcteurs) mesure un biais de correction significatif,
-d'effet g = 0,36, notamment quand le correcteur connaît une performance
-antérieure faible de l'étudiant. Donc : l'effet est établi et il est modéré,
-pas « fort ». Dire « mesurable et documenté », jamais « fortement ».
-L'application à une pré-note produite par un agent est une extrapolation
-raisonnable — la présenter comme telle. Ça reste un argument recevable en
-conseil pédagogique.
-
-Au troisième clic, l'enseignant reste le correcteur. Il vérifie le travail,
-écarte les remarques faibles et décide du retour. Le gain recherché concerne
-le repérage, pas la responsabilité de la correction.
-
-Mesurer deux choses sur un petit lot : la part des remarques que l'enseignant
-conserve, puis le temps réellement gagné. Si les remarques sont nombreuses
-mais peu utiles, le système a seulement déplacé le travail.
-
-L'annonce aux étudiants : une pré-relecture automatique non annoncée
-est un problème de confiance avant d'être un problème technique.
+**Si question :** Malouff et Thorsteinsson, 2016, analysent 20 études et 1 935 correcteurs. Le biais est significatif et modéré, `g = 0,36`. L’application à une pré-note d’agent reste une extrapolation.
 -->
 
 ---
@@ -273,23 +233,14 @@ layout: default
 </div>
 
 <!--
-Lire d'abord la question de l'étudiant. Elle paraît simple, mais un assistant
-général pourrait répondre avec une définition différente de celle du cours.
+**Idée clé :** l’assistant répond depuis le cours et fait réfléchir avant d’expliquer.
 
-Au premier clic, poser la borne : l'assistant cherche dans les supports fournis,
-et nulle part ailleurs. L'étudiant obtient ainsi une réponse ancrée dans le cours.
+- **Lire :** la question sur corrélation et causalité.
+- **Montrer :** recherche limitée aux supports, question de rappel, puis réponse avec page précise.
+- **Insister :** si le cours ne répond pas, l’assistant refuse d’improviser.
+- **Dire :** le journal agrégé des questions aide l’enseignant à repérer les incompréhensions.
 
-Au deuxième clic, montrer le choix pédagogique. Avant d'expliquer, l'assistant
-demande à l'étudiant de formuler ce qu'il comprend déjà. Sans cette étape, une
-réponse trop complète peut remplacer l'effort de rappel.
-
-Au troisième clic, la réponse cite une page précise. Si aucune page ne soutient
-la réponse, l'assistant refuse d'improviser et annonce que la question dépasse
-le cours.
-
-Le sous-produit utile pour l'enseignant est le journal agrégé des questions.
-Il révèle les incompréhensions récurrentes avant l'examen. Ne pas conserver
-les conversations nominatives si elles ne sont pas nécessaires.
+**Éviter :** conserver des conversations nominatives sans nécessité.
 -->
 
 ---
@@ -336,47 +287,14 @@ De « as-tu produit ce texte ? » vers <strong>« peux-tu répondre de ce texte 
 ]" />
 
 <!--
-Prévoir que ce soit le moment le plus animé de la journée. Laisser dix minutes.
+**Idée clé :** évaluer le processus et la compréhension plutôt que tenter de détecter l’IA dans un fichier final.
 
-Ouvrir avec : la question porte sur ce qu'on évalue, une fois l'IA dans la salle.
+- **Laisser :** dix minutes. Ce sera probablement le débat le plus animé.
+- **Dire :** fichier unique, score de détecteur et simple interdiction ne donnent pas une preuve défendable.
+- **Proposer :** versions successives, deux questions ciblées sur le rendu, puis trace de l’agent avec analyse de ses erreurs.
+- **Éviter :** décider la politique de l’établissement. Décrire ce qui tient techniquement.
 
-Ce qui ne fonctionne plus, développé :
-— noter le seul fichier rendu : un travail de dix heures et un travail de dix
-  minutes arrivent dans la même boîte de dépôt, dans le même format. Rien dans
-  le fichier ne permet de les distinguer ;
-— sanctionner sur un score de détecteur : le taux de faux positifs est trop
-  élevé pour fonder une sanction. Être factuel là-dessus, et ajouter le point
-  qui compte, avec sa source, parce qu'ici on me la demandera : Liang, Yuksekgonul,
-  Mao, Wu & Zou, « GPT detectors are biased against non-native English writers »,
-  Patterns (Cell Press), 2023. Sept détecteurs testés ; plus de la moitié des
-  copies TOEFL rédigées par des non-natifs sont classées « générées par IA »,
-  alors que les détecteurs sont quasi parfaits sur des copies de collégiens
-  américains. Une sanction fondée là-dessus est difficilement défendable ;
-— « IA interdite » écrit dans la consigne : la phrase n'est pas vérifiable, donc
-  elle ne trie pas les étudiants selon leur travail, elle les trie selon leur
-  obéissance. Ceux qui la respectent sont les seuls à en payer le prix.
-
-Ce qui fonctionne encore — trois gestes, pas trois principes :
-— noter les versions successives, pas le fichier : demander le dépôt à trois
-  dates, ou l'historique du document. Le barème porte sur ce qui a bougé entre
-  deux versions. C'est ce qui coûte le moins cher à mettre en place ;
-— deux questions sur son rendu, sans machine : « pourquoi ce choix-là page 3 »,
-  « qu'est-ce qui casse si on change cette hypothèse ». Deux minutes par étudiant,
-  à l'oral ou à l'écrit en début de séance. On ne défend pas ce qu'on n'a pas lu ;
-— exiger la trace et ce que l'agent a raté : la consigne devient « utilise un
-  agent, joins la conversation, et écris un paragraphe sur ce qu'il a écrit de
-  faux ». Le paragraphe est la partie notée — il est impossible à écrire sans
-  avoir relu.
-
-Si on me demande quoi mettre en place demain matin, répondre : les versions
-successives et les deux questions. Les deux se font sans changer le sujet
-d'examen ni acheter quoi que ce soit.
-
-Le callout : c'est la seule question qui reste vérifiable — et c'était sans doute
-déjà la bonne avant.
-
-NE PAS prendre position sur la politique de l'établissement : hors de mon rôle.
-Décrire ce qui tient techniquement et ce qui ne tient pas, et les laisser décider.
+**Si question :** Liang et al., Patterns 2023, testent sept détecteurs. Plus de la moitié des copies TOEFL non natives sont classées comme générées, malgré de bons résultats sur des copies de collégiens américains.
 -->
 
 ---
@@ -408,19 +326,12 @@ Si vous ne pouvez pas la remplir, le projet n'est pas prêt.
 </div>
 
 <!--
-C'est le livrable de la journée. Le dire, et proposer de la remplir en direct
-sur un cas apporté par la salle — c'est le meilleur usage des dix dernières minutes.
+**Idée clé :** objectif, outils, pattern, bornes et mesure suffisent pour cadrer un premier système.
 
-Développer chaque ligne :
-— Objectif : ce que le système produit, pour qui, et À LA PLACE DE QUOI.
-  La troisième partie est celle qu'on oublie.
-— Outils : la liste exhaustive, chacun classé réversible / coûteux à défaire /
-  irréversible.
-— Pattern : lequel des cinq, ou agent borné. Et pourquoi pas celui d'à côté.
-— Bornes : condition d'arrêt, plafond d'étapes, budget, ce qui passe par un humain.
-— Critère de succès : un nombre mesurable sur trente cas réels. Pas « ça marche bien ».
+- **Dire :** c’est le livrable de la journée.
+- **Préciser :** objectif pour qui et à la place de quoi, outils classés par réversibilité, pattern choisi, arrêt et validation humaine.
+- **Insister :** le succès doit se mesurer sur trente cas réels.
+- **Demander :** proposer de remplir la grille sur un cas de la salle.
 
-LA remarque à faire en sortant : la ligne qui bloque le plus souvent est
-la dernière. C'est presque toujours le signe que l'objectif de la première
-n'est pas assez précis. Remonter, ne pas forcer.
+**Si blocage :** une mesure impossible révèle souvent un objectif trop vague. Revenir à la première ligne.
 -->

@@ -7,6 +7,9 @@ module: 2
 
 <div class="opacity-50 pt-2">l'enchaînement est écrit par vous</div>
 
+<!--
+**Transition :** passer de la boucle générale à cinq formes réutilisables pour organiser les décisions et les contrôles.
+-->
 ---
 layout: default
 ---
@@ -56,24 +59,13 @@ Cinq patterns couvrent la quasi-totalité des cas réels. Ils se combinent.
 ]" />
 
 <!--
-Bien poser que ces cinq patterns ne sont pas une taxonomie académique mais
-un vocabulaire d'atelier. L'intérêt est de pouvoir dire « ça, c'est du routage »
-en réunion, et que tout le monde voie la même chose.
+**Idée clé :** un workflow fixe l’enchaînement et rend coût, reprise et contrôle prévisibles.
 
-D'OÙ ILS VIENNENT, à créditer d'une phrase — devant des chercheurs, on ne
-présente pas comme sien un découpage qu'on a repris : ces cinq-là sont la
-nomenclature de « Building Effective Agents », publié par Anthropic en décembre
-2024 (prompt chaining, routing, parallelization, orchestrator-workers,
-evaluator-optimizer). Je la reprends parce qu'elle s'est imposée dans le métier,
-pas parce qu'elle fait autorité. Le dire tôt évite qu'on me le fasse remarquer
-tard.
+- **Dire :** ces cinq patterns forment un vocabulaire d’atelier, pas une taxonomie académique.
+- **Insister :** après une panne, un workflow peut reprendre à l’étape interrompue.
+- **Préciser :** un système réel combine souvent routage, parallélisation et évaluation.
 
-Sur « vous gardez » : le point le plus sous-estimé est la reprise après panne.
-Un workflow s'arrête à l'étape 4 et redémarre à l'étape 4. Un agent, non.
-
-Sur le callout : un vrai système en empile généralement deux ou trois.
-Un routage en entrée, une parallélisation au milieu, un évaluateur en sortie.
-On les présente séparément pour les nommer, pas parce qu'on les utilise seuls.
+**Si question :** la nomenclature vient de « Building Effective Agents », Anthropic, décembre 2024.
 -->
 
 ---
@@ -120,28 +112,12 @@ const final = await generate(
 </div>
 
 <!--
-L'exemple, à dérouler lentement : vous demandez l'énoncé d'un exercice.
-Une ligne de code — pas un modèle — vérifie qu'il contient bien un barème.
-Puis une seconde requête le reformule au niveau de l'année. Ces trois étapes,
-vous les écrivez une fois, et elles tournent à l'identique pour l'exercice
-de statistiques et pour celui de droit. L'entrée change, la séquence non.
-C'est ça, « fixe ».
+**Idée clé :** la séquence reste identique quelle que soit l’entrée.
 
-Le contrôle entre étapes est le vrai apport du pattern. Un chaînage sans contrôle,
-c'est juste un prompt plus long, et souvent moins bon.
-
-« La séquence est fixe » = connue d'avance et indépendante de l'entrée.
-Si elle change selon l'entrée, c'est du routage, slide suivante.
-
-Le piège développé, avec le même exemple : si le barème manque à l'étape 1,
-l'étape 3 ne va pas l'inventer. Elle va reformuler très proprement un énoncé
-sans barème, et vous rendre un défaut mieux écrit. L'erreur amont est amplifiée
-par l'aval, jamais corrigée. D'où la règle : des contrôles DÉTERMINISTES entre
-les maillons — une longueur, une regex, un schéma — plutôt qu'un second modèle
-qui hallucine son accord.
-
-Le coût est parfaitement prévisible. C'est la valeur du pattern, à mettre en face
-de l'agent de cet après-midi dont le coût ne l'est pas.
+- **Montrer :** produire l’énoncé, vérifier le barème par du code, puis adapter le niveau.
+- **Insister :** le contrôle entre les étapes fait la valeur du pattern.
+- **Dire :** une erreur amont sera seulement mieux rédigée en aval. Préférer regex, schéma ou test déterministe.
+- **Transition :** si l’étape suivante dépend de l’entrée, on passe au routage.
 -->
 
 ---
@@ -191,30 +167,13 @@ if (confiance < 0.7) return escaladeHumaine(mail)
 </div>
 
 <!--
-L'exemple, à dérouler lentement : trois mails arrivent le même matin dans
-la même boîte. « Quelle est la date de remise ? » — le petit modèle classe,
-une réponse type part, personne n'a levé les yeux. « Je ne comprends pas la
-consigne de l'exercice 3 » — le grand modèle, avec le cours en contexte, parce
-que la réponse dépend du contenu. « Je sors de l'hôpital, est-ce que je peux
-encore remettre ? » — celui-là ne doit recevoir aucune réponse automatique,
-jamais. Même boîte, trois destinations. Et le troisième mail est la raison
-d'être de la route « doute » : la salle le voit tout de suite.
+**Idée clé :** un même point d’entrée conduit vers des traitements différents.
 
-Le levier économique : un petit modèle classe tout, un grand ne traite que ce
-qui le mérite. Ne PAS annoncer un facteur tout fait — il dépend entièrement des
-deux modèles et de la part de cas simples. Ce qui est vérifiable et qu'on peut
-donner : l'écart de prix catalogue entre un petit et un grand modèle d'une même
-famille est d'un ordre de grandeur, donc le gain suit la part du trafic qu'on
-arrive à faire traiter par le petit. Si on me demande un chiffre, sortir celui
-du jour, depuis la page de tarifs, pas de mémoire.
+- **Montrer :** réponse type pour l’information publique, grand modèle pour le contenu du cours, humain pour la situation personnelle.
+- **Insister :** prévoir une route « doute ». Sans elle, le routeur répond de travers.
+- **Dire :** un petit modèle peut classer, le grand ne traite que les cas nécessaires.
 
-La route « doute » : un routeur sans porte de sortie envoie de travers, avec aplomb.
-C'est le défaut de conception le plus fréquent sur ce pattern. Insister.
-
-Sur le score de confiance — point technique important : c'est une
-auto-évaluation du modèle, sans calibration statistique derrière. Utile comme
-signal relatif, jamais comme garantie. Le seuil (0,7 ici) se règle empiriquement sur
-un jeu de cas réels, il n'a aucune valeur théorique.
+**Si question :** le score de confiance est une auto-évaluation non calibrée. Régler le seuil sur des cas réels, jamais sur une valeur théorique.
 -->
 
 ---
@@ -264,30 +223,12 @@ const synthese = await generate(
 </div>
 
 <!--
-L'exemple, à dérouler lentement : un mémoire, trois lectures lancées en même
-temps — la méthode, les sources, la langue. Insister sur un mot : « trois »,
-c'est vous qui l'avez écrit. Vous connaissiez la liste avant de lancer. Le garder
-en tête, la slide suivante bascule exactement là-dessus.
+**Idée clé :** plusieurs lectures connues à l’avance s’exécutent en même temps, dans des contextes séparés.
 
-Pourquoi c'est mieux qu'un seul prompt qui demande les trois choses :
-trois contextes séparés, trois attentions pleines. La formule courte —
-« à qui on demande trois choses en fait deux bien et une mal » — est une image,
-pas un résultat mesuré : la donner comme telle (« mon expérience »), sans
-la chiffrer. Ce qui est documenté et qu'on peut avancer, c'est la dégradation
-de l'attention quand le contexte s'allonge : voir la slide « le contexte est
-un budget » du module 4 et ses sources.
-
-Le coût : trois appels simultanés, une seule latence. On paie trois fois
-en argent, une seule fois en temps d'attente. Souvent le bon échange.
-
-L'agrégation est là où se joue la qualité, et l'exemple le montre mieux qu'une
-règle : les trois lectures reviennent, deux trouvent la partie 3 faible, la
-troisième la donne comme la meilleure du texte. Aucune synthèse automatique
-ne rattrape ça — elle choisira la majorité, qui a tort une fois sur deux.
-Ne pas déléguer l'arbitrage à un quatrième modèle sans y réfléchir : c'est
-le cas d'usage typique où un humain doit voir les trois avis bruts.
-
-Ce pattern revient au module 6, cas 2, sur la pré-relecture.
+- **Montrer :** méthode, sources et langue. Le nombre « trois » a été décidé avant l’exécution.
+- **Dire :** trois appels coûtent trois fois en argent, mais une seule latence.
+- **Insister :** la qualité dépend de l’agrégation. Garder les avis bruts quand ils se contredisent.
+- **Transition :** au cas suivant, le nombre de sous-tâches ne sera plus connu d’avance.
 -->
 
 ---
@@ -328,26 +269,12 @@ flowchart TD
 </div>
 
 <!--
-La différence avec la parallélisation, développée : là-bas vous connaissiez
-d'avance le nombre et la nature des sous-tâches. Ici, non. C'est le premier
-pattern vraiment agentique de la liste — le curseur du fil rouge vient
-de se déplacer. Le nommer explicitement.
+**Idée clé :** l’orchestrateur découvre lui-même les sous-tâches à lancer.
 
-L'exemple, à dérouler lentement, c'est lui qui fait comprendre le pattern :
-l'orchestrateur ouvre le support, trouve quatorze passages concernés — dont
-trois où la correction change le sens du paragraphe autour — et lance un
-exécutant sur chacun. Vous aviez écrit « partout ». Vous n'aviez pas écrit
-« quatorze », et vous ne le connaissiez pas. C'est toute la différence avec
-la slide précédente, où c'est vous qui aviez écrit « trois axes ».
-
-Le piège, développé : l'orchestrateur ne voit pas ce que font les exécutants
-pendant qu'ils travaillent. S'il a mal découpé, il ne le découvre qu'à la fin,
-après avoir tout payé. C'est le premier pattern où on peut brûler un budget
-sur un mauvais plan.
-
-Le garde-fou « valider le plan avant de lancer » est un pattern à part entière :
-plan-then-execute. Un humain, ou un contrôle déterministe, approuve le découpage.
-Ça coûte une interruption et ça évite de payer quarante sous-tâches inutiles.
+- **Montrer :** « corriger partout » devient quatorze passages, chacun confié à un exécutant.
+- **Comparer :** en parallélisation, vous aviez écrit trois axes. Ici, le modèle découvre quatorze tâches.
+- **Insister :** un mauvais découpage peut consommer tout le budget avant d’être visible.
+- **Dire :** valider le plan avant exécution évite de lancer des dizaines de tâches inutiles.
 -->
 
 ---
@@ -395,33 +322,12 @@ for (let i = 0; i < 3; i++) {
 </div>
 
 <!--
-L'exemple, à dérouler lentement : vous faites traduire un cours. Vous avez déjà
-un glossaire — quarante termes du domaine, chacun avec sa traduction imposée.
-Premier tour, la traduction revient, on la compare au glossaire : quatre termes
-sur quarante sont traduits de travers. On les renvoie au traducteur, lui seuls.
-Deuxième tour, les quarante sont bons, on sort. C'est ça, la boucle : on ne
-repart pas de zéro, on repasse sur l'écart mesuré.
+**Idée clé :** la boucle corrige un écart mesurable jusqu’au seuil ou au plafond.
 
-Le mot à souligner, c'est « tant que ». Le chaînage du début du module avançait
-tout droit ; ici on revient en arrière autant de fois qu'il faut. Et comme le
-critère se vérifie mécaniquement — le terme est là ou il n'est pas là — la boucle
-finit par s'arrêter au lieu de tourner.
-
-Le « quand » de ce pattern est dans l'exemple : il faut qu'un critère de qualité
-existe et soit exprimable. Si vous ne savez pas dire ce qui rendrait la sortie
-meilleure, aucune boucle ne le devinera.
-
-« L'évaluateur doit être plus fiable que le producteur » — c'est le point subtil
-et le plus important. Si le même modèle produit et évalue avec un prompt à peine
-différent, on obtient surtout de la confirmation, et on paie trois fois pour ça.
-Ce qui marche : un évaluateur différent, ou un critère vérifiable mécaniquement.
-
-Le budget : une boucle qualité sans plafond est une facture sans plafond.
-Montrer la ligne du commentaire dans le code — on sort TOUJOURS, avec ou sans
-le seuil. C'est la même idée que les bornes de l'agent, cet après-midi.
-
-Un évaluateur déterministe — tests, schéma, compilation — bat un évaluateur-modèle
-chaque fois qu'il est possible. Le chercher en premier, systématiquement.
+- **Montrer :** comparer la traduction à un glossaire, renvoyer seulement les termes incorrects, puis vérifier à nouveau.
+- **Insister :** chercher d’abord un évaluateur déterministe comme un test, un schéma ou une compilation.
+- **Dire :** l’évaluateur doit être plus fiable que le producteur.
+- **Montrer :** la boucle possède toujours une sortie, même si le seuil n’est jamais atteint.
 -->
 
 ---
@@ -449,17 +355,12 @@ La dernière ligne est celle qu'on oublie.
 </div>
 
 <!--
-Cette grille est le livrable du module. La photographier, elle sert au module 6.
+**Idée clé :** choisir le pattern le plus simple qui garde le contrôle nécessaire.
 
-Développer la dernière ligne : un « if » se teste au unitaire, s'exécute en
-microsecondes, coûte zéro et ne se trompe jamais. Un appel de modèle coûte une
-latence réseau, une fraction de centime, et a un taux d'erreur non nul. Les
-trois termes sont vrais sans chiffre — ne pas inventer « 200 ms, deux centimes,
-une fois sur cinquante », c'est le genre de nombre qu'on me demandera de
-sourcer. On l'oublie parce que l'appel de modèle s'écrit plus vite.
-
-Question à poser à la salle avant de cliquer : « à votre avis, il manque
-quelle ligne ? » Souvent quelqu'un trouve.
+- **Dire :** cette grille est le livrable du module. La photographier.
+- **Demander avant le dernier clic :** « À votre avis, quelle ligne manque ? »
+- **Insister :** si un `if` suffit, l’utiliser. Il est rapide, testable et déterministe, contrairement à un appel de modèle.
+- **Éviter :** inventer des chiffres de latence, de prix ou d’erreur.
 -->
 
 ---
@@ -481,20 +382,12 @@ layout: default
 </div>
 
 <!--
-1 · Un agent pour tout — on donne trente outils à un modèle et on espère.
-Résultat : il en utilise cinq, se trompe d'outil, boucle. Un système d'agents
-se conçoit comme un organigramme : des rôles étroits, des périmètres clairs.
+**Idée clé :** garder les rôles étroits et réserver le modèle aux décisions difficiles à coder.
 
-2 · Le modèle comme colle — un appel pour reformater un JSON, extraire une date,
-choisir entre deux branches booléennes. C'est cher, lent, et non déterministe
-pour un travail que du code fait parfaitement. C'est la dernière ligne
-de la grille précédente, en pratique.
-
-3 · Le prompt géant — trois pages d'instructions qui décrivent un enchaînement
-d'étapes. C'est le plus fréquent chez les débutants parce que c'est le plus
-facile à écrire. La reformulation à donner, elle marque : « si tu peux le décrire,
-code-le ; garde le modèle pour ce que tu ne peux pas décrire ».
-Et surtout : dans le code, la séquence sera RESPECTÉE. Dans le prompt, non.
+- **Dire :** un agent avec trente outils choisit mal et boucle.
+- **Dire :** utiliser un modèle pour reformater un JSON ou choisir un booléen ajoute coût, latence et erreur.
+- **Dire :** un prompt géant ne garantit pas l’ordre des étapes.
+- **Insister :** « Si vous pouvez décrire la séquence, codez-la. »
 -->
 
 ---
@@ -522,13 +415,10 @@ layout: default
 </v-click>
 
 <!--
-Point 1 — les redonner de mémoire, sans regarder : chaînage, routage,
-parallélisation, orchestrateur/exécutants, évaluateur/optimiseur.
+**Idée clé :** les workflows rendent l’enchaînement explicite, contrôlable et testable.
 
-Point 2 — c'est la valeur principale du workflow, pas un détail.
-
-Point 4 — insister sur « en code, pas dans le prompt ».
-
-Annoncer l'après-midi en une phrase : on retire l'enchaînement, et on regarde
-ce qu'il faut remettre à la place.
+- **Redonner :** chaînage, routage, parallélisation, orchestrateur/exécutants, évaluateur/optimiseur.
+- **Insister :** prévoir la reprise après erreur.
+- **Dire :** mettre les étapes connues dans le code, pas dans un prompt.
+- **Transition :** cet après-midi, nous retirons l’enchaînement et cherchons ce qui doit le remplacer.
 -->

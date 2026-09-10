@@ -7,6 +7,9 @@ module: 1
 
 <div class="opacity-50 pt-2">les fondations</div>
 
+<!--
+**Transition :** poser le vocabulaire, puis ouvrir la boucle pour distinguer ce que décide le modèle de ce qu’exécute le code.
+-->
 ---
 layout: default
 ---
@@ -34,31 +37,12 @@ C'est le mot du titre de la journée. Avant tout le reste : dire lequel des troi
 </div>
 
 <!--
-Pourquoi on ouvre le module là-dessus : c'est le mot du titre de la journée,
-et tant qu'on n'a pas dit lequel des trois, il ne veut rien dire.
+**Idée clé :** « orchestrateur » peut désigner trois objets de nature différente.
 
-Annoncer que les trois lignes sont des objets de nature différente — pas trois
-niveaux d'une même pile. Un bout de code, un agent, un produit qu'on achète.
-
-1 · Du code — la bibliothèque qui tient la boucle : appeler le modèle, exécuter
-l'outil, ré-appeler le modèle. Quelques centaines de lignes. On l'ouvre dans
-vingt minutes, et il prend son nom complet en fin de module : le harness.
-Les mots qu'ils liront pour désigner ça : « runtime », « framework d'agents ».
-Les poser à l'oral, une fois, sans les mettre à l'écran.
-
-2 · Un agent — un agent dont le travail est de découper une tâche et de la
-distribuer à d'autres agents. C'est le pattern « orchestrateur / exécutants »
-du module 2.
-
-3 · Un produit — la plateforme qui héberge, planifie, surveille et facture des
-agents. C'est un sujet d'exploitation, pas d'architecture. Il revient au module 5.
-
-Dire le découpage de la journée : aujourd'hui, surtout 1 et 2.
-
-Pourquoi cette slide existe : cette ambiguïté fait perdre un temps considérable
-en réunion. Quand quelqu'un dit « on a mis un orchestrateur », toujours demander
-lequel des trois. Neuf fois sur dix, deux personnes autour de la table
-ne parlent pas du même objet.
+- **Dire :** code qui tient la boucle, agent qui distribue le travail, ou plateforme qui héberge des agents.
+- **Préciser :** aujourd’hui, nous travaillons surtout les deux premiers sens.
+- **Demander :** en réunion, toujours faire préciser lequel des trois est visé.
+- **Transition :** le code de boucle prendra le nom de « harness » en fin de module.
 -->
 
 ---
@@ -77,20 +61,11 @@ layout: default
 | **Orchestrateur** | Ce qui tient la boucle. Voir slide précédente. |
 
 <!--
-Ne pas lire le tableau. Prendre le temps sur DEUX lignes seulement.
+**Idée clé :** un modèle choisit, un outil agit, un workflow impose l’ordre, un agent choisit la suite.
 
-Ligne « Outil » — le contresens numéro un du grand public. Non, le modèle
-n'exécute rien. Il émet une intention structurée. C'est votre serveur qui agit,
-avec vos droits. On y revient dans trois slides et au module 5.
-
-Ligne « Modèle » — sans état, sans mémoire, sans accès au monde. C'est la slide
-d'après, la plus importante du module.
-
-La confusion la plus coûteuse, à dire à l'oral : appeler « agent » un workflow.
-Quand on appelle « agent » un workflow, on se met
-à débugger de l'imprévisibilité qui n'existe pas — et inversement, quand on
-appelle « workflow » un agent, on ne pose pas les bornes. Les deux erreurs
-coûtent cher et se voient en production, pas en réunion.
+- **Montrer :** prendre seulement les lignes « Outil » et « Modèle ».
+- **Insister :** le modèle reste sans état et n’exécute rien. Le serveur agit avec ses propres droits.
+- **Éviter :** appeler un workflow « agent ». Cette confusion masque soit une fausse imprévisibilité, soit l’absence de bornes.
 -->
 
 ---
@@ -103,14 +78,11 @@ class: text-center
 # Un modèle.<br>Des outils.<br>Une boucle.
 
 <!--
-Marquer un temps. C'est une slide qu'on montre, pas qu'on commente.
+**Idée clé :** tout agent se ramène à un modèle, des outils et une boucle.
 
-Ce qu'on dit par-dessus : tout ce qu'on appellera « agent », « copilote »,
-« collègue numérique » ou « employé IA » se ramène à ces trois éléments.
-Le reste est de l'emballage — de l'interface, du marketing, de l'intégration.
-
-Si quelqu'un cite un produit à la mode, faire l'exercice en direct :
-où est le modèle, où sont les outils, où est la boucle. Ça marche à tous les coups.
+- **Faire :** marquer un silence. La slide doit surtout être vue.
+- **Dire :** interface, marketing et intégrations viennent autour de ces trois éléments.
+- **Si question :** prendre le produit cité par la salle et faire identifier son modèle, ses outils et sa boucle.
 -->
 
 ---
@@ -136,21 +108,12 @@ flowchart LR
 </div>
 
 <!--
-Dessiner ce schéma au tableau en parallèle. C'est le seul schéma que les gens
-doivent pouvoir redessiner de mémoire à la fin de la journée. Le dire.
+**Idée clé :** le modèle décide, le code agit et le contexte accumule les résultats.
 
-« Le modèle décide » — il ne répond pas. Il choisit : parler, ou appeler
-tel outil avec tels arguments. C'est un choix, pas une réponse.
-
-« Votre code agit » — requête HTTP, écriture de fichier, envoi de mail.
-C'est ici et nulle part ailleurs qu'il y a un effet sur le monde.
-C'est aussi ici, et nulle part ailleurs, qu'on met les garde-fous. → module 5.
-
-« Le contexte grossit » — chaque tour ajoute une décision et une observation.
-Rien n'est jamais retiré, sauf si VOUS le retirez. → module 4.
-
-Souligner la flèche de retour au tableau : c'est elle, et rien d'autre,
-qui fait la différence entre un appel d'API et un agent.
+- **Dessiner :** reproduire la boucle au tableau. Elle doit pouvoir être redessinée de mémoire.
+- **Insister :** les effets réels et les garde-fous se trouvent dans le code qui exécute l’outil.
+- **Montrer :** chaque tour ajoute décision et observation au contexte.
+- **Transition :** la flèche de retour transforme un appel isolé en agent.
 -->
 
 ---
@@ -191,26 +154,14 @@ Appel 12 : [système, user, ×11 décisions,
 </div>
 
 <!--
-LE moment clé du module. Si une seule idée passe ce matin, c'est celle-là.
-Ralentir.
+**Idée clé :** le modèle repart sans état à chaque appel.
 
-L'analogie qui fonctionne : un consultant amnésique à qui on redonne
-l'intégralité du dossier avant chaque phrase. Il est brillant, mais il ne sait
-que ce qui est dans le dossier — et il ne sait pas ce qu'il a oublié.
+- **Dire :** imaginer un consultant amnésique à qui l’on redonne tout le dossier avant chaque phrase.
+- **Insister :** le contexte peut être coupé, résumé ou réordonné par le code.
+- **Annoncer :** cette accumulation explique le coût et la dérive des longues sessions.
+- **Transition :** au module 4, la mémoire persistante sera un fichier relu puis réinjecté.
 
-Conséquence 1 — le coût ne croît pas linéairement, il croît en carré.
-Chiffres au module 3 : 20 étapes coûtent 210 fois une étape, pas 20 fois.
-
-Conséquence 2 — vous pouvez couper, résumer, réordonner, mentir même.
-C'est une décision d'ingénierie, PAS une propriété du modèle. Tout le module 4
-découle de cette phrase.
-
-Conséquence 3 — les agents se contaminent eux-mêmes. C'est ce qui explique
-pourquoi les longues sessions dérivent. → module 3, mode d'échec « contamination ».
-
-Si quelqu'un demande « et la mémoire persistante alors ? » : c'est un fichier
-qu'on relit et qu'on réinjecte. Module 4. Ça ne contredit pas le sans-état,
-ça le confirme.
+**Si question :** vingt étapes peuvent représenter 210 fois le coût d’une étape, pas vingt fois.
 -->
 
 ---
@@ -254,43 +205,13 @@ Le modèle ne lit pas des mots. Il lit des <strong>tokens</strong> — des fragm
 ]" />
 
 <!--
-Pourquoi cette slide arrive ICI et pas ailleurs : on vient de dire « le contexte
-grossit ». Grossit de combien, et ça coûte quoi ? Il faut l'unité maintenant,
-sinon les modules 3 et 4 se font sans compteur.
+**Idée clé :** un token est un fragment de texte qui mesure contexte et facture.
 
-Le mot est utilisé partout dans la journée à partir de maintenant — autant
-qu'il soit posé une fois proprement.
+- **Dire :** ce n’est ni une lettre ni un mot. Les séquences fréquentes restent entières, les rares sont découpées.
+- **Montrer :** fenêtre en tokens, tarif au million, sortie généralement quatre à cinq fois plus chère que l’entrée.
+- **Insister :** le français demande davantage de tokens. Ne donner aucun facteur précis pour le français.
 
-CE QU'EST UN TOKEN, à dire simplement : un fragment de texte. Pas une lettre,
-pas un mot. Le découpage est appris à l'entraînement, sur du texte : les
-séquences fréquentes deviennent un seul token, les rares sont coupées en
-morceaux. « bonjour » passe probablement d'un bloc ; un nom propre rare,
-une référence bibliographique ou une formule chimique sont hachés.
-
-LES ORDRES DE GRANDEUR sont ceux qu'OpenAI publie pour l'anglais :
-1 token ≈ 4 caractères ≈ trois quarts d'un mot ; 100 tokens ≈ 75 mots ;
-1 500 mots ≈ 2 048 tokens. Ne pas les donner comme une loi — c'est une règle
-de pouce, éditeur par éditeur, et elle ne vaut que pour l'anglais.
-
-LE FRANÇAIS COÛTE PLUS CHER, et c'est le point qui intéresse cette salle.
-Le même contenu traduit ne fait pas le même nombre de tokens : les tokenizers
-sont entraînés sur des corpus très majoritairement anglophones, donc l'anglais
-est le mieux découpé. Ne PAS avancer de facteur chiffré pour le français,
-je n'en ai pas de mesure propre — dire « davantage », c'est tout.
-Le papier à citer si on me pousse : Petrov, La Malfa, Torr et Bibi,
-« Language Model Tokenizers Introduce Unfairness Between Languages »,
-NeurIPS 2023 — l'écart va jusqu'à un facteur 15 entre langues, ce qui se
-traduit directement en écart de prix, de latence et de contexte utile.
-Le mot du papier, « unfairness », est assumé : c'est une inégalité d'accès.
-
-LES TROIS RAILS de droite, une phrase chacun :
-— le contexte : la fenêtre est un budget en tokens, pas en pages ;
-— la facture : les tarifs sont affichés au million de tokens ;
-— deux tarifs : la sortie coûte typiquement quatre à cinq fois l'entrée.
-Ordre de grandeur seulement, ça bouge tous les trimestres.
-
-NE PAS ouvrir ici le coût de la boucle — c'est le module 3, et la slide
-suivante a déjà de quoi occuper la salle.
+**Si question :** pour l’anglais, OpenAI donne environ 4 caractères ou 0,75 mot par token. Petrov et al., NeurIPS 2023, observent jusqu’à un facteur 15 entre langues.
 -->
 
 ---
@@ -342,64 +263,15 @@ Le prix par token ne dit pas la facture. Le seul chiffre honnête : <span class=
 ]" />
 
 <!--
-LA SLIDE QUI FAIT MAL AU BUDGET. Elle sert deux fois dans la journée : ici pour
-le vocabulaire, et au module 5 quand on parle de facture.
+**Idée clé :** un prix par token plus bas ne garantit pas une facture plus basse.
 
-L'IMAGE ARRIVE AVANT LES CHIFFRES : elle est à l'écran dès l'entrée sur la
-slide, les deux cartes attendent un clic. Laisser la salle la lire, puis
-raconter. Deux pizzas identiques. L'une est coupée en 8 parts à 2 €, l'autre en
-16 parts à 1,25 €. La deuxième affiche la part la moins chère de la rue. La
-pizza entière y coûte 20 € au lieu de 16. Votre estomac, lui, ne compte pas
-les parts. Le visuel comme l'analogie viennent du fil de Thibault Sottiaux,
-sur X, en 2026 — c'est écrit sous l'image, et le dire à voix haute vaut mieux
-que de se faire attraper dessus.
+- **Montrer :** deux pizzas identiques. 8 parts à 2 € coûtent 16 €, 16 parts à 1,25 € coûtent 20 €.
+- **Dire :** chaque modèle découpe le même texte différemment. Comparer le coût d’une tâche complète sur ses propres textes.
+- **Éviter :** répondre « quel modèle est le moins cher ? » sans mesurer.
 
-LE TRANSFERT, mot pour mot : on compare les prix de l'IA en dollars par million
-de tokens comme si le token était une unité normalisée, un gramme ou un
-kilowattheure. Ça n'en est pas une. Chaque modèle a son propre découpage.
-Le même texte, chez deux fournisseurs, ne fait pas le même nombre de tokens.
-Donc un prix par token plus bas ne fait pas forcément une facture plus basse.
-
-L'EXEMPLE CHIFFRÉ À DONNER, et je le choisis exprès CHEZ UN SEUL ÉDITEUR pour
-qu'on ne me lise pas comme un comparatif. Anthropic a changé de tokenizer entre
-Sonnet 4.6 et Sonnet 5 : le même texte produit environ 30 % de tokens en plus,
-c'est écrit dans leur propre documentation. Sur la même période, le tarif est
-passé de 3 $ à 2 $ le million de tokens d'entrée.
-  — le tarif affiché baisse de 33 % ;
-  — la facture, pour le même texte, baisse de 13 % (3,00 → 2,60 par unité).
-Leur doc le dit elle-même : « le coût d'une requête équivalente ne baisse pas
-proportionnellement aux prix par token ». Le calcul est reproductible au tableau,
-et personne ne peut me soupçonner de tirer sur un concurrent.
-
-L'AUTRE CHIFFRE, si quelqu'un demande une comparaison entre éditeurs — et
-c'est là que la slide devient une leçon de méthode, à donner comme telle :
-Sottiaux publie une petite comparaison sur quatre types de texte (anglais,
-technique, multilingue, numérique) : 766 tokens pour GPT-5.6 Sol contre 1 170
-estimés pour Claude Opus 5, soit 34,5 % de tokens en moins d'un côté — ou 53 %
-de tokens en plus vu de l'autre, c'est le même fait retourné.
-TROIS RÉSERVES À ÉNONCER, dans cet ordre :
-1. Sottiaux est directeur produit chez OpenAI. La mesure vient d'une partie
-   prenante.
-2. Le nombre côté Claude est ESTIMÉ — le tokenizer d'Anthropic n'est pas public,
-   il faut appeler leur API de comptage pour le connaître exactement.
-3. C'est un échantillon, sur quatre types de texte. Le sens de l'écart peut
-   s'inverser selon le domaine et selon la langue.
-Et pourtant la direction est corroborée par l'autre camp : la doc d'Anthropic
-prévient que le tokenizer d'OpenAI sous-compte les tokens Claude de 15 à 20 %
-sur du texte courant, davantage sur du code et du non-anglais.
-La leçon à faire dire à la salle : le fait technique tient, ET il faut
-regarder qui mesure. Devant ce public-là, c'est cette deuxième moitié
-qui vaut le détour.
-
-CE QU'IL FAUT FAIRE, en pratique, à donner comme protocole en trois lignes :
-prendre VOS textes ; les compter avec l'outil de comptage de chaque éditeur,
-pas avec celui d'un autre ; multiplier par le tarif. Et ne jamais s'arrêter
-au coût d'un appel : ce qui se compare, c'est le coût d'une tâche menée à bout —
-un modèle moins cher qui s'y reprend à trois fois n'est pas moins cher.
-
-ANTICIPER « alors lequel est le moins cher ? » : je ne réponds pas, et je dis
-pourquoi. La réponse dépend de vos textes, de votre tâche, et elle aura changé
-d'ici la fin du trimestre. Ce qui ne changera pas, c'est la méthode.
+**Si question :**
+- Sonnet 4.6 vers 5 : environ 30 % de tokens en plus, tarif de 3 $ à 2 $. La facture équivalente baisse d’environ 13 %, pas 33 %.
+- Sottiaux mesure 766 contre 1 170 tokens estimés. Il travaille chez OpenAI, Claude est estimé et l’échantillon ne couvre que quatre types de texte.
 -->
 
 ---
@@ -442,22 +314,12 @@ tool({
 </div>
 
 <!--
-La description — c'est votre seule chance d'expliquer au modèle QUAND s'en servir.
-Elle compte autant que le code, et personne ne la relit jamais. Formule à donner :
-un outil est une API documentée pour un lecteur qui devine. Écrivez la description
-pour un stagiaire compétent qui n'a jamais vu votre système. Ici, un seul mot
-fait tout le travail : « prévisions ». Sans lui, le modèle appellera l'outil
-pour demander le temps qu'il faisait hier.
+**Idée clé :** la description guide le choix du modèle, le schéma valide la forme et le code produit l’effet.
 
-Le schéma — traduit en contrainte de génération. Le modèle ne PEUT PAS produire
-d'arguments invalides. Mais il peut produire des arguments valides et absurdes.
-Deux exemples à donner : jours: 365 passe le schéma, alors qu'aucun service
-ne prévoit le temps à un an. ville: "Springfield" passe aussi, et il en existe
-des dizaines. La validation métier reste votre travail, entièrement.
-
-L'exécution — sur votre machine, avec votre clé d'API et votre quota. Le modèle n'y a
-aucun accès. Poser la phrase ici, elle rouvre au module 5 : un agent a exactement
-les droits du processus qui exécute ses outils.
+- **Dire :** écrire la description pour un stagiaire compétent qui découvre le système. Ici, « prévisions » exclut la météo passée.
+- **Montrer :** un schéma accepte encore des valeurs absurdes comme `jours: 365` ou une ville ambiguë.
+- **Insister :** la validation métier reste dans votre code.
+- **Transition :** l’agent possède exactement les droits du processus qui exécute l’outil.
 -->
 
 ---
@@ -488,37 +350,14 @@ Un agent, c'est un modèle <strong>plus tout le reste</strong>. Le reste s'appel
 </div>
 
 <!--
-Le mot d'abord : harness, on le garde en anglais, il n'a pas d'équivalent
-français installé. En salle, dire « l'enveloppe » ou « ce qu'il y a autour »
-et poser le mot anglais une fois, parce que c'est celui qu'ils liront partout.
+**Idée clé :** le harness regroupe la boucle, le prompt système, les outils, les permissions et l’environnement d’exécution.
 
-L'autre mot qu'ils croiseront, avec sa provenance si on me la demande :
-« scaffolding », employé par METR dès 2023 pour la même idée — l'échafaudage
-autour du modèle, qu'on évalue séparément de lui. « Harness » est le terme plus
-récent pour la même chose. Deux mots, un objet ; ça vaut la peine de le dire
-à un public qui va lire des papiers.
+- **Dire :** utiliser « enveloppe » à l’oral, mais poser le mot anglais que la salle retrouvera dans les articles.
+- **Insister :** deux harness différents donnent un travail différent avec le même modèle.
+- **Demander :** face à une démo, regarder d’abord ce que fait le harness.
+- **Transition :** MCP expliquera plus tard comment des outils entrent dans ce harness.
 
-C'est le sens 1 de la première slide du module — le bout de code qui fait tourner
-l'agent — mais en plus large. Ce code tient la boucle ; le harness, c'est la boucle PLUS le prompt système,
-PLUS la liste d'outils, PLUS les permissions, PLUS l'endroit où le code tourne.
-Le faire remarquer : on a passé quarante minutes à décrire le harness sans
-lui donner son nom. Maintenant il en a un.
-
-POURQUOI CETTE SLIDE EXISTE, et c'est le vrai message :
-quand une démo impressionne, le réflexe est de créditer le modèle. Très souvent,
-ce qui fait la différence est ailleurs — dans le harness : quels outils sont
-exposés, ce qu'on remet dans le contexte à chaque tour, quand on s'arrête.
-Ne PAS chiffrer (« neuf fois sur dix ») : je n'ai pas de mesure à mettre
-derrière, et c'est le genre de ratio qu'on me demandera de sourcer.
-Le même modèle, mis dans deux enveloppes différentes, ne produit pas le même
-travail. C'est une bonne nouvelle : c'est la partie que VOUS écrivez.
-
-La conséquence pratique, à donner comme grille de lecture — devant un système
-d'agents, la question utile est « que fait le harness ? », bien avant « quel
-modèle ? ». Elle ressort telle quelle au module 5 et à la clôture.
-
-À garder pour plus tard, ne pas ouvrir ici : la façon dont les outils arrivent
-DANS le harness est devenue un sujet en soi. C'est la slide MCP du module 5.
+**Si question :** « scaffolding », utilisé notamment par METR depuis 2023, désigne la même idée.
 -->
 
 ---
@@ -569,71 +408,14 @@ Un éditeur retaille son harness pour chaque modèle. Vous pouvez écrire le vô
 ]" />
 
 <!--
-Pourquoi cette slide suit la précédente : « harness » reste un mot creux tant
-qu'on ne l'a pas posé sur des noms qu'ils ont déjà entendus. Ils connaissent
-tous des noms d'outils ; presque aucun ne sait lequel des deux objets le nom
-désigne. La slide sert à ranger : à gauche des modèles, à droite des harness.
+**Idée clé :** le modèle et le harness sont deux choix distincts.
 
-LA PHRASE À FAIRE PASSER : quand on dit « j'utilise Claude Code », on ne nomme
-pas un modèle. On nomme une enveloppe, et le modèle qui tourne dedans se change
-dans un menu. Inversement, « quel modèle utilisez-vous » est une question
-incomplète — voir la grille de lecture de la slide précédente.
+- **Dire :** Claude Code ou Codex nomment des harness, pas des modèles. Les outils indépendants peuvent accepter plusieurs fournisseurs.
+- **Montrer :** Cursor adapte format d’édition et prompt système à chaque famille de modèles.
+- **Insister :** la liste illustre le découplage. Elle ne classe ni ne recommande les outils.
+- **Transition :** « Dans deux minutes, vous verrez le harness choisir et exécuter les actions. »
 
-Le tableau, ligne par ligne :
-— Anthropic : famille Claude 5 (Opus, Sonnet, Haiku, plus Fable) d'un côté,
-  Claude Code de l'autre ;
-— OpenAI : la famille GPT-5.6, déclinée en trois niveaux — Sol le plus capable,
-  Terra intermédiaire, Luna le plus rapide et le moins cher — et Codex comme
-  harness ;
-— Google : Gemini côté modèle. ATTENTION AU NOM DU HARNESS, c'est récent : le
-  Gemini CLI a été retiré au profit d'Antigravity CLI, annoncé à Google I/O le
-  19 mai 2026, extinction pour les particuliers le 18 juin 2026, la commande
-  passe de `gemini` à `agy`. Si quelqu'un dit « Gemini CLI », il n'a pas tort,
-  il a six mois de retard — le dire comme ça. Source : blog développeurs de
-  Google, « Transitioning Gemini CLI to Antigravity CLI ».
-
-La quatrième ligne est celle qui prouve le titre : des harness qui n'ont aucun
-modèle à eux. Pi, par exemple, annonce plus de quinze fournisseurs et le
-changement de modèle en cours de session. C'est là qu'on voit que les deux
-objets sont séparables : on peut faire tourner un modèle d'Anthropic dans un
-harness qui n'est pas celui d'Anthropic.
-
-NUANCE À DONNER SI ON ME POUSSE, parce qu'elle est vraie : le découplage ne
-marche pas dans les deux sens. Les harness indépendants acceptent à peu près
-tous les modèles ; les harness maison, eux, restent sur l'écurie de leur
-éditeur. La liberté est du côté des outils tiers.
-
-L'ANECDOTE, c'est la dernière ligne, et c'est celle qui vaut le détour : chez
-Cursor, le harness est retaillé modèle par modèle. Le détail concret à citer —
-les modèles d'OpenAI sont entraînés à éditer un fichier au format patch, ceux
-d'Anthropic au remplacement de chaîne ; le harness sert donc à chaque modèle le
-format qu'il a vu à l'entraînement, parce que l'autre « coûte des tokens de
-raisonnement en plus et produit plus d'erreurs ». Même chose pour le prompt
-système, réécrit par fournisseur et par version. Source : blog d'ingénierie de
-Cursor, « Continually improving our agent harness ». NE PAS citer de chiffre de
-gain : leur billet n'en donne pas, les pourcentages qui circulent viennent de
-seconde main.
-
-Ce que ça dit, et c'est le seul but de l'anecdote : le harness est tout sauf
-une couche neutre au-dessus du modèle. Il est ajusté à un modèle donné, et cet
-ajustement se voit dans le résultat.
-
-« Vous pouvez écrire le vôtre » n'est pas une figure de style : Pi est un
-harness minimal, MIT, écrit par un développeur (Mario Zechner), et l'écosystème
-en compte des dizaines. Si on me demande « faut-il écrire le sien » : non, pas
-pour coder au quotidien ; oui, dès qu'on veut un agent taillé pour un usage précis — corriger des copies,
-préparer un TP — parce que c'est justement là que les harness génériques
-n'ont rien de prévu.
-
-NEUTRALITÉ, à dire une fois : cette liste n'est pas un classement et je ne
-recommande rien. Ce sont des noms pour accrocher le concept. Couper court à
-« lequel est le meilleur » : ça dépend du modèle, du dépôt et de la tâche, et
-la réponse aura changé d'ici la fin du trimestre.
-
-ENCHAÎNEMENT SUR LE LABO, à dire juste avant d'ouvrir l'écran :
-« dans deux minutes vous allez taper une phrase, et il va aller faire des
-choses. Ce qui se passe entre votre phrase et sa réponse n'est pas dans le
-modèle — le modèle ne sait même pas que ça existe. C'est le harness. »
+**Si question :** Antigravity CLI a remplacé Gemini CLI en 2026. Cursor ne publie aucun chiffre de gain. Pi est un harness MIT qui annonce plus de quinze fournisseurs.
 -->
 
 ---
@@ -652,35 +434,17 @@ Quinze minutes. Vous tapez une ligne, vous regardez ce qui défile.
 </div>
 
 <!--
-**LABO 1 · 15 MIN**
+**Objectif :** lancer le même agent sur la même consigne et comparer les trajectoires.
 
-Ce labo sert aussi à vérifier que tout le monde arrive à se connecter.
+**Déclaration exacte :** « L'outil qu'on va utiliser aujourd'hui, c'est le mien. Je vous le dis maintenant, avant que vous le découvriez tout seuls. Je le prends pour deux raisons : c'est le plus rapide pour avoir un agent qui tourne en deux minutes au lieu d'y passer la journée, et je peux le casser devant vous sans demander la permission à personne. Tout ce qu'on va y faire existe ailleurs : c'est le même modèle, les mêmes outils, la même boucle qu'on vient de voir. »
 
-**Déclaration à lire mot pour mot**
+1. **Faire :** ouvrir l’agent portant leur prénom.
+2. **Taper :** « Trouve-moi les dix cabinets comptables de Namur : nom, adresse, téléphone, site. Et dis-moi ceux que tu n’as pas pu vérifier. »
+3. **Règle :** aucun réglage ni menu.
 
-« L'outil qu'on va utiliser aujourd'hui, c'est le mien. Je vous le dis maintenant, avant que vous le découvriez tout seuls. Je le prends pour deux raisons : c'est le plus rapide pour avoir un agent qui tourne en deux minutes au lieu d'y passer la journée, et je peux le casser devant vous sans demander la permission à personne. Tout ce qu'on va y faire existe ailleurs : c'est le même modèle, les mêmes outils, la même boucle qu'on vient de voir. »
+**Débrief :** qui en a dix, moins de dix ou un cabinet douteux ? Même modèle et même phrase, résultats différents. Faire nommer les actions choisies.
 
-**Ce qu'ils font**
-
-1. « Ouvrez l'agent qui porte votre prénom. » Prévoir 2 minutes.
-2. « Tapez cette phrase, celle de ce matin. »
-
-> Trouve-moi les dix cabinets comptables de Namur : nom, adresse,
-> téléphone, site. Et dis-moi ceux que tu n'as pas pu vérifier.
-
-3. « Regardez défiler. C'est tout ce que vous avez à faire. »
-
-**Règle :** aucun réglage, aucune case et aucun menu. Si quelqu'un explore les onglets : « Fermez ça, on ne touche à rien aujourd'hui. »
-
-**Débrief à main levée**
-
-1. « Qui en a dix ? Qui en a moins de dix ? » Compter les mains, puis dire : « Même modèle, même phrase, quinze résultats différents. »
-2. « Qui a un cabinet qu'il ne reconnaît pas, ou qui a fermé ? » Puis : « Gardez-le, c'est le sujet de tout l'après-midi. »
-3. « Qu'est-ce qu'il a fait entre votre phrase et sa réponse ? »
-
-Si personne ne répond : il a cherché, ouvert des pages, abandonné des pistes et recommencé. Le modèle a choisi les actions. Du code ordinaire les a exécutées.
-
-**Ensuite :** passer directement à « Le curseur d'autonomie ».
+**Transition :** passer au curseur d’autonomie.
 -->
 
 ---
@@ -735,21 +499,12 @@ La bonne réponse est presque toujours <span class="text-ok">plus à gauche</spa
 </div>
 
 <!--
-Règle de terrain à énoncer clairement, deux fois : commencez à gauche,
-déplacez-vous vers la droite uniquement quand un cas réel vous y force,
-jamais par anticipation.
+**Idée clé :** commencer avec un enchaînement explicite et n’ajouter de l’autonomie qu’en réponse à un cas réel.
 
-Ce qu'on gagne aussi en allant à droite et qui n'est pas sur la slide :
-du temps de développement initial. C'est le vrai piège — c'est plus rapide
-à écrire, et beaucoup plus long à stabiliser.
-
-Sur les projets que j'ai vus, ceux qui échouent ont presque tous démarré
-trop à droite. Le dire À LA PREMIÈRE PERSONNE — « ma lecture », « ce que j'ai
-vu » — et surtout PAS « la majorité des projets » : je n'ai pas de chiffre
-public à mettre derrière, et devant cette salle-là ça se retourne.
-
-Cette slide se relit à l'envers au module 3 : on y montre comment on ramène
-un agent vers la gauche en refixant une partie de l'enchaînement.
+- **Dire deux fois :** partir à gauche et avancer seulement si le besoin l’impose.
+- **Insister :** aller à droite réduit parfois le développement initial, mais augmente fortement le temps de stabilisation.
+- **Présenter comme expérience :** les projets que j’ai vus échouer avaient souvent démarré trop à droite.
+- **Transition :** au module 3, nous ramènerons un agent vers la gauche en refixant certaines étapes.
 -->
 
 ---
@@ -797,58 +552,13 @@ layout: default
 ]" />
 
 <!--
-Le message d'ensemble, à dire en ouverture de la slide : rien de magique n'est
-arrivé. Trois courbes d'ingénierie se sont croisées — sortie structurée,
-taille de contexte, prix. L'agent est la conséquence, pas la cause.
+**Idée clé :** sortie structurée, contexte long et baisse des coûts ont rendu les agents praticables.
 
-2022 — les modèles savent écrire du texte. Pour les faire agir, on devine
-leur sortie au regex. C'est fragile, et personne ne met ça en production.
+- **Dire :** 2023 apporte l’appel d’outil structuré. 2024 normalise les longues fenêtres. En 2025, un niveau de capacité donné coûte environ cent fois moins qu’en 2023.
+- **Insister :** la baisse concerne un niveau de capacité comparable, pas tous les prix catalogue.
+- **Transition :** en 2026, le sujet devient surveillance, budget et sécurité.
 
-2023 — le modèle émet un objet structuré, plus du texte à deviner.
-C'est LE déclencheur technique de tout le reste. Si on ne retient qu'une date,
-c'est celle-là.
-
-2024 — une boucle de vingt étapes devient possible sans tout perdre en route.
-SI ON ME CONTESTE LA DATE, et quelqu'un le fera : les premières fenêtres à
-centaines de milliers de tokens sont de fin 2023 — GPT-4 Turbo 128 k et
-Claude 2.1 200 k, tous deux en novembre 2023. Le million arrive en février 2024
-avec Gemini 1.5 Pro. Je mets 2024 sur la frise parce que c'est l'année où ça
-devient la norme et où on peut construire dessus, pas l'année de la première
-annonce. Le dire comme ça, c'est défendable ; prétendre que rien n'existait
-avant 2024 ne l'est pas.
-
-2025 — la même boucle, à capacité égale, coûte cent fois moins qu'en 2023.
-Ce qui était une démo devient un produit. C'est un changement économique,
-pas technique.
-
-DIRE LA FORMULATION EXACTE, elle porte tout : ce qui s'est effondré, c'est le
-prix d'un NIVEAU DE CAPACITÉ donné. Le prix catalogue
-d'un modèle de tête, lui, n'a pas été divisé par cent — Claude Sonnet est resté
-à 3 $ le million de tokens d'entrée de 2024 à 2025. Si je dis « le prix par
-token s'effondre » tout court, quelqu'un sortira son tableau de prix et aura
-raison contre moi.
-
-Les deux sources, si on me demande le chiffre. Epoch AI (« LLM inference prices
-have fallen rapidly but unequally across tasks », 12 mars 2025) : à performance
-constante, le prix baisse d'un facteur 9 à 900 par an selon le niveau visé,
-environ 40 par an pour le niveau GPT-4 sur GPQA Diamond. a16z (« LLMflation »,
-Guido Appenzeller) : facteur 10 par an à qualité constante. Dix par an sur deux
-ans donne exactement cent. Le repère concret : GPT-4 à sa sortie, mars 2023,
-30 $ le million de tokens d'entrée ; GPT-4o mini, juillet 2024, 0,15 $ pour un
-niveau comparable. Cent fois moins est donc le bas de la fourchette.
-
-ET LA DATE, même prudence qu'en 2024 : la pente est continue de 2023 à 2026,
-2025 n'est pas l'année où tout tombe. Je la mets là parce que c'est l'année où
-le cumul devient assez gros pour changer ce qu'on ose mettre en production.
-
-2026 — attention à la date si on me la demande : les modèles de raisonnement,
-eux, sont arrivés avant — o1-preview en septembre 2024, DeepSeek-R1 en janvier
-2025. Ce qui appartient à 2026, c'est le déplacement du sujet : de « est-ce que ça marche » vers « comment on le
-surveille, on le budgète et on le sécurise ». C'est exactement le plan
-de l'après-midi.
-
-Anticiper « et l'AGI dans tout ça » : hors sujet aujourd'hui, on parle
-de systèmes qu'on déploie et qu'on facture. Ne pas s'y engager.
+**Si question :** GPT-4 Turbo 128 k et Claude 2.1 200 k datent de novembre 2023, Gemini 1.5 Pro 1 M de février 2024. Epoch AI mesure une baisse annuelle de 9 à 900 fois selon la tâche. o1-preview date de 2024 et DeepSeek-R1 de 2025.
 -->
 
 ---
@@ -876,12 +586,10 @@ layout: default
 </v-click>
 
 <!--
-Point 2 — ajouter : la frontière est nette, et c'est exactement là que se placent
-tous les garde-fous du module 5.
+**Idée clé :** modèle, outils, boucle et harness séparent décision, action et contrôle.
 
-Point 3 — ajouter : l'autonomie est une décision d'ingénierie, elle se règle
-dans le code. C'est le pont vers le module 4.
-
-Reprendre les quatre points sans les lire, en regardant la salle.
-Puis annoncer la pause avec l'heure de retour précise.
+- **Reprendre :** les quatre points sans lire la slide.
+- **Insister :** les garde-fous se placent entre la décision du modèle et l’action du code.
+- **Dire :** l’autonomie se règle dans le code. Elle ne vient pas naturellement du modèle.
+- **Transition :** annoncer la pause et l’heure exacte de reprise.
 -->
